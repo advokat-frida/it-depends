@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>IT DEPENDS | Advokat Frida</title>
+  <meta name="description" content="Make the call, reveal one missing fact, and make the call again. A shared-screen privacy teaching game from Advokat Frida.">
+  <link rel="stylesheet" href="./shared.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skiplink" href="#game">Skip to the game</a>
+  <div class="wrap">
+    <noscript><p class="noscript-note">IT DEPENDS needs JavaScript to deal the cards. It still uses no accounts, tracking, or remote service.</p></noscript>
+
+    <header class="site-masthead">
+      <a class="site-nameplate" href="https://advokatfrida.com"><p class="site-title">ADVOKAT FRIDA</p></a>
+      <p class="site-tagline">Privacy and AI governance, by design and in practice. For the people who have to make principles actually work.</p>
+      <nav aria-label="Sections"><ul class="site-nav">
+        <li><a href="https://advokatfrida.com/tag/fridas-desk/">Frida&rsquo;s Desk</a></li>
+        <li><a href="https://advokatfrida.com/tag/field-guides/">Field Guides</a></li>
+        <li><a href="https://advokatfrida.com/tag/playbooks/">Playbooks</a></li>
+        <li><a href="https://advokatfrida.com/tag/toolkit/">Toolkit</a></li>
+        <li><a href="https://advokatfrida.com/about/">About</a></li>
+      </ul></nav>
+    </header>
+
+    <div class="gen-top">
+      <a class="gen-back" href="https://advokatfrida.com/tag/toolkit/" aria-label="Back to Frida's Toolkit">&larr; Frida&rsquo;s Toolkit</a>
+      <span class="privacy-badge"><span class="airgap-led" aria-hidden="true"></span>No tracking &middot; static files only</span>
+    </div>
+
+    <main id="main">
+      <header class="pageintro">
+        <p class="eyebrow">Teaching tool &middot; 12-card alpha</p>
+        <h1 class="page-title">IT DEPENDS</h1>
+        <p class="dek">The privacy game where changing your mind is evidence the round worked.</p>
+        <p class="lede">Make the call. Then meet the fact you didn&rsquo;t have. IT DEPENDS deals one proposed data use and one missing fact, records the room&rsquo;s call before and after, and leaves the useful argument on the table.</p>
+      </header>
+
+      <section class="rules-grid" aria-labelledby="rules-title">
+        <h2 class="sr-only" id="rules-title">How a round works</h2>
+        <article class="rule-card"><span class="rule-num">1</span><div><h3>Read the request</h3><p>One person reads it aloud. The room commits to Ship, Slow, or Stop.</p></div></article>
+        <article class="rule-card"><span class="rule-num">2</span><div><h3>Reveal one fact</h3><p>The app turns over a Curveball from a different card. No answer key follows it.</p></div></article>
+        <article class="rule-card"><span class="rule-num">3</span><div><h3>Make the call again</h3><p>Say what changed, what held, and which fact you still need.</p></div></article>
+      </section>
+
+      <section class="id-table" id="game" aria-labelledby="game-title">
+        <div class="id-table-head">
+          <div><p class="id-kicker">One screen &middot; one room &middot; no score</p><h2 id="game-title">The table</h2></div>
+          <p class="round-count" id="round-count">Round 1 of 6</p>
+        </div>
+        <ol class="id-phases" id="phase-rail" aria-label="Round progress">
+          <li data-phase="request"><span>1</span>Request</li>
+          <li data-phase="call-one"><span>2</span>Call</li>
+          <li data-phase="fact"><span>3</span>Fact</li>
+          <li data-phase="call-two"><span>4</span>Call</li>
+          <li data-phase="debrief"><span>5</span>Debrief</li>
+        </ol>
+        <div class="id-stage" id="stage"></div>
+        <p class="sr-only" id="live" aria-live="polite"></p>
+      </section>
+
+      <section class="honesty panel" aria-labelledby="honesty-title">
+        <h2 class="panel-title" id="honesty-title">What this is (and isn&rsquo;t)</h2>
+        <p><strong>A discussion machine, not a compliance oracle.</strong> Every situation is synthetic. Ship, Slow, and Stop are positions the room has to explain, not grades the page awards.</p>
+        <p><strong>A deliberately small alpha.</strong> The mechanics and twelve dual-use cards are playable now. Three object-first After Dark art masters establish the visual system; the remaining specimen mats are honest unfinished art slots.</p>
+      </section>
+
+      <p class="finelegal"><strong>Not legal advice.</strong> This helps a room practise asking for the missing fact. It does not decide whether a real processing activity is lawful or safe, and a human stays accountable for the actual call.</p>
+    </main>
+
+    <footer class="site-colophon">
+      <div class="site-colophon-inner">
+        <div class="site-colophon-brand"><div><p class="site-colophon-name">Advokat Frida</p><p class="site-colophon-desc">Privacy and AI governance, by design and in practice.</p></div></div>
+        <div class="site-colophon-aside">
+          <div><p class="site-colophon-credit">No cookies, no tracking &mdash; the game runs in your browser.</p><p class="site-colophon-copy">&copy; 2026 Advokat Frida &middot; Local alpha</p></div>
+          <nav aria-label="Footer"><ul class="site-colophon-nav"><li><a href="https://advokatfrida.com/about/">About</a></li><li><a href="https://advokatfrida.com/rss/">RSS</a></li></ul></nav>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+
