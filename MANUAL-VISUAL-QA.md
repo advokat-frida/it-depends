@@ -60,8 +60,8 @@ Sites version 2 (`3c44a5245a774aca1fe6a33147611eb72a1ca5cf`) was opened at `http
 
 - **Initial state:** the live title, AF masthead, three-rule introduction, five-step table rail, privacy badge, legal boundary, and corrected `Private alpha` footer all rendered. **PASS**
 - **Complete round:** `Count the room` was dealt, the room called Ship, `Age-gate alchemy` was revealed, the room changed to Slow, and the changed-call debrief rendered with the correct tailored discussion cue. **PASS**
-- **Generated-art delivery:** the hosted runtime loaded the exact 1060 x 1484 `support-inbox` and `trust-badge` files with non-zero natural dimensions. **PASS**
-- **Responsive live layout:** at a 375 CSS-pixel client width, the two 319 px cards shared the same x-position, stacked vertically in request-then-curveball order, and the document reported no horizontal overflow. The temporary viewport override was reset before handoff. **PASS**
+- **Generated-art delivery:** hosted version 1 loaded the exact 1060 x 1484 `support-inbox` and `trust-badge` files with non-zero natural dimensions. Version 2 changed only the footer label; its packaged asset files are unchanged, and its exact local runtime replacements were reopened above. **PASS**
+- **Responsive layout:** hosted version 1 at a 375 CSS-pixel client width stacked both 319 px cards at the same x-position with no horizontal overflow. Version 2 changed only the footer label and reran the exact 390 px browser harness; its refreshed mobile capture was reopened before commit. The temporary live viewport override was reset before handoff. **PASS**
 - **Runtime console:** no warnings or errors were present after the hosted playthrough. **PASS**
 - **Cache readback:** the in-app browser briefly retained the version 1 document after version 2 deployed. A unique release query and an authenticated direct readback both returned the version 2 `Private alpha` HTML before handoff. **PASS**
 
