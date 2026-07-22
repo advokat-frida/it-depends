@@ -4,7 +4,9 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'public', 'demo');
+const sitesDist = join(root, 'dist');
 
+await rm(sitesDist, { recursive: true, force: true });
 await rm(dist, { recursive: true, force: true });
 await mkdir(join(dist, 'assets'), { recursive: true });
 
