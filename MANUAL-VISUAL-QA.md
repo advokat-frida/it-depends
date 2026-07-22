@@ -8,6 +8,7 @@ Date: 2026-07-22
 - Desktop runtime at 1440 px: **PASS**
 - Mobile runtime at 390 px: **PASS**
 - Keyboard and reduced-motion runtime: **PASS**
+- Private hosted Sites version 2: **PASS**
 - Full 12-card art set: **PENDING / deliberately incomplete**
 - Public release, Ghost integration, and physical print package: **NOT IN SCOPE**
 
@@ -52,6 +53,17 @@ Visible observations:
 - Pair enumeration: 132 of 132 non-self ordered alpha combinations pass the domain gate; human rationale is recorded in `PAIRING-REVIEW.md`.
 - Browser harness: desktop and mobile art load, no horizontal overflow, cards stack at 390 px, keyboard completes a round, zero console/page errors, zero external requests, and local/session/IndexedDB counts remain zero.
 - Build output is multi-file. HTML does not contain Base64 image or font payloads.
+
+## Exact private hosted runtime inspected
+
+Sites version 2 (`3c44a5245a774aca1fe6a33147611eb72a1ca5cf`) was opened at `https://it-depends-demo.tanjamin-ben.chatgpt.site` under its owner-only access policy.
+
+- **Initial state:** the live title, AF masthead, three-rule introduction, five-step table rail, privacy badge, legal boundary, and corrected `Private alpha` footer all rendered. **PASS**
+- **Complete round:** `Count the room` was dealt, the room called Ship, `Age-gate alchemy` was revealed, the room changed to Slow, and the changed-call debrief rendered with the correct tailored discussion cue. **PASS**
+- **Generated-art delivery:** the hosted runtime loaded the exact 1060 x 1484 `support-inbox` and `trust-badge` files with non-zero natural dimensions. **PASS**
+- **Responsive live layout:** at a 375 CSS-pixel client width, the two 319 px cards shared the same x-position, stacked vertically in request-then-curveball order, and the document reported no horizontal overflow. The temporary viewport override was reset before handoff. **PASS**
+- **Runtime console:** no warnings or errors were present after the hosted playthrough. **PASS**
+- **Cache readback:** the in-app browser briefly retained the version 1 document after version 2 deployed. A unique release query and an authenticated direct readback both returned the version 2 `Private alpha` HTML before handoff. **PASS**
 
 ## Fail-closed boundary
 
