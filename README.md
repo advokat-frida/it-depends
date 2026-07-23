@@ -4,7 +4,7 @@ Public alpha of an Advokat Frida shared-screen privacy teaching game.
 
 **Play it:** https://advokat-frida.github.io/it-depends/
 
-Read a proposed data use, let every player choose **Ship / Slow / Stop**, reveal the strict-majority result and every numbered selection, turn over one missing fact, and vote again. The game never supplies a correct answer. Its output is the argument and what changed.
+One small detail can change the call. Read a proposed data use, let every player choose **Ship / Slow / Stop**, reveal one missing fact, and vote again. The game shows exactly what changed, what held, and which detail mattered. It never supplies a correct answer.
 
 ## Current state
 

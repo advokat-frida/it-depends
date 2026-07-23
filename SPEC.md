@@ -4,7 +4,17 @@ Status: greenlit by Ben on 2026-07-22 and authorized for a public repository, Gi
 
 ## Goal
 
-Build a shared-screen privacy teaching game that makes each player commit to a choice, reveals one missing fact, and asks everyone to choose again. The useful output is the reasoning, the disagreements, and the change. There is no score or legal answer key.
+Build a shared-screen privacy teaching game that makes one principle visible: a small implementation detail can change the call. Each player commits to a choice, meets one missing fact, and chooses again. The useful output is the reasoning, the disagreements, and what changed or held. There is no score or legal answer key.
+
+## Editorial frame
+
+The game and its eventual companion article share one thesis: **privacy decisions often turn on a small implementation detail that the headline leaves out**.
+
+- Do not lead the article with the card mechanics. Lead with the familiar experience of two sensible people answering the same privacy question differently because each is assuming a different fact.
+- Use the game loop as the demonstration: commit to a call, expose one hidden detail, make the call again, then name what changed or held.
+- Treat an unchanged vote as evidence too. The lesson is not that every Curveball must reverse the room; it is that the room should be able to say whether the new fact was decision-relevant and why.
+- Frame “it depends” as a demand for specificity, not an escape hatch. The useful next question is: **what does it depend on?**
+- End by inviting readers to play a round and notice which details actually move them. Do not present the game as a legal-answer generator.
 
 One round:
 
@@ -34,7 +44,7 @@ No dedicated facilitator is required. One person reads the cards and taps Deal o
 
 - Repo: `advokat-frida/it-depends/`.
 - Standalone static output under `dist/standalone/IT-DEPENDS/`: HTML, one bundled classic script, self-hosted CSS/fonts, and separate PNG files.
-- Versioned archive under `release/IT-DEPENDS-v0.1.0-standalone.zip`.
+- Versioned archive under `release/IT-DEPENDS-v0.1.1-standalone.zip`.
 - Manual GitHub Pages workflow under `.github/workflows/pages.yml`; it builds, verifies, and deploys the exact standalone folder from the public repository.
 - The existing owner-only Sites project is not a dependency or deployment target.
 - No Ghost post, AF navigation change, storefront listing, Epsilon change, or physical release in this milestone.

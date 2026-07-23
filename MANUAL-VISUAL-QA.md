@@ -83,6 +83,7 @@ The following browser captures were reopened at original resolution after the fi
 Visible findings:
 
 - **AF family parity:** Anton masthead, Space Grotesk reading text, Archivo labels, square 2px frames, paper ground, forest actions, and restrained amber remain consistent with the AF standalone-tool family.
+- **Thesis framing:** the revised “one small detail can change the call” dek, decision-detail lede, and changed-or-held explanation are fully visible on desktop and mobile. The added copy establishes the lesson without implying that every player must change position, and it introduces no collision or horizontal overflow.
 - **Illustrated table:** the flat linocut table backdrop is clearly visible around the interface. The dark overlay protects white text and card contrast without erasing the art.
 - **Setup clarity:** the welcome state shows the separate forest Scenario and oxblood Curveball stacks, says no referee is required, explains the shared-screen handoff, and presents a clear 2-8 player stepper with three players as the default.
 - **Hidden turns:** the active numbered player is prominent; completed seats reveal only that a vote occurred, not which choice was made.
@@ -137,7 +138,7 @@ The standalone HTML loads a classic bundled script rather than an ES module beca
 - Card-back wiring checks confirm both 948 x 1659 images at welcome, the complete hidden Curveball image, both pseudo-element stack layers, and the Curveball image on the flip's rear face.
 - Offline harness completes three-player rounds through `file://` at 1440 x 1100 and 390 x 844.
 - Standalone integrity verification compares every manifest byte count and SHA-256, checks both back masters byte-for-byte, and reads the generated ZIP back before passing.
-- Versioned `IT-DEPENDS-v0.1.0-standalone.zip` passes manifest, inventory, byte-count, SHA-256, and byte-exact back-art verification. The exact published attachment hash belongs in the GitHub release notes so it can describe the archive built from the final tagged commit without creating a circular source-revision change.
+- The versioned standalone ZIP passes manifest, inventory, byte-count, SHA-256, and byte-exact back-art verification. The exact published attachment hash belongs in the GitHub release notes so it can describe the archive built from the final tagged commit without creating a circular source-revision change.
 - Dependency audit reports zero known vulnerabilities.
 - Runtime writes zero localStorage, sessionStorage, or IndexedDB records.
 - Runtime makes zero external requests. HTML, CSS, fonts, art, and the bundled local script are ordinary static files.
