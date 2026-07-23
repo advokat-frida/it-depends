@@ -9,6 +9,8 @@ Read a proposed data use, let every player choose **Ship / Slow / Stop**, reveal
 - Complete 12-card / 6-round mechanics alpha for 2&ndash;8 players on one shared screen.
 - 132 possible non-self ordered Request/Curveball pairings.
 - Twelve original object-first card illustrations and one shared table illustration in the approved AF After Dark linocut/screenprint system.
+- A three-lane privacy-table layout: face-up Scenario, face-down or revealed Curveball stack, and a cream player-choice rail.
+- Distinct Scenario and IT DEPENDS Curveball backs, plus an in-place top-card flip with a reduced-motion fallback.
 - Hidden numbered turns, strict-majority tallying, honest no-majority outcomes, and a before/after result plus player-by-player debrief.
 - Multi-file static game wrapped in the standard Sites runtime. HTML, modules, CSS, fonts, and art remain separate normal files; nothing is Base64-crammed into the page.
 - No accounts, score, telemetry, storage, cookies, or active network API.
@@ -22,11 +24,13 @@ The build authorization and product boundary are in [SPEC.md](./SPEC.md). Pairin
 npm.cmd test
 npm.cmd run build
 npm.cmd run harness
+npm.cmd run harness:flip
 ```
 
 - `npm.cmd test` rebuilds the game, runs the Vitest suite, and verifies the deployable Sites bundle.
-- `npm.cmd run harness` exercises multiplayer voting, majority results, equal card geometry, desktop, mobile, keyboard, network, storage, and screenshot checks against the built files.
-- `node harness/capture-art.mjs` captures all twelve exact runtime cards at their 360 x 650 CSS-pixel display size for direct visual review.
+- `npm.cmd run harness` exercises multiplayer voting, distinct deck backs, hidden/revealed Curveball states, equal card geometry, the cream decision rail, desktop, mobile, keyboard, motion preference, network, storage, and screenshot checks against the built files.
+- `npm.cmd run harness:flip` captures five exact visual checkpoints across the 620 ms Curveball turn.
+- `node harness/capture-art.mjs` captures all twelve exact runtime cards at their 308 x 540 CSS-pixel display size for direct visual review.
 - `node harness/server.mjs` serves the built game at `http://localhost:8793` for local review.
 
 ## Structure

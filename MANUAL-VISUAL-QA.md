@@ -6,12 +6,16 @@ Date: 2026-07-22
 
 - Twelve selected linocut/screenprint card-window masters: **PASS**
 - Shared illustrated table backdrop: **PASS**
-- All-card runtime sheet at literal 360 x 650 CSS-pixel card size: **PASS**
+- All-card runtime sheet at literal 308 x 540 CSS-pixel card size: **PASS**
+- Distinct Scenario and IT DEPENDS Curveball backs: **PASS**
+- Three-lane privacy-table layout and cream decision rail: **PASS**
+- Five-point Curveball flip inspection and reduced-motion face: **PASS**
 - Desktop runtime at 1440 px: **PASS**
 - Mobile runtime at 390 px: **PASS**
 - Equal Request/Curveball geometry and bottom-right chips: **PASS**
 - Keyboard, reduced-motion, network, and storage checks: **PASS**
-- New private hosted Sites version 3: **PASS**
+- Prior private hosted Sites version 3: **PASS**
+- Current casino-table revision, local runtime: **PASS**
 - Public release, Ghost integration, and physical print package: **NOT IN SCOPE**
 
 ## Reference and style inspection
@@ -44,7 +48,7 @@ The exact dimensions and SHA-256 hashes are in `ART-DIRECTION.md`.
 
 `harness/capture-art.mjs` played all six rounds with deterministic randomness, cloned the exact card DOM after each reveal, verified twelve unique art keys, and captured `shots/all-card-art-desktop.png`.
 
-The screenshot was opened at original 1440 x 2832 resolution. It displays every card at the actual 360 x 650 CSS-pixel runtime size in three columns.
+The screenshot was opened at original 1440 x 2392 resolution. It displays every card at the actual 308 x 540 CSS-pixel runtime size in three columns.
 
 Visible findings:
 
@@ -62,6 +66,8 @@ The following browser captures were reopened at original resolution after the fi
 
 - `shots/welcome-desktop-1440.png`
 - `shots/request-desktop-1440.png`
+- `shots/first-vote-desktop-1440.png`
+- `shots/first-vote-8-player-desktop-1440.png`
 - `shots/reveal-desktop-1440.png`
 - `shots/debrief-desktop-1440.png`
 - `shots/incident-request-desktop-1440.png`
@@ -71,12 +77,32 @@ Visible findings:
 
 - **AF family parity:** Anton masthead, Space Grotesk reading text, Archivo labels, square 2px frames, paper ground, forest actions, and restrained amber remain consistent with the AF standalone-tool family.
 - **Illustrated table:** the flat linocut table backdrop is clearly visible around the interface. The dark overlay protects white text and card contrast without erasing the art.
-- **Setup clarity:** the welcome state says no referee is required, explains the shared-screen handoff, and presents a clear 2-8 player stepper with three players as the default.
+- **Setup clarity:** the welcome state shows the separate forest Scenario and oxblood Curveball stacks, says no referee is required, explains the shared-screen handoff, and presents a clear 2-8 player stepper with three players as the default.
 - **Hidden turns:** the active numbered player is prominent; completed seats reveal only that a vote occurred, not which choice was made.
-- **Desktop vote state:** the Request is centered above a three-choice panel. Ship, Slow, and Stop are equal controls with icon, color, and text.
+- **Desktop vote state:** Scenario, face-down Curveball stack, and cream choice rail form one aligned row. Each uses a labeled brass placement outline, and all three fit in one 1440 x 1100 viewport when the table is at the top. Ship, Slow, and Stop remain equal controls with icon, color, and text.
+- **First-vote state:** every numbered selection and the strict-majority result remain visible in the cream rail while the Curveball stays face-down. The friendly instruction leads to one quick lap around the table, then the bottom-anchored **Flip the Curveball** control.
+- **Eight-player ceiling:** all eight numbered selections, totals, No-majority result, discussion cue, and flip control fit the 540 px cream rail without internal scrolling. After reveal, all eight seat markers and the three second-vote controls also fit without scrolling.
+- **Reveal state:** the top Curveball turns into the paired fact in the same footprint. The remaining patterned backs stay visible as a stack behind the face-up card, and the cream rail changes cleanly to the second numbered vote.
 - **Debrief:** equal-size Request and Curveball cards remain aligned above majority before/after results and player-by-player changes. The full tallies are available without overwhelming the main debrief.
 - **Mobile:** both equal-height cards stack at the same x-position, the first-vote recap remains available, the next numbered player is clear, and no horizontal crop or overflow is visible at 390 px.
 - **Table continuity:** table art remains visible at welcome, vote, reveal, and debrief states and never competes with legal boundary text below the play surface.
+
+## Card-back and flip inspection
+
+The two exact CSS card backs were inspected at full 308 x 540 runtime size and as the smaller welcome stacks.
+
+- **Scenario back: PASS.** Deep forest and teal, nested privacy-lock geometry, carved concentric lines, `SCENARIO DECK`, and `MAKE THE CALL` read as one system. It remains distinct from the cream face card and the oxblood deck.
+- **Curveball back: PASS.** Oxblood and dull brass, question-mark lock, `IT DEPENDS`, and `THE MISSING FACT` establish the concealed fact without borrowing suits, chips, currency, or third-party card language.
+- **Stack depth: PASS.** Two offset patterned backs remain visible at the right and bottom edges. At the turn's steepest visible angle, the card underneath is still a designed Curveball back rather than a blank colored slab.
+- **Reduced motion: PASS.** With reduced motion requested, the revealed face occupies the same slot immediately; no information or control depends on animation.
+
+`harness/capture-flip.mjs` paused the exact transform at 0, 155, 310, 465, and 620 ms. Each 308 x 564 lane capture was opened at original resolution:
+
+- `shots/curveball-flip-000ms.png`: face-down IT DEPENDS back, full stack intact.
+- `shots/curveball-flip-155ms.png`: top card visibly turning with the remaining patterned deck behind it.
+- `shots/curveball-flip-310ms.png`: revealed face settling without clipping, mirrored copy, or art distortion.
+- `shots/curveball-flip-465ms.png`: face nearly flat, borders and chips still aligned.
+- `shots/curveball-flip-620ms.png`: final face exactly matches the non-animated card geometry.
 
 ## Mechanical checks after visual review
 
@@ -84,12 +110,12 @@ Visible findings:
 - Card assets: twelve ready card files plus the table backdrop exist and load.
 - Pair enumeration: 132 of 132 non-self ordered combinations pass the domain gate; human rationale remains in `PAIRING-REVIEW.md`.
 - Strict majority: 2-1-1 and 2-2 among four players return No majority; 3-1 returns the selected majority.
-- Browser harness: all multiplayer tally, equal-height, chip alignment, desktop, mobile, keyboard, network, console, page-error, and storage checks pass.
+- Browser harness: all multiplayer tally, unique-back, hidden-stack, flip structure/timing, equal-height, cream-rail, chip alignment, desktop, mobile, keyboard, network, console, page-error, and storage checks pass.
 - Runtime writes zero localStorage, sessionStorage, or IndexedDB records.
 - Runtime makes zero external requests. All HTML, modules, CSS, fonts, and art are separate same-origin files.
 - Build output contains no Base64 image or font payloads.
 
-## Hosted verification
+## Prior hosted verification
 
 Sites version 3 was saved from commit `f711f9a7524a41c04df26a0f8fa67716550c577f`, deployed with owner-only access, and opened at `https://it-depends-demo.tanjamin-ben.chatgpt.site/demo/?release=f711f9a`.
 
@@ -106,4 +132,4 @@ The deterministic browser harness remains the full six-round, desktop, mobile, k
 
 ## Fail-closed boundary
 
-The private alpha is visually complete for browser play. It is not a public or physical release candidate. The 34-card Core deck, print imposition, physical proofing, storefront package, public AF navigation, and legal/product review remain separately gated.
+The private alpha is visually complete for browser play. The CSS card backs are digital visual direction, not print-ready back masters. This is not a public or physical release candidate. The 34-card Core deck, print imposition, physical proofing, storefront package, public AF navigation, and legal/product review remain separately gated.

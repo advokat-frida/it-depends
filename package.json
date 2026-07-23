@@ -13,7 +13,8 @@
     "dev": "npm run build:demo && vinext dev",
     "start": "vinext start",
     "test": "npm run build:demo && vitest run && vinext build",
-    "harness": "node harness/checks.mjs"
+    "harness": "node harness/checks.mjs",
+    "harness:flip": "node harness/capture-flip.mjs"
   },
   "license": "MIT",
   "dependencies": {

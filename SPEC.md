@@ -12,7 +12,7 @@ One round:
 2. Each player privately chooses **Ship**, **Slow**, or **Stop** on the shared screen.
 3. Reveal every numbered selection and the strict-majority result. A plurality is never promoted to a majority.
 4. Let each player name the fact or assumption behind the choice.
-5. Reveal a Curveball from a different card.
+5. Flip the top card of the face-down IT DEPENDS Curveball deck, revealing a Curveball from a different card.
 6. Repeat the private numbered vote.
 7. Compare the majority result and every player's before/after choice, then discuss what changed, held, or remains unknown.
 
@@ -25,6 +25,7 @@ No dedicated facilitator is required. One person reads the cards and taps Deal o
 - No player names, accounts, remote multiplayer service, scoring, analytics, telemetry, cookies, or saved history.
 - Twelve-card private alpha. Public v1 target remains a 34-card Core deck only after playtesting.
 - A Decision card contains both a Request and a broadly compatible Curveball. The app draws two different cards and uses the first card's Request plus the second card's Curveball.
+- The browser presents these as two physical-feeling decks with distinct backs: a forest Scenario deck and an oxblood IT DEPENDS Curveball deck. The backs are deterministic HTML/CSS, not generated raster art or borrowed playing-card trade dress.
 - Six rounds consume all twelve alpha cards without repetition. Restarting explicitly reshuffles.
 - No correct answer. Ship, Slow, and Stop are discussion positions, not legal determinations.
 - The canonical card data can later feed the browser app, self-print cards, and a professionally printed physical deck.
@@ -94,8 +95,10 @@ Working art name: **Privacy aftermath still lifes**.
 - Every completed vote reveals the strict-majority or No-majority result, all player selections, and the Ship/Slow/Stop totals.
 - Card art has scenario-specific alt text; decorative table art is CSS background imagery.
 - No drag, hover-only instruction, countdown pressure, or required animation.
-- Motion is limited to transform/opacity and disabled under reduced-motion preference.
-- Desktop shows a centered equal-height two-card table after reveal. Mobile stacks the same equal-height cards in DOM order.
+- Motion is limited to transform/opacity. The top Curveball turns in place over 620 ms when motion is allowed; reduced-motion users receive the revealed face immediately.
+- Desktop uses three fixed lanes: face-up Scenario at left, face-down/revealed Curveball stack in the middle, and the standard cream choice or first-vote rail at right. The three lanes fit in one 1440 x 1100 viewport after the table is brought to the top.
+- Before reveal, the Curveball back occupies exactly the same 308 x 540 CSS-pixel footprint as the Scenario card. After reveal, Request and Curveball faces remain equal size. Mobile stacks Scenario, Curveball, and rail in DOM order.
+- Thin brass table outlines, privacy-lock motifs, and separate forest/oxblood deck systems provide the casino-table geometry without suits, chips, gambling copy, or copied game language.
 - Topic and Curveball chips are bottom-right aligned on both card faces.
 
 ## Acceptance
@@ -105,19 +108,22 @@ Working art name: **Privacy aftermath still lifes**.
 - Every configured player gets exactly one hidden numbered choice per vote.
 - A result appears only after the final choice, includes every selection, and uses a strict majority.
 - The app reveals the paired Curveball only after the first vote and discussion gate.
+- Scenario and Curveball backs are visibly distinct, and the face-down Curveball remains hidden through the first-vote discussion.
+- Activating **Flip the Curveball** replaces the top back with the paired face in the same card slot. The remaining stack stays visibly present behind it.
 - The debrief accurately compares the majority result and every player before and after the fact.
 - Six rounds consume all twelve cards without repetition.
 - Every one of the 132 non-self ordered alpha Request/Curveball pairings passes the authored compatibility gate.
 - No answer key, score, legal conclusion, or best vote appears.
 - All twelve card illustrations and the table backdrop load as separate local files.
 - The built page works at 1440 px and 390 px with no horizontal overflow, console/page errors, external requests, or storage writes.
-- Exact runtime art is directly inspected at native size, 360 x 650 card size, desktop context, and mobile context before promotion.
+- Exact runtime art is directly inspected at native size, 308 x 540 card size, desktop context, and mobile context before promotion.
 
 ## Named verification
 
 - Unit tests cover distinct dealing, full deck exhaustion, complete-vote reveal gates, numbered selection recording, strict majority, split outcomes, result shifts, player-count bounds, card schema, asset presence, pairing compatibility, and absence of answer-key fields.
-- Browser harness covers multiplayer tallying, equal card height, bottom-right chips, desktop/mobile overflow, keyboard completion, image loading, network isolation, console/page errors, and zero storage writes.
-- `harness/capture-art.mjs` deals all six rounds and captures all twelve unique runtime cards at literal 360 x 650 CSS-pixel size.
+- Browser harness covers multiplayer tallying, unique card-back identity, hidden/revealed Curveball state, in-place flip structure and timing, equal card height, cream-rail geometry, bottom-right chips, desktop/mobile overflow, keyboard completion, image loading, network isolation, console/page errors, and zero storage writes.
+- `harness/capture-art.mjs` deals all six rounds and captures all twelve unique runtime cards at literal 308 x 540 CSS-pixel size.
+- `harness/capture-flip.mjs` freezes the 620 ms transform at five points so the back, edge turn, revealed face, remaining deck, and final fallback can be inspected directly.
 
 ## Out of scope
 

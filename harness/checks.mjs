@@ -35,8 +35,8 @@ const storageState = (page) => page.evaluate(async () => ({
   idb: (await indexedDB.databases()).length,
 }));
 
-async function openPage(browser, viewport, seed = 267) {
-  const page = await browser.newPage({ viewport, reducedMotion: 'reduce' });
+async function openPage(browser, viewport, seed = 267, reducedMotion = 'reduce') {
+  const page = await browser.newPage({ viewport, reducedMotion });
   await page.addInitScript(deterministicDeck(seed));
   const external = [];
   const consoleErrors = [];
@@ -76,16 +76,58 @@ try {
   const desktop = await openPage(browser, { width: 1440, height: 1100 });
   const beforeStorage = await storageState(desktop.page);
   await desktop.page.screenshot({ path: `${shots}/welcome-desktop-1440.png`, fullPage: true });
+  const welcomeBacks = await desktop.page.locator('.id-welcome-decks .id-card-back').evaluateAll((backs) => backs.map((back) => ({
+    scenario: back.classList.contains('is-scenario'),
+    curveball: back.classList.contains('is-curveball'),
+    text: back.textContent.trim().replace(/\s+/g, ' '),
+    background: getComputedStyle(back).backgroundColor,
+  })));
+  check('welcome establishes distinct Scenario and Curveball card backs', welcomeBacks.length === 2 && welcomeBacks[0].scenario && welcomeBacks[1].curveball, JSON.stringify(welcomeBacks));
 
   await desktop.page.locator('[data-action="deal"]').click();
   await desktop.page.locator('img[alt*="pneumatic inbox"]').waitFor();
   await desktop.page.screenshot({ path: `${shots}/request-desktop-1440.png`, fullPage: true });
+  const hiddenBoard = await desktop.page.evaluate(() => {
+    const scenario = document.querySelector('.id-board-lane.is-scenario .id-card')?.getBoundingClientRect();
+    const deck = document.querySelector('.id-board-lane.is-curveball .id-card-back')?.getBoundingClientRect();
+    const rail = document.querySelector('.id-board-lane.is-decision .id-decision-rail')?.getBoundingClientRect();
+    return {
+      oneFaceUpCard: document.querySelectorAll('.id-pair .id-card').length === 1,
+      curveballIsStacked: Boolean(document.querySelector('.id-card-slot.is-curveball.is-stacked .id-card-back')),
+      aligned: Boolean(scenario && deck && rail && Math.abs(scenario.top - deck.top) <= 1 && Math.abs(deck.top - rail.top) <= 1),
+      equalCardFootprints: Boolean(scenario && deck && Math.abs(scenario.width - deck.width) <= 1 && Math.abs(scenario.height - deck.height) <= 1),
+    };
+  });
+  check('request board shows one Scenario face and one face-down Curveball stack', hiddenBoard.oneFaceUpCard && hiddenBoard.curveballIsStacked, JSON.stringify(hiddenBoard));
+  check('Scenario, Curveball deck, and decision rail share one desktop row', hiddenBoard.aligned, JSON.stringify(hiddenBoard));
+  check('face-down deck uses the same card footprint', hiddenBoard.equalCardFootprints, JSON.stringify(hiddenBoard));
   await castVotes(desktop.page, ['slow', 'ship', 'slow']);
   check('first tally reveals every numbered choice', await desktop.page.locator('.id-selections li').count() === 3);
-  check('first tally reports the strict majority', (await desktop.page.locator('.id-discuss .id-result h4').textContent()) === 'The majority chose Slow.');
+  check('first tally reports the strict majority', (await desktop.page.locator('.id-reveal-rail .id-result h4').textContent()) === 'The majority chose Slow.');
+  check('Curveball stays face-down through the first-vote discussion', await desktop.page.locator('.id-reveal-rail').isVisible() && await desktop.page.locator('.id-card-slot.is-curveball .id-card-back').isVisible());
+  await desktop.page.screenshot({ path: `${shots}/first-vote-desktop-1440.png`, fullPage: true });
   await desktop.page.locator('[data-action="reveal"]').click();
   await desktop.page.locator('img[alt*="verification badge"]').waitFor();
+  check('reveal uses the in-place card-flip structure', await desktop.page.locator('.id-card-slot.is-curveball.is-revealing .id-flip-card').count() === 1);
   await desktop.page.screenshot({ path: `${shots}/reveal-desktop-1440.png`, fullPage: true });
+  const railLayout = await desktop.page.evaluate(() => {
+    const pair = document.querySelector('.id-play-grid .id-pair')?.getBoundingClientRect();
+    const rail = document.querySelector('.id-decision-rail')?.getBoundingClientRect();
+    const cards = [...document.querySelectorAll('.id-play-grid .id-card')].map((card) => card.getBoundingClientRect());
+    const paper = getComputedStyle(document.documentElement).getPropertyValue('--paper').trim();
+    const railBackground = document.querySelector('.id-decision-rail') ? getComputedStyle(document.querySelector('.id-decision-rail')).backgroundColor : '';
+    document.querySelector('.id-table')?.scrollIntoView({ block: 'start' });
+    const visibleRail = document.querySelector('.id-decision-rail')?.getBoundingClientRect();
+    const visibleCards = [...document.querySelectorAll('.id-play-grid .id-card')].map((card) => card.getBoundingClientRect());
+    return {
+      sideBySide: Boolean(pair && rail && cards.length === 2 && rail.left > pair.right && Math.abs(rail.top - cards[0].top) <= 1),
+      matchedHeight: Boolean(rail && cards.length === 2 && cards.every((card) => Math.abs(card.height - rail.height) <= 1)),
+      allVisible: Boolean(visibleRail && visibleCards.length === 2 && Math.max(visibleRail.bottom, ...visibleCards.map((card) => card.bottom)) <= window.innerHeight),
+      cream: railBackground === 'rgb(255, 253, 248)',
+      paper,
+      railBackground,
+    };
+  });
   await castVotes(desktop.page, ['stop', 'stop', 'slow']);
   await desktop.page.locator('.id-shift').waitFor();
   await desktop.page.screenshot({ path: `${shots}/debrief-desktop-1440.png`, fullPage: true });
@@ -108,6 +150,10 @@ try {
   const afterStorage = await storageState(desktop.page);
   check('desktop card art loads at runtime', loadedImages);
   check('request and curveball cards are the same height', equalCardHeights);
+  check('decision rail sits beside both desktop cards', railLayout.sideBySide, JSON.stringify(railLayout));
+  check('decision rail matches the compact card height', railLayout.matchedHeight, JSON.stringify(railLayout));
+  check('cards and decision rail fit in one desktop viewport', railLayout.allVisible, JSON.stringify(railLayout));
+  check('decision rail uses the standard cream surface', railLayout.cream, JSON.stringify(railLayout));
   check('both chip rows sit at bottom right', chipsBottomRight);
   check('desktop has no horizontal overflow', desktopOverflow);
   check('desktop makes no external requests', desktop.external.length === 0, desktop.external.join(', '));
@@ -125,6 +171,25 @@ try {
   check('incident runtime has no missing assets', incident.badResponses.length === 0, incident.badResponses.join(' | '));
   check('incident runtime has no page errors', incident.pageErrors.length === 0, incident.pageErrors.join(' | '));
   await incident.page.close();
+
+  const fullTable = await openPage(browser, { width: 1440, height: 1100 }, 267);
+  for (let index = 0; index < 5; index += 1) await fullTable.page.locator('[data-action="players-plus"]').click();
+  await fullTable.page.locator('[data-action="deal"]').click();
+  await castVotes(fullTable.page, ['slow', 'ship', 'stop', 'slow', 'ship', 'slow', 'stop', 'ship']);
+  const eightPlayerResult = await fullTable.page.locator('.id-reveal-rail').evaluate((rail) => ({
+    allSelections: rail.querySelectorAll('.id-selections li').length === 8,
+    noInternalScroll: rail.scrollHeight <= rail.clientHeight,
+  }));
+  await fullTable.page.screenshot({ path: `${shots}/first-vote-8-player-desktop-1440.png`, fullPage: true });
+  check('eight-player first-vote result fits the cream rail without scrolling', eightPlayerResult.allSelections && eightPlayerResult.noInternalScroll, JSON.stringify(eightPlayerResult));
+  await fullTable.page.locator('[data-action="reveal"]').click();
+  const eightPlayerSecondVote = await fullTable.page.locator('.id-decision-rail').evaluate((rail) => ({
+    seats: rail.querySelectorAll('.id-seat-track li').length,
+    noInternalScroll: rail.scrollHeight <= rail.clientHeight,
+  }));
+  check('eight-player second-vote controls fit the cream rail without scrolling', eightPlayerSecondVote.seats === 8 && eightPlayerSecondVote.noInternalScroll, JSON.stringify(eightPlayerSecondVote));
+  check('eight-player run has no page errors', fullTable.pageErrors.length === 0, fullTable.pageErrors.join(' | '));
+  await fullTable.page.close();
 
   const mobile = await openPage(browser, { width: 390, height: 844 });
   await playToReveal(mobile.page);
@@ -144,6 +209,22 @@ try {
   check('mobile has no console errors', mobile.consoleErrors.length === 0, mobile.consoleErrors.join(' | '));
   check('mobile has no page errors', mobile.pageErrors.length === 0, mobile.pageErrors.join(' | '));
   await mobile.page.close();
+
+  const motion = await openPage(browser, { width: 1440, height: 1100 }, 267, 'no-preference');
+  await motion.page.locator('[data-action="deal"]').click();
+  await castVotes(motion.page, ['slow', 'ship', 'slow']);
+  await motion.page.locator('[data-action="reveal"]').click();
+  const flipAnimation = await motion.page.locator('.id-flip-card').evaluate((node) => {
+    const animation = node.getAnimations()[0];
+    return {
+      name: getComputedStyle(node).animationName,
+      duration: animation?.effect.getTiming().duration,
+      playState: animation?.playState,
+    };
+  });
+  check('Curveball uses a finite in-place flip when motion is allowed', flipAnimation.name === 'flip-curveball' && flipAnimation.duration === 620, JSON.stringify(flipAnimation));
+  check('motion run has no page errors', motion.pageErrors.length === 0, motion.pageErrors.join(' | '));
+  await motion.page.close();
 
   const keyboard = await openPage(browser, { width: 1280, height: 900 });
   await keyboard.page.locator('[data-action="deal"]').focus();

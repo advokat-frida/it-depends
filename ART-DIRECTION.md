@@ -18,7 +18,9 @@ The approved system is deliberately illustrative rather than realistic:
 - one immediate object-based privacy idea per scene;
 - no human face, hand, body, or silhouette.
 
-The runtime supplies the AF card frame, title, Request or Curveball copy, proposal, topics, and accessibility text as deterministic HTML. The generated illustrations contain no card border or required wording.
+The runtime supplies the AF card frame, title, Request or Curveball copy, proposal, topics, accessibility text, two distinct card backs, and the Curveball flip as deterministic HTML/CSS. The generated illustrations contain no card border or required wording.
+
+The digital tabletop uses casino-table geometry without gambling iconography: quiet felt, thin brass placement outlines, one face-up Scenario lane, one stacked Curveball lane, and one cream decision rail. The Scenario back is forest/teal with a privacy lock; the Curveball back is oxblood/brass with a question-mark lock and the IT DEPENDS name. Neither uses suits, chips, currency, casino copy, or copied game trade dress. These browser backs are visual direction for later physical exploration, not print-prepress masters.
 
 ## Style-selection proofs
 
@@ -86,7 +88,7 @@ The shared table used the same selected style in a wide 16:9 composition. The su
 
 ## Direct visual gate
 
-Every exact runtime PNG was opened at original resolution after promotion. `shots/all-card-art-desktop.png` then captured all twelve unique cards through the real runtime at their literal 360 x 650 CSS-pixel size. Desktop, debrief, welcome-table, and mobile captures were also opened at original resolution. Detailed observations and PASS/FAIL findings are in `MANUAL-VISUAL-QA.md`.
+Every exact runtime PNG was opened at original resolution after promotion. `shots/all-card-art-desktop.png` then captured all twelve unique cards through the real runtime at their literal 308 x 540 CSS-pixel size. Desktop welcome, face-down deck, first-vote, reveal, debrief, and mobile captures were opened at original resolution. Five exact checkpoints across the CSS Curveball flip were also inspected. Detailed observations and PASS/FAIL findings are in `MANUAL-VISUAL-QA.md`.
 
 ## AI and licensing boundary
 

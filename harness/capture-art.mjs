@@ -38,10 +38,15 @@ try {
   await page.goto(BASE, { waitUntil: 'networkidle' });
 
   const cards = [];
+  const overflowFailures = [];
   for (let round = 0; round < 6; round += 1) {
     await page.locator('[data-action="deal"]').click();
     await cast(page, ['ship', 'slow', 'ship']);
     await page.locator('[data-action="reveal"]').click();
+    overflowFailures.push(...await page.locator('.id-card').evaluateAll((nodes) => nodes.filter((node) => {
+      const body = node.querySelector('.id-card-body');
+      return node.scrollHeight > node.clientHeight || (body && body.scrollHeight > body.clientHeight);
+    }).map((node) => node.getAttribute('aria-label'))));
     cards.push(...await page.locator('.id-card').evaluateAll((nodes) => nodes.map((node) => node.outerHTML)));
     await cast(page, ['slow', 'slow', 'stop']);
     await page.locator('[data-action="next"]').click();
@@ -50,6 +55,9 @@ try {
   const artKeys = cards.map((markup) => markup.match(/assets\/art\/([^".]+)\.png/)?.[1]).filter(Boolean);
   if (cards.length !== 12 || new Set(artKeys).size !== 12) {
     throw new Error(`Expected 12 unique runtime cards; found ${cards.length} cards and ${new Set(artKeys).size} art files.`);
+  }
+  if (overflowFailures.length) {
+    throw new Error(`Compact card content overflowed: ${overflowFailures.join(', ')}`);
   }
 
   await page.evaluate((cardMarkup) => {
@@ -61,18 +69,18 @@ try {
     const style = document.createElement('style');
     style.textContent = `
       body{background:#e9e5dc;margin:0;padding:36px}
-      .qa-card-sheet{width:1128px;margin:0 auto}
+      .qa-card-sheet{width:972px;margin:0 auto}
       .qa-card-sheet header{color:#171b19;margin:0 0 26px}
       .qa-card-sheet header p{font:700 12px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#2d7540;margin:0 0 8px}
       .qa-card-sheet header h1{font:400 42px/1 Anton,sans-serif;text-transform:uppercase;margin:0}
-      .qa-card-grid{display:grid;grid-template-columns:repeat(3,360px);gap:24px}
+      .qa-card-grid{display:grid;grid-template-columns:repeat(3,308px);gap:24px}
       .qa-card-grid .id-card{box-shadow:0 10px 24px rgba(0,0,0,.18)}
     `;
     document.head.append(style);
   }, cards);
 
   await page.screenshot({ path: `${shots}/all-card-art-desktop.png`, fullPage: true });
-  console.log(`Captured 12 unique card artworks at their 360 x 650 CSS-pixel runtime size: ${artKeys.join(', ')}`);
+  console.log(`Captured 12 unique card artworks at their 308 x 540 CSS-pixel runtime size: ${artKeys.join(', ')}`);
 } finally {
   await browser.close();
   await new Promise((resolve) => server.close(resolve));
