@@ -1,75 +1,68 @@
 # IT DEPENDS
 
-Public alpha of an Advokat Frida shared-screen privacy teaching game.
+An Advokat Frida shared-screen privacy teaching game.
 
-**Play it:** https://advokat-frida.github.io/it-depends/
+**Play Universal Core v0.2.0:** https://advokat-frida.github.io/it-depends/
 
-One small detail can change the call. Read a proposed data use, let every player choose **Ship / Slow / Stop**, reveal one missing fact, and vote again. The game shows exactly what changed, what held, and which detail mattered. It never supplies a correct answer.
+One small detail can change the call. Read a proposed data use, let every player choose **Ship / Slow / Stop**, reveal one Missing Detail, and vote again. The game shows exactly what changed, what held, and which detail mattered. It never supplies a correct answer.
 
-## Current state
+## Universal Core
 
-- Complete 12-card / 6-round mechanics alpha for 2–8 players on one shared screen.
-- 132 possible non-self ordered Request/Curveball pairings.
-- Twelve original object-first card illustrations, two illustrated deck backs, and one shared table illustration in the approved AF After Dark linocut/screenprint system.
-- A three-lane privacy-table layout: face-up Scenario, face-down or revealed Curveball stack, and a cream player-choice rail.
-- Distinct illustrated Scenario and IT DEPENDS Curveball backs with deterministic AF labels, plus an in-place top-card flip with a reduced-motion fallback.
-- Hidden numbered turns, strict-majority tallying, honest no-majority outcomes, and a before/after result plus player-by-player debrief.
-- Standalone-first static game. A player can unzip the package and open `IT-DEPENDS/index.html` directly; no server, installation, account, or internet connection is required.
-- CSS, fonts, and art remain separate normal files. The small JavaScript module graph is bundled into one classic local script so current browsers permit direct `file://` play; nothing is Base64-crammed into the page.
-- No accounts, score, telemetry, storage, cookies, active network API, or runtime dependency on Sites.
-- The public browser alpha is deployed from the exact verified standalone folder through a manual GitHub Pages workflow. The earlier owner-only Sites demo is historical and is not the release source of truth.
+- Twelve independently shuffled Scenario cards and twelve independently shuffled Missing Detail cards.
+- 144 authored Scenario/Detail combinations with no compatibility filter.
+- Six decision axes: Retention, Access, Scope, Purpose, Ownership, and Evidence.
+- One risk fact and one safeguard on each axis, so the second vote is not trained to move in only one direction.
+- Six rounds per session, sampling six unique cards from each full deck.
+- Twenty-four original object-first face illustrations, two illustrated backs, and one shared-table backdrop in the approved AF After Dark linocut/screenprint system.
+- A three-lane tabletop: face-up Scenario, face-down or revealed IT DEPENDS stack, and a cream player-choice rail.
+- Hidden numbered turns, strict-majority tallying, honest no-majority outcomes, and a before/after debrief.
+- Two to eight players on one shared screen. No dedicated facilitator, account, score, telemetry, storage, cookies, or runtime API.
+- Standalone-first static files. The generated edition opens directly through `file://` with no server or internet connection.
 
-The build authorization and product boundary are in [SPEC.md](./SPEC.md). Pairing rationale is in [PAIRING-REVIEW.md](./PAIRING-REVIEW.md). Art provenance and prompts are in [ART-DIRECTION.md](./ART-DIRECTION.md). Visual verification is in [MANUAL-VISUAL-QA.md](./MANUAL-VISUAL-QA.md).
+The product boundary is in [SPEC.md](./SPEC.md). The 144-pair semantic audit is in [PAIRING-REVIEW.md](./PAIRING-REVIEW.md). Art prompts, provenance, and hashes are in [ART-DIRECTION.md](./ART-DIRECTION.md). Direct visual inspection is recorded in [MANUAL-VISUAL-QA.md](./MANUAL-VISUAL-QA.md).
 
 ## Commands
 
 ```powershell
 npm.cmd test
-npm.cmd run build
 npm.cmd run harness
+npm.cmd run harness:art
 npm.cmd run harness:offline
 npm.cmd run harness:flip
-npm.cmd run package
-npm.cmd run verify:standalone
+npm.cmd run build
 npm.cmd run qa
 ```
 
-- `npm.cmd test` rebuilds the game, runs the Vitest suite, and verifies the standalone static output.
-- `npm.cmd run harness` exercises multiplayer voting, distinct deck backs, hidden/revealed Curveball states, equal card geometry, the cream decision rail, desktop, mobile, keyboard, motion preference, network, storage, and screenshot checks against the built files.
-- `npm.cmd run harness:offline` opens the built `index.html` directly from disk, completes desktop and mobile rounds, and proves that both illustrated backs survive the local-file path.
-- `npm.cmd run harness:flip` captures five exact visual checkpoints across the 620 ms Curveball turn.
-- `npm.cmd run package` creates the ignored versioned standalone ZIP under `release/`.
-- `npm.cmd run verify:standalone` validates the folder manifest, every SHA-256, the ZIP contents, and byte-exact copies of both back masters.
-- `npm.cmd run qa` runs the complete build, test, browser, offline, flip, package, and archive-verification gate.
-- `node harness/capture-art.mjs` captures all twelve exact runtime cards at their 308 x 540 CSS-pixel display size for direct visual review.
-- `node harness/server.mjs` serves the built game at `http://localhost:8793` for local review.
+- `npm.cmd test` rebuilds the game and runs the unit/static suite.
+- `npm.cmd run harness` plays the browser flow across player counts, desktop/mobile layouts, keyboard use, motion preferences, network isolation, and storage isolation.
+- `npm.cmd run harness:art` deals repeated deterministic sessions, collects all 24 unique faces, checks card overflow, and captures both literal-size review sheets.
+- `npm.cmd run harness:offline` completes desktop and mobile rounds from the generated `index.html` opened directly from disk.
+- `npm.cmd run harness:flip` captures five exact checkpoints across the 620 ms Missing Detail turn.
+- `npm.cmd run build` creates the standalone folder under `dist/standalone/IT-DEPENDS/`.
+
+`npm.cmd run qa` runs the complete release gate, including the versioned standalone archive and integrity verification.
 
 ## Structure
 
 ```text
 assets/
-  art/                 approved alpha card and table masters
-  fonts/               normal self-hosted WOFF2 files
+  art/                 12 Scenario faces, 12 Missing Detail faces, 2 backs, table art
+  fonts/               self-hosted WOFF2 files
 src/
   index.html           AF page skeleton
-  shared.css           byte-copied AF family chrome
-  styles.css           IT DEPENDS derived components
-  cards.js             canonical 12-card alpha data
-  core.js              pure deck and phase state machine
+  shared.css           AF family chrome
+  styles.css           IT DEPENDS components
+  cards.js             two canonical 12-card decks
+  core.js              independent-deck and phase state machine
   app.js               accessible shared-screen runtime
-test/                   named unit and static-build tests
-harness/                browser acceptance and local server
-tools/                  standalone build, package, and integrity checks
-dist/standalone/
-  IT-DEPENDS/           generated open-index.html edition, gitignored
-release/                generated versioned standalone ZIP, gitignored
-.github/workflows/
-  pages.yml             verified manual GitHub Pages deployment
-shots/                  exact inspected runtime screenshots
+test/                   unit and static-build tests
+harness/                browser, offline, motion, and visual acceptance
+tools/                  standalone build, packaging, and integrity checks
+shots/                  exact runtime inspection evidence
 ```
 
 ## Boundary
 
-This is a synthetic teaching tool, not legal advice and not a compliance determination. The public browser alpha and versioned standalone download are the released surfaces. No law pack, physical print package, store listing, Ghost post, or public AF navigation link is part of this release.
+This is a synthetic teaching tool, not legal advice or a compliance determination. No law pack, print package, store listing, Ghost article, or public AF navigation change is included here.
 
 The repository is source-visible but deliberately `UNLICENSED`. Public access does not grant permission to copy, modify, or redistribute the code or artwork unless Advokat Frida later publishes separate terms.

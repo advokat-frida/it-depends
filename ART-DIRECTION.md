@@ -1,6 +1,6 @@
 # IT DEPENDS art direction and provenance
 
-Status: twelve exact 4:3 alpha card-window masters, two exact 4:7 illustrated browser backs, and one shared table backdrop. Not a commercial pack, print approval, or physical proof.
+Status: twenty-four exact 4:3 Universal Core card-window masters, two exact 4:7 illustrated browser backs, and one shared table backdrop. Not a commercial pack, print approval, or physical proof.
 
 Cross-project visual standard: `G:\Shared drives\Ducket\Advokat Frida\Brand\AF-AFTER-DARK-ART-STANDARD.md`
 Aspect-ratio regeneration record: `ART-REGEN-HANDOFF.md`
@@ -21,9 +21,9 @@ The approved system is deliberately illustrative rather than realistic:
 - one immediate object-based privacy idea per scene;
 - no human face, hand, body, or silhouette.
 
-The runtime supplies the AF card frame, title, Request or Curveball copy, proposal, topics, accessibility text, back labels, and the Curveball flip as deterministic HTML/CSS. Generated art supplies the twelve face scenes and two distinct back scenes without any required wording.
+The runtime supplies the AF card frame, title, Request or Missing Detail copy, proposal, topics, accessibility text, back labels, and the Missing Detail turn as deterministic HTML/CSS. Generated art supplies twenty-four face scenes and two distinct back scenes without any required wording.
 
-The digital tabletop uses casino-table geometry without gambling iconography: quiet felt, thin brass placement outlines, one face-up Scenario lane, one stacked Curveball lane, and one cream decision rail. The illustrated Scenario back is forest/teal with a sealed case-file dealing machine; the illustrated Curveball back is oxblood/brass with a hidden envelope beneath a disclosure cloche. Deterministic HTML overlays the deck names and short labels. Neither uses suits, chips, currency, casino copy, or copied game trade dress. These 4:7 browser backs are visual direction for later physical exploration, not 5:7 print-prepress masters.
+The digital tabletop uses casino-table geometry without gambling iconography: quiet felt, thin brass placement outlines, one face-up Scenario lane, one stacked IT DEPENDS Missing Detail lane, and one cream decision rail. The illustrated Scenario back is forest/teal with a sealed case-file dealing machine; the illustrated IT DEPENDS back is oxblood/brass with a hidden envelope beneath a disclosure cloche. Deterministic HTML overlays the deck names and short labels. Neither uses suits, chips, currency, casino copy, or copied game trade dress. These 4:7 browser backs are visual direction for later physical exploration, not 5:7 print-prepress masters.
 
 ## Style-selection proofs
 
@@ -95,9 +95,9 @@ Keep the full visual equation inside the landscape frame. The runtime supplies a
 
 The back-art instruction changed only the geometry and subject: exact 4:7 portrait, full bleed, important mechanics inside an 8% safe area, near-symmetrical, readable when rotated, and quieter at the top and bottom for deterministic labels. A future physical 2.5 x 3.5 inch card is 5:7 and must be separately composed.
 
-## Current runtime asset ledger
+## Scenario and deck-back asset ledger
 
-All current face-art files are exact 1448 x 1086 PNGs. Both current browser backs are exact 948 x 1659 PNGs. Each runtime file is a direct copy of the selected built-in output; no resampling, crop, paint-over, or typography was added.
+All twelve Scenario face-art files are exact 1448 x 1086 PNGs. Both browser backs are exact 948 x 1659 PNGs. Each runtime file is a direct copy of the selected built-in output; no resampling, crop, paint-over, or typography was added.
 
 | Runtime file | Current subject | Final built-in source | Processing | SHA-256 |
 |---|---|---|---|---|
@@ -116,6 +116,25 @@ All current face-art files are exact 1448 x 1086 PNGs. Both current browser back
 | `assets/art/scenario-card-back.png` | A sealed blank case file sits inside a forest-and-teal dealing machine with rollers, tubes, lenses, drawers, and envelopes. | `call_p695rWRJHL73FdszA86xp6Fd.png` | direct copy | `18d26447003f07ca3b7de0db205a0e966fd01990b8c25b656a20bfc8834d431c` |
 | `assets/art/curveball-card-back.png` | One sealed blank envelope is hidden beneath an oxblood-and-brass disclosure cloche. | `exec-c0fafb47-db86-4423-b44c-648870231350.png` | direct copy | `9333896aa4fe3308269a394ad6a5457fcbd1bd926681ddb0c887391483c36596` |
 
+## Universal Core Missing Detail ledger
+
+All twelve Missing Detail files are exact 1448 x 1086 PNGs generated directly for the runtime art window on 2026-07-23. `risk-scales.png` and `incident-ledger.png` were supplied to the built-in generator as owned style references. The subject prompts kept the same object-only AF After Dark system while giving every detail a separate visual equation. Each selected output was copied directly without crop, resampling, paint-over, or added typography.
+
+| Runtime file | Missing Detail subject | Final built-in source | Processing | SHA-256 |
+|---|---|---|---|---|
+| `assets/art/detail-twenty-years.png` | A tiny data spool enters an impossibly deep clockwork archive beneath a monumental long-horizon clock. | `call_RpnrUTORudIOc5cIzRwdHlSs.png` | direct copy | `04100ae17dc8c6eaa8f120acc8323475b0fe75dd1e61ae39c906a038d6906ab7` |
+| `assets/art/detail-timer-real.png` | One timer opens synchronized trapdoors beneath matching controlled copies. | `call_SbuWE7AMyw38nsaOhx3XPDyv.png` | direct copy | `070056b127752df82aef2f473fe9233b9e955861d764c8efba092f0baa9317c2` |
+| `assets/art/detail-shared-key.png` | One oversized key opens many drawers while the individual audit recorder remains disconnected. | `call_3eOfv93WIQLvtENoegtOlafV.png` | direct copy | `bdd8c808e0d08355df6e46e6822c313fba142696019d6b78677ea3c61bbd8c4d` |
+| `assets/art/detail-names-door.png` | Distinct keys open distinct drawers while a central recorder logs each turn. | `call_pu7ZVBMmooscrzLJk0yLBjVK.png` | direct copy | `d5a8744c0088d61721eb41a855c12273f0e5b1d2c98e75e1530d4435db70ba4f` |
+| `assets/art/detail-default-everyone.png` | A small reviewed stream explodes through one launch lever into a wall of destinations. | `call_H0MXQRUNimfNVQs1Y0rDNvOw.png` | direct copy | `82e6af7c8597d3f975d42fdb6a869ea063d1f3bd87809027a4f6df572c1e1f83` |
+| `assets/art/detail-fence-holds.png` | A compact set of tokens remains inside a mechanically locked perimeter with time visible. | `call_XLQ9d8HiwzVMIRwYnG2AUAbe.png` | direct copy | `434a069ccc1c970a787f8c38c57d33539e35b20108231ca535f5e0cb5d7f4993` |
+| `assets/art/detail-future-use-drawer.png` | A neat main route secretly branches into a drawer feeding mismatched unrelated machines. | `call_7w4jBU8t1scefezcMrapHb61.png` | direct copy | `1bf7a55f4f54ef4d63709587fed4ac22467fc26cd9967ee400c067d2966f4c66` |
+| `assets/art/detail-ask-again.png` | A tempting secondary route is stopped by a double-lock gate and an isolated change key. | `call_Gb1Fxr2QxN74juAj8htU25ux.png` | direct copy | `307cb12a0c5996ec9e86c8b5647e14e91c25c4226fd779508b53bd0c8e0a74bb` |
+| `assets/art/detail-nobody-owns-tuesday.png` | An unattended maintenance machine gathers cobwebs as keys, tools, and gears drift loose. | `call_1v6cAjY1RvDX8aTTkD7DIijc.png` | direct copy | `2bc8630cf64cc1810e70ebd3f4ec56e51daf8778bee526699aec7e58923092b2` |
+| `assets/art/detail-someone-owns-tuesday.png` | A clean service station aligns keys, settings, gears, a timer, and a blank maintenance ledger. | `call_RbYVybgb8sVpvkQ5bYnQn0IV.png` | direct copy | `16f429c7b541ca5b9e36eabd4a09c71e70d66e6fe7408cfd53eb2c41477eff1a` |
+| `assets/art/detail-tested-elsewhere.png` | A pristine test case accepts identical samples while unruly real-world forms pile up outside. | `call_Ma82XLicueaW6i2khFiVzScX.png` | direct copy | `6ee367fed31f74511e2bfdc74ba41710172d3546f4ae5bfa7d33daac4f376cfb` |
+| `assets/art/detail-awkward-cases.png` | A rugged machine deliberately processes varied shapes and conditions while recording the remaining gap. | `call_rQALAhERnD5xRPKlNBsLbKeU.png` | direct copy | `9c5a7df94594c922ed254838e87d569a4efdd56565aa18d7a33ff62697fb090e` |
+
 ## Table backdrop
 
 The shared table used the same selected style in a wide 16:9 composition. The subject prompt required a quiet deep-forest felt center, two subtle empty inlays, and a perimeter of pneumatic tube, blank envelopes, blank ledger, observation lens, green/amber/oxblood lamps, keys, and an hourglass.
@@ -128,10 +147,10 @@ The shared table used the same selected style in a wide 16:9 composition. The su
 
 ## Direct visual gate
 
-Every exact runtime PNG was opened at original resolution after promotion. `shots/all-card-art-desktop.png` then captured all twelve unique cards through the real runtime at their literal 308 x 540 CSS-pixel size. Desktop welcome, face-down deck, first-vote, reveal, debrief, and mobile captures were opened at original resolution. Five exact checkpoints across the CSS Curveball flip were also inspected. Detailed observations and PASS/FAIL findings are in `MANUAL-VISUAL-QA.md`.
+Every exact runtime PNG was opened at original resolution after promotion. `shots/all-scenario-art-desktop.png` and `shots/all-detail-art-desktop.png` capture all twenty-four faces through the real runtime at their literal 308 x 540 CSS-pixel size. Desktop welcome, face-down deck, first-vote, reveal, debrief, and mobile captures were opened at original resolution. Five exact checkpoints across the CSS Missing Detail turn were also inspected. Detailed observations and PASS/FAIL findings are in `MANUAL-VISUAL-QA.md`.
 
 ## AI and licensing boundary
 
-All fifteen runtime illustrations are AI-generated Advokat Frida working art produced with the built-in image-generation tool on 2026-07-22, selected and reviewed by Ben and Codex, and packaged with deterministic original AF text and interface chrome.
+All twenty-seven runtime illustrations are AI-generated Advokat Frida working art produced with the built-in image-generation tool on 2026-07-22 and 2026-07-23. The original visual system and style A were selected by Ben; the twelve Universal Core Missing Detail candidates were generated, selected, and directly inspected by Codex under Ben’s approved direction. Deterministic original AF text and interface chrome remain separate from the raster art.
 
 This disclosure, the source-output IDs, the subject ledger, and the hashes must stay with the project if the art is promoted to a public release or physical product. No editable-source promise is made. No image has received print prepress review or a physical proof.

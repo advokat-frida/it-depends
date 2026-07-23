@@ -16,6 +16,7 @@ export const PHASES = Object.freeze({
 export const DEFAULT_PLAYER_COUNT = 3;
 export const MIN_PLAYER_COUNT = 2;
 export const MAX_PLAYER_COUNT = 8;
+export const SESSION_ROUNDS = 6;
 
 const VALID_CALLS = new Set(Object.values(CALLS));
 
@@ -38,13 +39,19 @@ export function shuffleIds(ids, random) {
   return shuffled;
 }
 
-export function createSession(cards, random, playerCount = DEFAULT_PLAYER_COUNT) {
+export function createSession(scenarios, details, random, playerCount = DEFAULT_PLAYER_COUNT) {
   if (typeof random !== 'function') throw new TypeError('A random source is required.');
   assertPlayerCount(playerCount);
+  if (!Array.isArray(scenarios) || scenarios.length === 0) throw new TypeError('A Scenario deck is required.');
+  if (!Array.isArray(details) || details.length === 0) throw new TypeError('A Missing Detail deck is required.');
+  const scenarioIds = scenarios.map(({ id }) => id);
+  const detailIds = details.map(({ id }) => id);
   return {
     phase: PHASES.WELCOME,
     playerCount,
-    remainingIds: shuffleIds(cards.map(({ id }) => id), random),
+    remainingScenarioIds: shuffleIds(scenarioIds, random),
+    remainingDetailIds: shuffleIds(detailIds, random),
+    roundLimit: Math.min(SESSION_ROUNDS, scenarioIds.length, detailIds.length),
     current: null,
     history: [],
     roundNumber: 0,
@@ -61,17 +68,25 @@ export function setPlayerCount(state, playerCount) {
 
 export function dealRound(state) {
   if (state.current) throw new Error('Finish the current round before dealing another.');
-  if (state.remainingIds.length < 2) return { ...state, phase: PHASES.COMPLETE };
+  if (
+    state.roundNumber >= state.roundLimit
+    || state.remainingScenarioIds.length === 0
+    || state.remainingDetailIds.length === 0
+  ) {
+    return { ...state, phase: PHASES.COMPLETE };
+  }
 
-  const [requestId, curveballId, ...remainingIds] = state.remainingIds;
+  const [scenarioId, ...remainingScenarioIds] = state.remainingScenarioIds;
+  const [detailId, ...remainingDetailIds] = state.remainingDetailIds;
   return {
     ...state,
     phase: PHASES.REQUEST_VOTE,
-    remainingIds,
+    remainingScenarioIds,
+    remainingDetailIds,
     roundNumber: state.roundNumber + 1,
     current: {
-      requestId,
-      curveballId,
+      scenarioId,
+      detailId,
       beforeVotes: [],
       afterVotes: [],
     },
@@ -131,9 +146,9 @@ export function submitVote(state, call) {
   throw new Error('The group cannot vote in this phase.');
 }
 
-export function revealCurveball(state) {
+export function revealDetail(state) {
   if (state.phase !== PHASES.REQUEST_DISCUSS || state.current?.beforeVotes.length !== state.playerCount) {
-    throw new Error('Finish the first vote and discussion before revealing the curveball.');
+    throw new Error('Finish the first vote and discussion before revealing the Missing Detail.');
   }
   return { ...state, phase: PHASES.SECOND_VOTE };
 }
@@ -163,7 +178,11 @@ export function nextRound(state) {
   }
 
   const history = [...state.history, state.current];
-  if (state.remainingIds.length < 2) {
+  if (
+    state.roundNumber >= state.roundLimit
+    || state.remainingScenarioIds.length === 0
+    || state.remainingDetailIds.length === 0
+  ) {
     return { ...state, phase: PHASES.COMPLETE, current: null, history };
   }
 

@@ -1,196 +1,121 @@
-# Manual visual QA: IT DEPENDS public alpha
+# Manual visual QA: IT DEPENDS
 
-Date: 2026-07-22
+## Universal Core review candidate
 
-## Verdict
+Date: 2026-07-23
 
-- Twelve exact 4:3 linocut/screenprint card-window masters: **PASS**
-- Shared illustrated table backdrop: **PASS**
-- All-card runtime sheet at literal 308 x 540 CSS-pixel card size: **PASS**
-- Distinct illustrated 4:7 Scenario and IT DEPENDS Curveball backs: **PASS**
-- Three-lane privacy-table layout and cream decision rail: **PASS**
-- Five-point Curveball flip inspection and reduced-motion face: **PASS**
-- Desktop runtime at 1440 px: **PASS**
-- Mobile runtime at 390 px: **PASS**
-- Equal Request/Curveball geometry and bottom-right chips: **PASS**
-- Keyboard, reduced-motion, network, and storage checks: **PASS**
-- Standalone folder opened directly through `file://`: **PASS**
-- Versioned standalone ZIP structure and integrity: **PASS**
-- Exact back-art wiring in welcome, hidden deck, stacked layers, and flip rear face: **PASS**
-- Prior private hosted Sites version 3: **PASS, HISTORICAL ONLY**
-- Current casino-table revision, local runtime: **PASS**
-- Public GitHub Pages alpha: **PASS**
-- Public repository and full-history secret scan: **PASS**
-- Ghost integration and physical print package: **NOT IN SCOPE**
+### Verdict
 
-## Reference and style inspection
+- Twelve exact 4:3 Scenario masters: **PASS**
+- Twelve exact 4:3 Missing Detail masters: **PASS**
+- Both literal-size 12-face runtime sheets: **PASS**
+- Illustrated Scenario and IT DEPENDS backs: **PASS**
+- Shared table backdrop and three-lane layout: **PASS**
+- Equal Scenario/Detail card geometry and bottom-right chips: **PASS**
+- Five inspected Missing Detail turn frames: **PASS**
+- Desktop, mobile, eight-player, keyboard, and reduced-motion states: **PASS**
+- Standalone direct-file desktop and mobile rounds: **PASS**
+- Semantic compatibility: **144/144 PASS**, separately recorded in `PAIRING-REVIEW.md`
+- Publishing, versioned ZIP, physical cards, Ghost article, and AF navigation: **NOT IN THIS REVISION**
 
-The exact owned references in `ART-DIRECTION.md` were opened at original resolution before generation. They established the AF After Dark palette, printed texture, authoritative object design, and attractive-first absurdity. Human-centered compositions were explicitly rejected.
+### References inspected
 
-Three exact Risk Scales proofs were opened at 1060 x 1484. Ben selected A, the bold Victorian linocut/screenprint treatment. It has the clearest graphic silhouette, least photographic material rendering, and strongest fit with a tabletop game. B was softer and more storybook-like; C was energetic but visually louder and more poster-like than the desired deck.
+The following exact owned references were opened at original resolution before and during generation:
 
-## Exact native masters inspected
+- `assets/art/risk-scales.png`
+- `assets/art/incident-ledger.png`
+- `proofs/style-variations/risk-scales-a-linocut.png`
 
-Every current file below was opened from `assets/art/` at original resolution after final promotion.
+They established the selected flat Victorian linocut/screenprint treatment, near-black/forest/teal/oxblood/parchment/brass palette, rough ink texture, object-first hierarchy, and face-free constraint. The new art carries the style system without copying either reference composition.
 
-1. `support-inbox.png`, 1448 x 1086: **PASS**. Three pipes overwhelm a forest inbox with sealed blank envelopes while a brass pen approaches a blank ledger and an oxblood drawer waits below. The landscape composition keeps the joke intact without a crop.
-2. `risk-scales.png`, 1448 x 1086: **PASS**. The oversized lens, three-pan balance, sealed tokens, and green/teal/oxblood routes form one immediate visual equation. No label, numeral, logo, or realistic product UI appears.
-3. `clockwork-floor.png`, 1448 x 1086: **PASS**. Four tick-only clocks, three empty chairs, three observation lenses, an hourglass, and a queue machine remain legible at card size. The chairs are empty and no body trace appears.
-4. `trust-badge.png`, 1448 x 1086: **PASS**. A blank rosette press, two listening horns, three blank tiles, a locked cabinet, and excessive keys turn verification into theatrical bureaucracy. The rosette is generic rather than a real certification or authority mark.
-5. `voice-vault.png`, 1448 x 1086: **PASS**. A speaking horn feeds blank ribbon and a recording cylinder into a locked vault beside an unused key and hourglass. There is no mouth, ear, face, waveform, or writing.
-6. `occupancy-lens.png`, 1448 x 1086: **PASS**. The corrected master contains exactly three empty chairs, one ceiling lens, one central bead hourglass, two side tubes, and three trays. No partial fourth chair or person-shaped trace remains.
-7. `endless-archive.png`, 1448 x 1086: **PASS**. A red recorder, blank paper stream, short stack, one open drawer, and receding wall of blank archive drawers make indefinite retention legible without a calendar or label.
-8. `intake-switchboard.png`, 1448 x 1086: **PASS**. One giant lever routes sealed envelopes from an intake conveyor through green, teal, and oxblood paths beside an empty stool and bell. Every plaque is blank.
-9. `preference-organ.png`, 1448 x 1086: **PASS**. One oversized lever branches into envelope, speaking-tube, and blank-device outputs before rows of stylized preference cylinders. The decorative tree silhouettes belong to the object pattern rather than a human scene.
-10. `incident-ledger.png`, 1448 x 1086: **PASS**. A blank gridded ledger, stopped tick-only clock, scorched tray, vial, keys, fragments, and oxblood thread form a coherent response desk without generated writing.
-11. `specimen-export.png`, 1448 x 1086: **PASS**. Rows of flat teal specimen tiles contrast with distinctive oxblood, forest, and brass fragments caught in the straw and second tray. No sample identifier or shipping label appears.
-12. `age-alchemy.png`, 1448 x 1086: **PASS**. Three lenses examine a blank circular token amid uncertain weights, an hourglass, and three proof trays. The token is abstract and does not resemble a person or identity document.
-13. `scenario-card-back.png`, 948 x 1659: **PASS**. A sealed blank case file sits inside a forest-and-teal dealing machine with rollers, tubes, blank drawers, lenses, envelopes, lock, and keys. The quiet top and bottom accept deterministic labels without hiding the focal mechanism.
-14. `curveball-card-back.png`, 948 x 1659: **PASS**. A single sealed blank envelope waits under a glass disclosure cloche inside an oxblood-and-brass machine. It remains visually distinct from the Scenario deck and contains no suits, casino marks, or borrowed card language.
-15. `table-backdrop.png`, 1672 x 941: **PASS**. The quiet forest center supports overlays while the perimeter tube, blank envelopes, three lamps, lens, keys, book, hourglass, and corrected blank ledger remain visible. No card, dice, poker object, person, logo, or readable mark appears.
+### Exact Missing Detail masters inspected
 
-The exact dimensions and SHA-256 hashes are in `ART-DIRECTION.md`.
+Every selected file below was opened from `assets/art/` at its native 1448 x 1086 resolution after promotion.
 
-## Literal runtime card inspection
+1. `detail-twenty-years.png`: **PASS**. A tiny spool disappears into an enormous clock-governed archive. Duration reads immediately; no calendar text is needed.
+2. `detail-timer-real.png`: **PASS**. One hourglass releases matching copies through synchronized trapdoors. The enforcement idea remains clear at card size.
+3. `detail-shared-key.png`: **PASS**. One giant key branches to many drawers while a recorder sits apart. Shared, untraceable access is a single visual sentence.
+4. `detail-names-door.png`: **PASS**. Distinct key silhouettes map one-to-one to drawers around a central audit drum. It reads as the safeguard companion without written names.
+5. `detail-default-everyone.png`: **PASS**. One launch lever turns a small input into a wall of destinations. The expansion remains visible after the landscape image is reduced.
+6. `detail-fence-holds.png`: **PASS**. Tokens, gates, and an hourglass remain inside a compact perimeter. Nothing visually spills beyond the reviewed boundary.
+7. `detail-future-use-drawer.png`: **PASS**. A neat green route diverts through an oxblood side branch into mismatched machines. The unrelated-use risk is both clear and appropriately absurd.
+8. `detail-ask-again.png`: **PASS**. The same purpose-axis grammar is reversed: a secondary route is blocked by a double lock and isolated change key.
+9. `detail-nobody-owns-tuesday.png`: **PASS**. Cobwebs, loose keys, tools, gears, and stalled lanes make neglected post-launch ownership legible without a person.
+10. `detail-someone-owns-tuesday.png`: **PASS**. A clean service station aligns distinct keys, settings, gears, a timer, and blank ledger. It reads as maintained governance rather than a second neglect scene.
+11. `detail-tested-elsewhere.png`: **PASS**. A pristine machine accepts identical blocks while irregular shapes, climates, and mechanisms pile up outside its case.
+12. `detail-awkward-cases.png`: **PASS**. A rugged multi-lane machine deliberately accepts varied objects and conditions while one visible catch tray preserves the idea of recorded gaps.
 
-`harness/capture-art.mjs` played all six rounds with deterministic randomness, cloned the exact card DOM after each reveal, verified twelve unique art keys, and captured `shots/all-card-art-desktop.png`.
+No selected master contains a person, face, hand, readable generated text, logo, recognizable product UI, third-party game symbol, or copied trade dress. All gauges and paper surfaces are blank or use nonsemantic marks.
 
-The screenshot was opened at original 1440 x 2392 resolution. It displays every card at the actual 308 x 540 CSS-pixel runtime size in three columns.
+### Literal runtime sheets
+
+`harness/capture-art.mjs` independently shuffled both decks across repeated deterministic sessions, collected all 24 unique card faces, rejected any card with internal overflow, waited for every image to reach a loaded native state, and captured:
+
+- `shots/all-scenario-art-desktop.png`
+- `shots/all-detail-art-desktop.png`
+
+Both sheets were opened at original resolution. Every face is shown at the exact 308 x 540 CSS-pixel card size used on the desktop table.
 
 Visible findings:
 
-- All twelve exact 4:3 masters fill the art window without portrait center-cropping.
-- The selected linocut system is coherent across the full set without collapsing the scenarios into minor variations.
-- Request and Curveball cards have exactly the same height and art-window geometry.
-- Titles, body copy, proposals, and Curveball facts remain readable and unclipped.
-- Multi-topic and single-axis chip rows sit at the bottom right on both card faces.
-- No art contains human imagery, generated text, logo-like brand bait, or visible third-party trade dress.
-- No card shows a broken image, pending specimen mat, content overflow, or missing chip.
+- all 24 landscape illustrations retain their full visual equation without portrait cropping;
+- the two decks are coherent but not minor visual variations;
+- every title and body remains readable and unclipped;
+- Scenario proposal blocks remain separated from the request;
+- every Missing Detail shows its axis plus Risk fact or Safeguard at bottom right;
+- all card bottoms align despite different copy lengths; and
+- no image is missing, black, pending, stretched, or duplicated.
 
-## Exact product context inspected
+An earlier contact-sheet capture taken before image decoding completed showed black art windows. It was rejected. The harness now explicitly waits for `complete`, non-zero-width images before capture, and the bad sheet was overwritten.
 
-The following browser captures were reopened at original resolution after the final art promotion:
+### Exact product context inspected
+
+The following regenerated screenshots were opened at original resolution:
 
 - `shots/welcome-desktop-1440.png`
-- `shots/request-desktop-1440.png`
-- `shots/first-vote-desktop-1440.png`
-- `shots/first-vote-8-player-desktop-1440.png`
 - `shots/reveal-desktop-1440.png`
 - `shots/debrief-desktop-1440.png`
-- `shots/incident-request-desktop-1440.png`
+- `shots/first-vote-8-player-desktop-1440.png`
 - `shots/reveal-mobile-390.png`
+- `shots/standalone-file-desktop-1440.png`
+- `shots/standalone-file-mobile-390.png`
+- `shots/standalone-file-debrief-mobile-390.png`
 
 Visible findings:
 
-- **AF family parity:** Anton masthead, Space Grotesk reading text, Archivo labels, square 2px frames, paper ground, forest actions, and restrained amber remain consistent with the AF standalone-tool family.
-- **Thesis framing:** the revised “one small detail can change the call” dek, decision-detail lede, and changed-or-held explanation are fully visible on desktop and mobile. The added copy establishes the lesson without implying that every player must change position, and it introduces no collision or horizontal overflow.
-- **Illustrated table:** the flat linocut table backdrop is clearly visible around the interface. The dark overlay protects white text and card contrast without erasing the art.
-- **Setup clarity:** the welcome state shows the separate forest Scenario and oxblood Curveball stacks, says no referee is required, explains the shared-screen handoff, and presents a clear 2-8 player stepper with three players as the default.
-- **Hidden turns:** the active numbered player is prominent; completed seats reveal only that a vote occurred, not which choice was made.
-- **Desktop vote state:** Scenario, face-down Curveball stack, and cream choice rail form one aligned row. Each uses a labeled brass placement outline, and all three fit in one 1440 x 1100 viewport when the table is at the top. Ship, Slow, and Stop remain equal controls with icon, color, and text.
-- **First-vote state:** every numbered selection and the strict-majority result remain visible in the cream rail while the Curveball stays face-down. The friendly instruction leads to one quick lap around the table, then the bottom-anchored **Flip the Curveball** control.
-- **Eight-player ceiling:** all eight numbered selections, totals, No-majority result, discussion cue, and flip control fit the 540 px cream rail without internal scrolling. After reveal, all eight seat markers and the three second-vote controls also fit without scrolling.
-- **Reveal state:** the top Curveball turns into the paired fact in the same footprint. The remaining illustrated backs stay visible as a stack behind the face-up card, and the cream rail changes cleanly to the second numbered vote.
-- **Debrief:** equal-size Request and Curveball cards remain aligned above majority before/after results and player-by-player changes. The full tallies are available without overwhelming the main debrief.
-- **Mobile:** both equal-height cards stack at the same x-position, the first-vote recap remains available, the next numbered player is clear, and no horizontal crop or overflow is visible at 390 px.
-- **Table continuity:** table art remains visible at welcome, vote, reveal, and debrief states and never competes with legal boundary text below the play surface.
-- **Public-alpha label:** every regenerated desktop and mobile capture carries the correct public-alpha footer without wrapping, collision, or layout shift.
+- **Welcome:** the screen says Universal Core, names separate Scenarios and Missing Details, retains the two illustrated backs, explains the shared-screen handoff, and requires no referee.
+- **Desktop reveal:** the Scenario, revealed Missing Detail, and cream decision rail share one row and one height. All three second-vote actions remain visible without page movement.
+- **Debrief:** the before/after majority, all numbered player changes, the detail-specific question, and next-fact prompt remain readable below the equal card pair.
+- **Eight players:** all eight selections, three totals, no-majority result, friendly discussion cue, and reveal button fit inside the 540 px rail without internal scrolling.
+- **Mobile:** Scenario, IT DEPENDS deck or face, and cream rail stack in the intended order with no horizontal crop. The long debrief remains readable as a normal vertical page.
+- **Standalone:** the generated `index.html` shows the same illustrated backs, card faces, flip, layout, and debrief when opened directly through `file://`.
+- **AF family:** Anton masthead, Space Grotesk reading text, Archivo labels, square frames, cream paper, forest actions, amber accents, and object-first After Dark art remain consistent with the existing standalone tools.
 
-## Card-back and flip inspection
+### Missing Detail turn inspected frame by frame
 
-The two exact illustrated 4:7 backs were inspected as native files, at the full 308 x 540 runtime size, and as the smaller welcome stacks. The raster art remains wording-free; HTML/CSS supplies the functional frame and labels.
+The exact lane was captured at 0, 155, 310, 465, and 620 ms:
 
-- **Scenario back: PASS.** The forest-and-teal case-file dealing machine remains clear beneath `IT DEPENDS`, `SCENARIO DECK`, and `MAKE THE CALL`. It is distinct from the cream face card and the oxblood deck.
-- **Curveball back: PASS.** The oxblood-and-brass disclosure cloche remains clear beneath `CURVEBALL`, `IT DEPENDS`, and `THE MISSING FACT`. It communicates one concealed fact without suits, chips, currency, or third-party card language.
-- **Stack depth: PASS.** Two offset copies of the illustrated backs remain visible at the right and bottom edges. At the turn's steepest visible angle, the card underneath is still the complete Curveball illustration rather than a blank slab.
-- **Reduced motion: PASS.** With reduced motion requested, the revealed face occupies the same slot immediately; no information or control depends on animation.
+- `shots/curveball-flip-000ms.png`: complete illustrated IT DEPENDS back and stack.
+- `shots/curveball-flip-155ms.png`: face turns in perspective while the complete back remains beneath it.
+- `shots/curveball-flip-310ms.png`: face is readable, correctly oriented, and inside the slot.
+- `shots/curveball-flip-465ms.png`: border, art, copy, and chips remain aligned as the face settles.
+- `shots/curveball-flip-620ms.png`: final face exactly fills the 308 x 540 slot with no clipping or mirrored content.
 
-`harness/capture-flip.mjs` paused the exact transform at 0, 155, 310, 465, and 620 ms. Each 308 x 564 lane capture was opened at original resolution:
+Reduced-motion mode reveals the same face immediately; no information depends on animation.
 
-- `shots/curveball-flip-000ms.png`: face-down illustrated IT DEPENDS back, full stack intact.
-- `shots/curveball-flip-155ms.png`: top card visibly turning with the remaining illustrated deck behind it.
-- `shots/curveball-flip-310ms.png`: revealed face settling without clipping, mirrored copy, or art distortion.
-- `shots/curveball-flip-465ms.png`: face nearly flat, borders and chips still aligned.
-- `shots/curveball-flip-620ms.png`: final face exactly matches the non-animated card geometry.
+### Mechanical evidence supporting the visual review
 
-## Standalone exact-output inspection
+- Vitest: 3 files and 14 tests pass.
+- Browser acceptance harness: all checks pass.
+- Art harness: 24 unique faces captured; no compact-card overflow.
+- Offline harness: desktop and mobile rounds reach debrief with only local file requests.
+- Flip harness: all five deterministic checkpoints captured.
+- Standalone build: 40 files, including all 27 runtime PNGs.
+- Browser runs report no horizontal overflow, missing asset, failed response, console error, or page error.
+- Runtime makes no external request and writes no localStorage, sessionStorage, or IndexedDB record.
 
-The exact generated files under `dist/standalone/IT-DEPENDS/` were inspected after the Sites runtime was removed from the product path.
+### Fail-closed boundary
 
-- `dist/standalone/IT-DEPENDS/assets/art/scenario-card-back.png` was opened at its native 948 x 1659 size: **PASS**. It is the approved forest Scenario master with intact quiet label zones, sealed-file focal object, border texture, and no generated lettering.
-- `dist/standalone/IT-DEPENDS/assets/art/curveball-card-back.png` was opened at its native 948 x 1659 size: **PASS**. It is the approved oxblood Curveball master with the envelope under glass, complete ornamental frame, and no generated lettering.
-- Both output files match their `assets/art/` masters byte-for-byte by SHA-256.
-- `shots/standalone-file-desktop-1440.png` was captured from the exact built `index.html` opened directly through `file://` and reopened at original resolution: **PASS**. The Scenario face, full illustrated Curveball back, two offset illustrated stack layers, and cream player rail form one aligned row. The back is neither a placeholder nor a CSS-only facsimile.
-- `shots/standalone-file-mobile-390.png` was captured from the same direct-file build and reopened at original resolution: **PASS**. Scenario, illustrated Curveball stack, and player rail appear in the correct single-column order with no horizontal crop. The small type and labels remain readable.
-- `shots/standalone-file-debrief-desktop-1440.png` and `shots/standalone-file-debrief-mobile-390.png` were reopened after the harness began waiting for the 260 ms entrance animation to settle: **PASS**. Both faces are fully opaque and legible, the remaining stacks stay behind them, and the before/after discussion result remains readable. An earlier capture taken mid-fade was rejected and overwritten; it is not release evidence.
-- Direct-file desktop and mobile rounds both reached the debrief with no console error, page error, horizontal overflow, or non-`file://` request.
+This review approves Universal Core v0.2.0 for the existing GitHub Pages release path. The deployment itself must still pass the clean-checkout workflow and a cache-busted live playthrough before it is called live.
 
-The standalone HTML loads a classic bundled script rather than an ES module because browsers restrict local module loading. CSS, fonts, all fifteen PNGs, the local README, and the integrity manifest remain separate ordinary files. This preserves maintainability while allowing a buyer or facilitator to unzip and double-click `index.html`.
-
-## Mechanical checks after visual review
-
-- Vitest: 3 files and 13 tests pass.
-- Card assets: twelve ready face-art files, two illustrated back files, and the table backdrop exist and load.
-- All fifteen built PNGs match their `assets/art/` masters byte-for-byte by SHA-256.
-- Pair enumeration: 132 of 132 non-self ordered combinations pass the domain gate; human rationale remains in `PAIRING-REVIEW.md`.
-- Strict majority: 2-1-1 and 2-2 among four players return No majority; 3-1 returns the selected majority.
-- Browser harness: all multiplayer tally, unique-back, hidden-stack, flip structure/timing, equal-height, cream-rail, chip alignment, desktop, mobile, keyboard, network, console, page-error, and storage checks pass.
-- Card-back wiring checks confirm both 948 x 1659 images at welcome, the complete hidden Curveball image, both pseudo-element stack layers, and the Curveball image on the flip's rear face.
-- Offline harness completes three-player rounds through `file://` at 1440 x 1100 and 390 x 844.
-- Standalone integrity verification compares every manifest byte count and SHA-256, checks both back masters byte-for-byte, and reads the generated ZIP back before passing.
-- The versioned standalone ZIP passes manifest, inventory, byte-count, SHA-256, and byte-exact back-art verification. The exact published attachment hash belongs in the GitHub release notes so it can describe the archive built from the final tagged commit without creating a circular source-revision change.
-- Dependency audit reports zero known vulnerabilities.
-- Runtime writes zero localStorage, sessionStorage, or IndexedDB records.
-- Runtime makes zero external requests. HTML, CSS, fonts, art, and the bundled local script are ordinary static files.
-- Build output contains no Base64 image or font payloads.
-
-## Public GitHub Pages verification
-
-The exact public page at `https://advokat-frida.github.io/it-depends/?release=5faea04` was played from welcome through debrief on desktop and mobile after GitHub Pages workflow run `29980695007` deployed commit `5faea048db45644c296302b592ffb1ed23add244`.
-
-The following exact live captures were opened at original resolution:
-
-- `shots/live-pages-welcome-1440.png`
-- `shots/live-pages-request-1440.png`
-- `shots/live-pages-reveal-1440.png`
-- `shots/live-pages-debrief-1440.png`
-- `shots/live-pages-mobile-390.png`
-
-Visible findings:
-
-- **Welcome:** the full Advokat Frida masthead, teaching loop, quiet illustrated table, separate forest Scenario stack, and oxblood Curveball stack are complete and aligned. Both illustrated backs remain distinct and legible at their smaller welcome size.
-- **Request:** the object-first Scenario illustration fills its landscape art window without a crop, the complete illustrated Curveball back occupies the equal center lane, and the cream numbered-choice rail shows all three actions at once.
-- **Reveal:** the Curveball face replaces the top back in the same footprint while the remaining illustrated stack stays visible. Request and Curveball frames are equal, text and art are unclipped, both chip rows sit at bottom right, and the second-vote rail remains the same cream surface.
-- **Debrief:** both equal cards, the majority shift, every player's before/after choice, discussion prompts, and close-round control remain readable in one coherent table surface.
-- **Mobile:** Scenario, full illustrated Curveball back, and cream choice rail stack in the intended order at 390 px. The masthead, stepper, card text, topic chips, controls, boundary notice, and footer remain legible with no horizontal crop.
-
-Mechanical live findings:
-
-- A deterministic three-player round completed from welcome through debrief.
-- Desktop and mobile reported no horizontal overflow, console error, page error, failed response, or off-site request.
-- The public `release-manifest.json` reported source revision `5faea048db45` and 27 distributable files.
-- The public Scenario-back SHA-256 matched the approved local master: `18d26447003f07ca3b7de0db205a0e966fd01990b8c25b656a20bfc8834d431c`.
-- The public Curveball-back SHA-256 matched the approved local master: `9333896aa4fe3308269a394ad6a5457fcbd1bd926681ddb0c887391483c36596`.
-- GitHub Pages reported a public, HTTPS-enforced, workflow-built site.
-- Gitleaks v8.30.1 scanned all 10 commits present when the repository became public and reported zero findings. Its downloaded Windows archive was checked against the publisher's SHA-256 list before use.
-
-## Historical hosted verification
-
-This section verifies the earlier owner-only Sites build and its portrait art. It is historical evidence only and should not be used to infer the state of any later deployment.
-
-Sites version 3 was saved from commit `f711f9a7524a41c04df26a0f8fa67716550c577f`, deployed with owner-only access, and opened at `https://it-depends-demo.tanjamin-ben.chatgpt.site/demo/?release=f711f9a`.
-
-Live findings:
-
-- The cache-busted URL loaded the new no-facilitator setup, 2-8 player control, proposal terminology, and numbered hidden-vote instructions.
-- A three-player hosted round dealt a Request, recorded Ship / Ship / Slow, and revealed every player's selection with the exact result `The majority chose Ship.`
-- Revealing the missing fact produced a same-size Request/Curveball pair and a fresh numbered second vote. Both hosted card images reported complete at their exact 1060 x 1484 source dimensions.
-- Before the temporary responsive-test override, the hosted card reported the intended 360 x 650 CSS-pixel geometry with zero horizontal overflow. The override was reset and the deliverable tab was reloaded at a normal 1280 x 800 viewport.
-- The hosted `table-backdrop.png` and a freshly dealt `occupancy-lens.png` were downloaded through the rendered page's asset inventory and matched the exact local masters byte-for-byte by SHA-256 (`43a2a6dd...` and `14c020ea...`). The approved local visual inspection therefore covers the exact raster files served in production.
-- The live console returned no warnings or errors.
-
-The deterministic browser harness remains the full six-round, desktop, mobile, keyboard, and debrief check. The owner-only live readback verifies that the same validated build and selected raster masters reached the hosted demo.
-
-## Fail-closed boundary
-
-The 12-card public browser alpha and versioned standalone build are visually complete for digital play. The illustrated 4:7 browser backs are digital visual direction, not 5:7 print-ready back masters. The larger Core deck, print imposition, physical proofing, storefront package, public AF navigation, commercial licensing, and legal/product review remain separately gated.
+Print prepress, physical proof, storefront packaging, Ghost publication, public AF navigation, and commercial licensing remain outside this release. The prior v0.1.1 evidence remains in Git history and describes the older twelve-card architecture only.

@@ -27,9 +27,11 @@ describe('built static page', () => {
 
     expect(html).toContain('ADVOKAT FRIDA');
     expect(html).toContain('IT DEPENDS');
+    expect(html).toContain('Universal Core');
     expect(html).toContain('one small detail can change the call');
     expect(html).toContain('see what changed&mdash;or why it didn&rsquo;t');
     expect(html).toContain('data-phase="request"');
+    expect(html).toContain('data-phase="fact"><span>3</span>Missing detail');
     expect(html).toContain('data-phase="debrief"');
     expect(html).toContain('Not legal advice');
     expect(html).toContain('Public alpha');

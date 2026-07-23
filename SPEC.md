@@ -1,6 +1,6 @@
 # IT DEPENDS public-alpha specification
 
-Status: greenlit by Ben on 2026-07-22 and authorized for a public repository, GitHub Pages deployment, and versioned standalone alpha. Ghost navigation, storefront work, spending, commercial licensing, and physical production remain outside this release. The earlier owner-only Sites demo is historical and remains untouched.
+Status: the public alpha was greenlit by Ben on 2026-07-22. The Universal Core revision was approved on 2026-07-23, and its v0.2.0 GitHub Pages deployment was authorized on 2026-07-23. Ghost navigation, storefront work, spending, commercial licensing, and physical production remain separately gated. The earlier owner-only Sites demo is historical and remains untouched.
 
 ## Goal
 
@@ -12,7 +12,7 @@ The game and its eventual companion article share one thesis: **privacy decision
 
 - Do not lead the article with the card mechanics. Lead with the familiar experience of two sensible people answering the same privacy question differently because each is assuming a different fact.
 - Use the game loop as the demonstration: commit to a call, expose one hidden detail, make the call again, then name what changed or held.
-- Treat an unchanged vote as evidence too. The lesson is not that every Curveball must reverse the room; it is that the room should be able to say whether the new fact was decision-relevant and why.
+- Treat an unchanged vote as evidence too. The lesson is not that every Missing Detail must reverse the room; it is that the room should be able to say whether the new fact was decision-relevant and why.
 - Frame “it depends” as a demand for specificity, not an escape hatch. The useful next question is: **what does it depend on?**
 - End by inviting readers to play a round and notice which details actually move them. Do not present the game as a legal-answer generator.
 
@@ -22,7 +22,7 @@ One round:
 2. Each player privately chooses **Ship**, **Slow**, or **Stop** on the shared screen.
 3. Reveal every numbered selection and the strict-majority result. A plurality is never promoted to a majority.
 4. Let each player name the fact or assumption behind the choice.
-5. Flip the top card of the face-down IT DEPENDS Curveball deck, revealing a Curveball from a different card.
+5. Flip the top card of the face-down IT DEPENDS deck, revealing an independently authored Missing Detail.
 6. Repeat the private numbered vote.
 7. Compare the majority result and every player's before/after choice, then discuss what changed, held, or remains unknown.
 
@@ -33,10 +33,11 @@ No dedicated facilitator is required. One person reads the cards and taps Deal o
 - Free browser teaching edition for Advokat Frida.
 - One shared screen for 2-8 players.
 - No player names, accounts, remote multiplayer service, scoring, analytics, telemetry, cookies, or saved history.
-- Twelve-card public alpha. A larger Core deck remains a post-playtest target rather than a promise.
-- A Decision card contains both a Request and a broadly compatible Curveball. The app draws two different cards and uses the first card's Request plus the second card's Curveball.
-- The browser presents these as two physical-feeling decks with distinct illustrated backs: a forest Scenario deck and an oxblood IT DEPENDS Curveball deck. Original raster art carries the object-based scene; deterministic HTML/CSS carries every label, accessible name, border, and layout. Neither back borrows playing-card trade dress.
-- Six rounds consume all twelve alpha cards without repetition. Restarting explicitly reshuffles.
+- Universal Core: twelve Scenario cards and twelve independently authored Missing Detail cards.
+- The app shuffles the two decks independently. A six-round session samples six unique Scenarios and six unique Missing Details; restarting explicitly reshuffles both full decks.
+- The browser presents these as two physical-feeling decks with distinct illustrated backs: a forest Scenario deck and an oxblood IT DEPENDS Missing Detail deck. Original raster art carries the object-based scene; deterministic HTML/CSS carries every label, accessible name, border, and layout. Neither back borrows playing-card trade dress.
+- Every Core Missing Detail is universal. All 144 Scenario/Detail combinations must read naturally without inventing an unstated vendor, account, model, camera, region, or other scenario-specific architecture.
+- Missing Details are balanced across six decision axes. Each axis contains one risk fact and one safeguard so the second vote is not trained to move in only one direction.
 - No correct answer. Ship, Slow, and Stop are discussion positions, not legal determinations.
 - The canonical card data can later feed the browser app, self-print cards, and a professionally printed physical deck.
 
@@ -52,7 +53,7 @@ No dedicated facilitator is required. One person reads the cards and taps Deal o
 ## Architecture
 
 - Source: `src/index.html`, `src/styles.css`, `src/app.js`, `src/core.js`, `src/cards.js`.
-- Art: twelve exact 1448 x 1086 (4:3) card-window PNGs, two exact 948 x 1659 (4:7) browser-back PNGs, and one 1672 x 941 table backdrop under `assets/art/`.
+- Art: twelve Scenario and twelve Missing Detail exact 1448 x 1086 (4:3) card-window PNGs, two exact 948 x 1659 (4:7) browser-back PNGs, and one 1672 x 941 table backdrop under `assets/art/`.
 - Fonts: normal self-hosted WOFF2 files under `assets/fonts/`; no Base64 embedding.
 - Build: copy HTML, CSS, fonts, and art into the standalone folder; bundle the JavaScript module graph as a classic IIFE so direct local-file execution does not depend on module loading or a web server.
 - Package: add a plain-English local README and a SHA-256 release manifest, then produce a deterministic ZIP with one `IT-DEPENDS/` root.
@@ -72,17 +73,25 @@ Player count can change only before the first Request is dealt. A restart keeps 
 
 ## Alpha content contract
 
-Each card includes:
+Each Scenario includes:
 
 ```text
 id, title, request, requestTopics[], proposal,
-curveball, curveballAxis, discussionCue,
 artKey, artAlt, artStatus, sourceNotes[], verifiedAsOf
 ```
 
-There is deliberately no `correctAnswer` field.
+Each Missing Detail includes:
 
-All Requests describe a concrete proposed data use or operational shortcut. All Curveballs are cross-cutting implementation facts that remain coherent when paired with any other Request. Content avoids real companies, real incidents, trademark bait, named products, and jurisdiction-specific claims that would turn the game into an answer key.
+```text
+id, title, detail, axis, polarity, discussionCue,
+artKey, artAlt, artStatus, scope, sourceNotes[], verifiedAsOf
+```
+
+There is deliberately no `correctAnswer` or preferred-call field.
+
+All Requests describe a concrete proposed data use or operational shortcut. All Core Missing Details use only concepts guaranteed by every Scenario: the proposal, data involved, underlying data, reviewed scope, real use, access, purpose, evidence, and ownership. Content avoids real companies, real incidents, trademark bait, named products, and jurisdiction-specific claims that would turn the game into an answer key.
+
+The six paired Core axes are retention, access, scope, purpose, operational ownership, and evidence quality. A Core Detail receives `scope: universal`. Future specialist Details may declare compatibility tags, but they are not admitted to the universal shuffle or represented as universal.
 
 Durations use comparable units where a contrast is the point. The retention request says **365 days instead of 30 days**, not "a year instead of 30 days."
 
@@ -109,11 +118,11 @@ Working art name: **Privacy aftermath still lifes**.
 - Every completed vote reveals the strict-majority or No-majority result, all player selections, and the Ship/Slow/Stop totals.
 - Card art has scenario-specific alt text; decorative table art is CSS background imagery.
 - No drag, hover-only instruction, countdown pressure, or required animation.
-- Motion is limited to transform/opacity. The top Curveball turns in place over 620 ms when motion is allowed; reduced-motion users receive the revealed face immediately.
-- Desktop uses three fixed lanes: face-up Scenario at left, face-down/revealed Curveball stack in the middle, and the standard cream choice or first-vote rail at right. The three lanes fit in one 1440 x 1100 viewport after the table is brought to the top.
-- Before reveal, the Curveball back occupies exactly the same 308 x 540 CSS-pixel footprint as the Scenario card. Its 4:7 artwork fills that geometry without stretching. After reveal, Request and Curveball faces remain equal size. Mobile stacks Scenario, Curveball, and rail in DOM order.
+- Motion is limited to transform/opacity. The top Missing Detail turns in place over 620 ms when motion is allowed; reduced-motion users receive the revealed face immediately.
+- Desktop uses three fixed lanes: face-up Scenario at left, face-down/revealed IT DEPENDS stack in the middle, and the standard cream choice or first-vote rail at right. The three lanes fit in one 1440 x 1100 viewport after the table is brought to the top.
+- Before reveal, the IT DEPENDS back occupies exactly the same 308 x 540 CSS-pixel footprint as the Scenario card. Its 4:7 artwork fills that geometry without stretching. After reveal, Scenario and Missing Detail faces remain equal size. Mobile stacks Scenario, Missing Detail, and rail in DOM order.
 - Thin brass table outlines, privacy-lock motifs, and separate forest/oxblood deck systems provide the casino-table geometry without suits, chips, gambling copy, or copied game language.
-- Topic and Curveball chips are bottom-right aligned on both card faces.
+- Topic, axis, and polarity chips are bottom-right aligned on both card faces.
 
 ## Acceptance
 
@@ -121,26 +130,26 @@ Working art name: **Privacy aftermath still lifes**.
 - No trained facilitator is required.
 - Every configured player gets exactly one hidden numbered choice per vote.
 - A result appears only after the final choice, includes every selection, and uses a strict majority.
-- The app reveals the paired Curveball only after the first vote and discussion gate.
-- Scenario and Curveball backs are visibly distinct, and the face-down Curveball remains hidden through the first-vote discussion.
-- Activating **Flip the Curveball** replaces the top back with the paired face in the same card slot. The remaining stack stays visibly present behind it.
+- The app reveals the independently dealt Missing Detail only after the first vote and discussion gate.
+- Scenario and IT DEPENDS backs are visibly distinct, and the face-down Missing Detail remains hidden through the first-vote discussion.
+- Activating **Reveal the Missing Detail** replaces the top back with the paired face in the same card slot. The remaining stack stays visibly present behind it.
 - The debrief accurately compares the majority result and every player before and after the fact.
-- Six rounds consume all twelve cards without repetition.
-- Every one of the 132 non-self ordered alpha Request/Curveball pairings passes the authored compatibility gate.
+- Six rounds consume six unique Scenarios and six unique Missing Details without repetition inside either deck.
+- Every one of the 144 Universal Core Scenario/Missing Detail pairings passes the authored semantic review.
 - No answer key, score, legal conclusion, or best vote appears.
-- All twelve card illustrations, both deck-back illustrations, and the table backdrop load as separate local files.
+- All twenty-four face illustrations, both deck-back illustrations, and the table backdrop load as separate local files.
 - The built page works both over local HTTP and when `index.html` is opened directly at 1440 px and 390 px, with no horizontal overflow, console/page errors, external requests, or storage writes.
-- The Scenario and Curveball back PNGs in the standalone folder and ZIP are byte-for-byte identical to the approved masters.
+- The Scenario and IT DEPENDS back PNGs in the standalone folder and ZIP are byte-for-byte identical to the approved masters.
 - The Pages workflow publishes the exact standalone folder only after an explicit manual dispatch from the public repository.
 - Exact runtime art is directly inspected at native size, 308 x 540 card size, desktop context, and mobile context before promotion.
 
 ## Named verification
 
 - Unit tests cover distinct dealing, full deck exhaustion, complete-vote reveal gates, numbered selection recording, strict majority, split outcomes, result shifts, player-count bounds, card schema, asset presence, pairing compatibility, and absence of answer-key fields.
-- Browser harness covers multiplayer tallying, unique card-back identity, hidden/revealed Curveball state, in-place flip structure and timing, equal card height, cream-rail geometry, bottom-right chips, desktop/mobile overflow, keyboard completion, image loading, network isolation, console/page errors, and zero storage writes.
-- Offline harness opens the exact built `index.html` through `file://`, completes desktop and mobile rounds, and checks the Scenario back, hidden Curveball stack, flip rear face, local-only requests, overflow, and runtime errors.
+- Browser harness covers multiplayer tallying, unique card-back identity, hidden/revealed Missing Detail state, in-place flip structure and timing, equal card height, cream-rail geometry, bottom-right chips, desktop/mobile overflow, keyboard completion, image loading, network isolation, console/page errors, and zero storage writes.
+- Offline harness opens the exact built `index.html` through `file://`, completes desktop and mobile rounds, and checks the Scenario back, hidden IT DEPENDS stack, flip rear face, local-only requests, overflow, and runtime errors.
 - Standalone verifier checks the manifest file set, byte counts, SHA-256 values, ZIP inventory, classic-script loading, CSP, and byte-exact back-art copies.
-- `harness/capture-art.mjs` deals all six rounds and captures all twelve unique runtime cards at literal 308 x 540 CSS-pixel size.
+- `harness/capture-art.mjs` deliberately renders all twenty-four Core faces and captures them at literal 308 x 540 CSS-pixel size.
 - `harness/capture-flip.mjs` freezes the 620 ms transform at five points so the back, edge turn, revealed face, remaining deck, and final fallback can be inspected directly.
 
 ## Out of scope
@@ -153,4 +162,10 @@ Working art name: **Privacy aftermath still lifes**.
 
 ## Expansion path
 
-After the loop survives real play, expand the same canonical schema into a 34-card Core deck, then optional topic or law collections. A collection adds cards and art, not new game rules. A future browser edition may accept a deck manifest selected by the group while keeping the same state machine and no-account default.
+After the Universal Core survives real play, expansion happens in three layers:
+
+1. Add universal Scenarios or Missing Details only after a fresh all-pairs semantic review.
+2. Add specialist Details with explicit compatibility tags for AI, biometrics, workplace monitoring, incidents, public releases, children, and other domains. A tagged Detail should fit at least four Scenarios in its intended collection; one-off reveals belong in scripted case studies, not the random deck.
+3. Add an optional Pressure deck for business constraints such as a promised launch date, an unavailable fallback, limited safeguard budget, or unavailable headcount. A Pressure is visible with the Scenario before the first vote so the two-vote loop remains unchanged.
+
+A future browser edition may accept a selected deck manifest while keeping the same state machine and no-account default.

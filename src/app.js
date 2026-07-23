@@ -1,4 +1,9 @@
-import { CARDS, cardById } from './cards.js';
+import {
+  MISSING_DETAILS,
+  SCENARIOS,
+  detailById,
+  scenarioById,
+} from './cards.js';
 import {
   CALLS,
   MAX_PLAYER_COUNT,
@@ -7,7 +12,7 @@ import {
   createSession,
   dealRound,
   nextRound,
-  revealCurveball,
+  revealDetail,
   setPlayerCount,
   submitVote,
   summarizeShift,
@@ -37,8 +42,10 @@ function cryptoRandom() {
   return value[0] / 4294967296;
 }
 
-let state = createSession(CARDS, cryptoRandom);
-let animateCurveballReveal = false;
+const ALL_FACES = [...SCENARIOS, ...MISSING_DETAILS];
+
+let state = createSession(SCENARIOS, MISSING_DETAILS, cryptoRandom);
+let animateDetailReveal = false;
 
 function escapeHtml(value) {
   return String(value)
@@ -100,25 +107,31 @@ function artMarkup(card) {
   if (card.artStatus === 'ready') {
     return `<img src="./assets/art/${escapeHtml(card.artKey)}.png" alt="${escapeHtml(card.artAlt)}">`;
   }
-  const cardNumber = String(CARDS.indexOf(card) + 1).padStart(2, '0');
+  const cardNumber = String(ALL_FACES.indexOf(card) + 1).padStart(2, '0');
   return `<div class="id-art-mat" role="img" aria-label="Art brief pending: ${escapeHtml(card.artAlt)}"><span class="id-art-number">${cardNumber}</span><span class="id-art-status">After Dark art brief</span></div>`;
 }
 
 function cardMarkup(card, face) {
-  const isRequest = face === 'request';
-  const copy = isRequest ? card.request : card.curveball;
-  const eyebrow = isRequest ? 'Request' : 'Curveball';
-  const meta = isRequest ? card.id : card.curveballAxis;
+  const isScenario = face === 'scenario';
+  const copy = isScenario ? card.request : card.detail;
+  const eyebrow = isScenario ? 'Request' : 'Missing detail';
+  const meta = isScenario ? card.id : card.axis;
+  const tags = isScenario
+    ? card.requestTopics.map((topic) => ({ label: topic, className: '' }))
+    : [
+      { label: card.axis, className: '' },
+      { label: card.polarity === 'risk' ? 'Risk fact' : 'Safeguard', className: `is-${card.polarity}` },
+    ];
   return `
-    <article class="id-card ${isRequest ? '' : 'is-curveball'}" aria-label="${eyebrow}: ${escapeHtml(card.title)}">
+    <article class="id-card ${isScenario ? '' : 'is-curveball'}" aria-label="${eyebrow}: ${escapeHtml(card.title)}">
       <div class="id-card-top"><span>${eyebrow}</span><span>${escapeHtml(meta)}</span></div>
       <div class="id-art">${artMarkup(card)}</div>
       <div class="id-card-body">
         <h3>${escapeHtml(card.title)}</h3>
         <p class="id-card-copy">${escapeHtml(copy)}</p>
-        ${isRequest ? `<p class="id-card-action"><strong>The proposal:</strong> ${escapeHtml(card.proposal)}</p>` : ''}
-        <ul class="id-tags" aria-label="${isRequest ? 'Topics' : 'Curveball type'}">
-          ${(isRequest ? card.requestTopics : [card.curveballAxis]).map((topic) => `<li>${escapeHtml(topic)}</li>`).join('')}
+        ${isScenario ? `<p class="id-card-action"><strong>The proposal:</strong> ${escapeHtml(card.proposal)}</p>` : ''}
+        <ul class="id-tags" aria-label="${isScenario ? 'Topics' : 'Missing Detail type'}">
+          ${tags.map(({ label, className }) => `<li class="${className}">${escapeHtml(label)}</li>`).join('')}
         </ul>
       </div>
     </article>`;
@@ -126,10 +139,10 @@ function cardMarkup(card, face) {
 
 function cardBackMarkup(kind, { decorative = false } = {}) {
   const isScenario = kind === 'scenario';
-  const eyebrow = isScenario ? 'IT DEPENDS' : 'Curveball';
+  const eyebrow = isScenario ? 'IT DEPENDS' : 'Missing detail';
   const label = isScenario ? 'Scenario deck' : 'IT DEPENDS';
   const foot = isScenario ? 'Make the call' : 'The missing fact';
-  const accessibleLabel = isScenario ? 'Scenario deck' : 'IT DEPENDS Curveball deck';
+  const accessibleLabel = isScenario ? 'Scenario deck' : 'IT DEPENDS Missing Detail deck';
   const accessibility = decorative
     ? 'aria-hidden="true"'
     : `role="img" aria-label="Face-down ${accessibleLabel}"`;
@@ -150,11 +163,11 @@ function cardSlotMarkup(kind, content, { stacked = false, revealing = false } = 
   return `<div class="id-card-slot is-${kind}${stacked ? ' is-stacked' : ''}${revealing ? ' is-revealing' : ''}">${content}</div>`;
 }
 
-function flipMarkup(card) {
+function flipMarkup(detail) {
   return `
     <div class="id-flip-card">
       <div class="id-flip-face is-back">${cardBackMarkup('curveball', { decorative: true })}</div>
-      <div class="id-flip-face is-front">${cardMarkup(card, 'curveball')}</div>
+      <div class="id-flip-face is-front">${cardMarkup(detail, 'detail')}</div>
     </div>`;
 }
 
@@ -166,23 +179,23 @@ function boardLaneMarkup(kind, label, content) {
     </div>`;
 }
 
-function pairMarkup({ showCurveball = false, animateReveal = false } = {}) {
-  const request = cardById(state.current.requestId);
-  const curveball = cardById(state.current.curveballId);
-  const requestLane = boardLaneMarkup(
+function pairMarkup({ showDetail = false, animateReveal = false } = {}) {
+  const scenario = scenarioById(state.current.scenarioId);
+  const detail = detailById(state.current.detailId);
+  const scenarioLane = boardLaneMarkup(
     'scenario',
     'Scenario in play',
-    cardSlotMarkup('scenario', cardMarkup(request, 'request')),
+    cardSlotMarkup('scenario', cardMarkup(scenario, 'scenario')),
   );
-  const curveballContent = showCurveball
-    ? (animateReveal ? flipMarkup(curveball) : cardMarkup(curveball, 'curveball'))
+  const detailContent = showDetail
+    ? (animateReveal ? flipMarkup(detail) : cardMarkup(detail, 'detail'))
     : cardBackMarkup('curveball');
-  const curveballLane = boardLaneMarkup(
+  const detailLane = boardLaneMarkup(
     'curveball',
-    showCurveball ? 'Curveball revealed' : 'Curveball deck',
-    cardSlotMarkup('curveball', curveballContent, { stacked: true, revealing: animateReveal }),
+    showDetail ? 'Missing detail revealed' : 'IT DEPENDS deck',
+    cardSlotMarkup('curveball', detailContent, { stacked: true, revealing: animateReveal }),
   );
-  return `<div class="id-pair">${requestLane}${curveballLane}</div>`;
+  return `<div class="id-pair">${scenarioLane}${detailLane}</div>`;
 }
 
 function playGridMarkup(pairOptions, railMarkup, railLabel = 'Players\' call') {
@@ -271,21 +284,21 @@ function playerSetupMarkup() {
 
 function renderWelcome() {
   const isFirst = state.roundNumber === 0;
-  const remainingRounds = Math.floor(state.remainingIds.length / 2);
+  const remainingRounds = state.roundLimit - state.roundNumber;
   stage.innerHTML = `
     <section class="id-welcome">
-      <div class="id-welcome-decks" aria-label="Two distinct decks: Scenario cards and IT DEPENDS Curveball cards">
+      <div class="id-welcome-decks" aria-label="Two distinct decks: Scenario cards and IT DEPENDS Missing Detail cards">
         <div class="id-deck-preview">
           <span>Scenarios</span>
           ${cardSlotMarkup('scenario', cardBackMarkup('scenario'), { stacked: true })}
         </div>
         <div class="id-deck-preview">
-          <span>Curveballs</span>
+          <span>Missing details</span>
           ${cardSlotMarkup('curveball', cardBackMarkup('curveball'), { stacked: true })}
         </div>
       </div>
       <h3>${isFirst ? 'Deal the first impossible meeting' : 'The table is ready again'}</h3>
-      <p>${isFirst ? 'No referee is required. One person reads the cards and taps Deal or Reveal. Every player enters one numbered choice on this screen; the game reveals the tally after the final vote.' : `${remainingRounds} round${remainingRounds === 1 ? '' : 's'} remain. The used cards stay out of the deck, and the same ${state.playerCount} players vote again.`}</p>
+      <p>${isFirst ? 'No referee is required. One person reads the cards and taps Deal or Reveal. Every player enters one numbered choice on this screen; the game reveals the tally after the final vote.' : `${remainingRounds} round${remainingRounds === 1 ? '' : 's'} remain. Used Scenarios and Missing Details stay out of their decks, and the same ${state.playerCount} players vote again.`}</p>
       ${isFirst ? playerSetupMarkup() : ''}
       <button class="btn primary" type="button" data-action="deal">${isFirst ? 'Deal the first request' : 'Deal the next request'}</button>
     </section>`;
@@ -304,8 +317,8 @@ function revealRailMarkup() {
       <p class="id-turn">First vote complete</p>
       <h3 id="reveal-title">The first vote is in.</h3>
       ${resultMarkup('First vote', state.current.beforeVotes)}
-      <p class="id-guidance">Take a quick lap around the table. Each player shares the fact or assumption behind their pick. Different answers are useful. Once everyone has had a turn, flip the Curveball.</p>
-      <button class="btn primary" type="button" data-action="reveal">Flip the Curveball</button>
+      <p class="id-guidance">Take a quick lap around the table. Each player shares the fact or assumption behind their pick. Different answers are useful. Once everyone has had a turn, reveal the Missing Detail.</p>
+      <button class="btn primary" type="button" data-action="reveal">Reveal the Missing Detail</button>
     </section>`;
 }
 
@@ -320,22 +333,22 @@ function renderRequestDiscuss() {
 
 function renderSecondVote() {
   const votes = state.current.afterVotes;
-  const shouldAnimate = animateCurveballReveal;
-  animateCurveballReveal = false;
+  const shouldAnimate = animateDetailReveal;
+  animateDetailReveal = false;
   const firstVoteRecap = `<details class="id-first-recap id-rail-recap"><summary>Review the first vote</summary>${resultMarkup('First vote', state.current.beforeVotes)}</details>`;
   stage.innerHTML = `
     <div class="id-round">
-      ${playGridMarkup({ showCurveball: true, animateReveal: shouldAnimate }, voteButtons('What do you choose now?', votes, { rail: true, footer: firstVoteRecap }))}
+      ${playGridMarkup({ showDetail: true, animateReveal: shouldAnimate }, voteButtons('What do you choose now?', votes, { rail: true, footer: firstVoteRecap }))}
     </div>`;
-  live.textContent = `Curveball revealed. Player ${votes.length + 1} of ${state.playerCount} votes again.`;
+  live.textContent = `Missing Detail revealed. Player ${votes.length + 1} of ${state.playerCount} votes again.`;
 }
 
 function renderDebrief() {
-  const curveball = cardById(state.current.curveballId);
+  const detail = detailById(state.current.detailId);
   const shift = summarizeShift(state.current.beforeVotes, state.current.afterVotes, state.playerCount);
   stage.innerHTML = `
     <div class="id-round">
-      ${pairMarkup({ showCurveball: true })}
+      ${pairMarkup({ showDetail: true })}
       <section class="id-debrief">
         <h3>${escapeHtml(shift.label)}</h3>
         <div class="id-shift ${shift.changed ? 'changed' : ''}" aria-label="Majority result before and after the missing fact">
@@ -347,10 +360,10 @@ function renderDebrief() {
         <details class="id-full-tallies"><summary>See both full tallies</summary><div class="id-result-grid">${resultMarkup('First vote', state.current.beforeVotes)}${resultMarkup('Second vote', state.current.afterVotes)}</div></details>
         <ul class="id-prompts">
           <li>What changed, or why did your choice hold?</li>
-          <li>${escapeHtml(curveball.discussionCue)}</li>
+          <li>${escapeHtml(detail.discussionCue)}</li>
           <li>Which fact would you ask for next?</li>
         </ul>
-        <button class="btn primary" type="button" data-action="next">${state.remainingIds.length >= 2 ? 'Close the round' : 'Close the final round'}</button>
+        <button class="btn primary" type="button" data-action="next">${state.roundNumber < state.roundLimit ? 'Close the round' : 'Close the final round'}</button>
       </section>
     </div>`;
   live.textContent = shift.label;
@@ -362,16 +375,16 @@ function renderComplete() {
   stage.innerHTML = `
     <section class="id-welcome">
       <div class="id-welcome-mark" aria-hidden="true">6</div>
-      <h3>The alpha deck is exhausted.</h3>
-      <p>You made twelve cards do six rounds of work. The tally describes the conversation; it is not a score.</p>
+      <h3>The table has had enough for one session.</h3>
+      <p>You paired six of twelve Scenarios with six of twelve Missing Details. The tally describes the conversation; it is not a score.</p>
       <div class="id-complete-stats">
         <div><strong>${state.history.length}</strong><span>Rounds</span></div>
         <div><strong>${changed}</strong><span>Changed results</span></div>
         <div><strong>${held}</strong><span>Held results</span></div>
       </div>
-      <button class="btn primary" type="button" data-action="restart">Shuffle all twelve cards</button>
+      <button class="btn primary" type="button" data-action="restart">Shuffle both decks</button>
     </section>`;
-  live.textContent = 'Session complete. All twelve alpha cards were used once.';
+  live.textContent = 'Session complete. Six Scenarios and six Missing Details were used.';
 }
 
 function render() {
@@ -414,14 +427,14 @@ stage.addEventListener('click', (event) => {
       state = submitVote(state, control.dataset.call);
       break;
     case 'reveal':
-      animateCurveballReveal = true;
-      state = revealCurveball(state);
+      animateDetailReveal = true;
+      state = revealDetail(state);
       break;
     case 'next':
       state = nextRound(state);
       break;
     case 'restart':
-      state = createSession(CARDS, cryptoRandom, state.playerCount);
+      state = createSession(SCENARIOS, MISSING_DETAILS, cryptoRandom, state.playerCount);
       break;
     default:
       return;

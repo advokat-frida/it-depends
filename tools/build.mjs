@@ -86,7 +86,7 @@ await writeFile(join(output, 'README.txt'), `IT DEPENDS — v${packageJson.versi
 
 Open index.html in a current desktop browser. No installation, account, server, or internet connection is required to play.
 
-The game includes the complete shared-screen flow: deal a Scenario, collect private numbered choices, reveal the majority, flip the Curveball, vote again, and debrief.
+The game includes the complete shared-screen flow: deal a Scenario, collect private numbered choices, reveal the majority, turn over the Missing Detail, vote again, and debrief.
 
 Refreshing or closing the page resets the current session. Links back to advokatfrida.com require an internet connection; the game itself does not.
 

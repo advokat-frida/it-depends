@@ -1,6 +1,6 @@
 {
   "name": "it-depends",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "description": "IT DEPENDS - a shared-screen privacy decision game from Advokat Frida.",
   "engines": {
@@ -17,7 +17,7 @@
     "harness:flip": "npm run build && node harness/capture-flip.mjs",
     "harness:offline": "npm run build && node harness/offline.mjs",
     "verify:standalone": "node tools/verify-standalone.mjs",
-    "qa": "npm test && npm run harness && npm run harness:offline && npm run harness:flip && npm run package && npm run verify:standalone"
+    "qa": "npm test && npm run harness && npm run harness:art && npm run harness:offline && npm run harness:flip && npm run package && npm run verify:standalone"
   },
   "license": "UNLICENSED",
   "devDependencies": {

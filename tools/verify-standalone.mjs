@@ -3,6 +3,7 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { unzipSync } from 'fflate';
+import { MISSING_DETAILS, SCENARIOS } from '../src/cards.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const output = join(root, 'dist', 'standalone', 'IT-DEPENDS');
@@ -47,10 +48,17 @@ for (const entry of manifest.files) {
   check(hash === entry.sha256, `SHA-256 mismatch: ${entry.path}`);
 }
 
-for (const back of ['scenario-card-back.png', 'curveball-card-back.png']) {
-  const sourceHash = createHash('sha256').update(await readFile(join(root, 'assets', 'art', back))).digest('hex');
-  const outputHash = createHash('sha256').update(await readFile(join(output, 'assets', 'art', back))).digest('hex');
-  check(sourceHash === outputHash, `standalone back art must be byte-exact: ${back}`);
+const runtimeArt = [
+  ...SCENARIOS.map(({ artKey }) => `${artKey}.png`),
+  ...MISSING_DETAILS.map(({ artKey }) => `${artKey}.png`),
+  'scenario-card-back.png',
+  'curveball-card-back.png',
+  'table-backdrop.png',
+];
+for (const art of runtimeArt) {
+  const sourceHash = createHash('sha256').update(await readFile(join(root, 'assets', 'art', art))).digest('hex');
+  const outputHash = createHash('sha256').update(await readFile(join(output, 'assets', 'art', art))).digest('hex');
+  check(sourceHash === outputHash, `standalone runtime art must be byte-exact: ${art}`);
 }
 
 const archiveStat = await stat(archive);
@@ -59,7 +67,7 @@ const unzipped = unzipSync(new Uint8Array(await readFile(archive)));
 const zipPaths = Object.keys(unzipped).sort();
 check(zipPaths.includes('IT-DEPENDS/index.html'), 'ZIP must contain IT-DEPENDS/index.html');
 check(zipPaths.includes('IT-DEPENDS/assets/art/scenario-card-back.png'), 'ZIP must contain the Scenario back');
-check(zipPaths.includes('IT-DEPENDS/assets/art/curveball-card-back.png'), 'ZIP must contain the Curveball back');
+check(zipPaths.includes('IT-DEPENDS/assets/art/curveball-card-back.png'), 'ZIP must contain the IT DEPENDS back');
 check(zipPaths.length === actualPaths.size + 1, 'ZIP and standalone folder must contain the same files');
 
 if (failures.length) {

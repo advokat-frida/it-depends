@@ -104,7 +104,7 @@ try {
     await hiddenBack.waitFor();
     await waitForVisualSettle(page);
     check(
-      `${target.label} file round deals the illustrated Curveball back`,
+      `${target.label} file round deals the illustrated IT DEPENDS back`,
       await hiddenBack.evaluate((image) => (
         image.complete
         && image.naturalWidth === 948

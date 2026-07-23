@@ -52,7 +52,7 @@ try {
     await page.locator('.id-board-lane.is-curveball').screenshot({ path: `${shots}/curveball-flip-${String(millisecond).padStart(3, '0')}ms.png` });
   }
 
-  console.log('Captured the Curveball flip at 0, 155, 310, 465, and 620 milliseconds.');
+  console.log('Captured the Missing Detail flip at 0, 155, 310, 465, and 620 milliseconds.');
 } finally {
   await browser.close();
   await new Promise((resolve) => server.close(resolve));

@@ -120,7 +120,7 @@ try {
     };
   });
   check(
-    'request board shows one Scenario face and the illustrated Curveball stack',
+    'request board shows one Scenario face and the illustrated IT DEPENDS stack',
     hiddenBoard.oneFaceUpCard
       && hiddenBoard.curveballIsStacked
       && hiddenBoard.backArtLoaded
@@ -128,18 +128,32 @@ try {
       && hiddenBoard.stackAfter.includes('curveball-card-back.png'),
     JSON.stringify(hiddenBoard),
   );
-  check('Scenario, Curveball deck, and decision rail share one desktop row', hiddenBoard.aligned, JSON.stringify(hiddenBoard));
+  check('Scenario, IT DEPENDS deck, and decision rail share one desktop row', hiddenBoard.aligned, JSON.stringify(hiddenBoard));
   check('face-down deck uses the same card footprint', hiddenBoard.equalCardFootprints, JSON.stringify(hiddenBoard));
   await castVotes(desktop.page, ['slow', 'ship', 'slow']);
   check('first tally reveals every numbered choice', await desktop.page.locator('.id-selections li').count() === 3);
   check('first tally reports the strict majority', (await desktop.page.locator('.id-reveal-rail .id-result h4').textContent()) === 'The majority chose Slow.');
-  check('Curveball stays face-down through the first-vote discussion', await desktop.page.locator('.id-reveal-rail').isVisible() && await desktop.page.locator('.id-card-slot.is-curveball .id-card-back').isVisible());
+  check('Missing Detail stays face-down through the first-vote discussion', await desktop.page.locator('.id-reveal-rail').isVisible() && await desktop.page.locator('.id-card-slot.is-curveball .id-card-back').isVisible());
   await desktop.page.screenshot({ path: `${shots}/first-vote-desktop-1440.png`, fullPage: true });
   await desktop.page.locator('[data-action="reveal"]').click();
-  await desktop.page.locator('img[alt*="verification badge"]').waitFor();
+  const revealedDetailArt = desktop.page.locator('.id-card.is-curveball .id-art img');
+  await revealedDetailArt.waitFor();
+  await desktop.page.waitForFunction(() => {
+    const image = document.querySelector('.id-card.is-curveball .id-art img');
+    return image?.complete && image.naturalWidth > 0;
+  });
+  check(
+    'reveal loads a dedicated Missing Detail illustration',
+    await revealedDetailArt.evaluate((image) => (
+      image.complete
+      && image.naturalWidth === 1448
+      && image.naturalHeight === 1086
+      && image.getAttribute('src')?.includes('/detail-')
+    )),
+  );
   check('reveal uses the in-place card-flip structure', await desktop.page.locator('.id-card-slot.is-curveball.is-revealing .id-flip-card').count() === 1);
   check(
-    'flip begins with the illustrated Curveball back wired to its rear face',
+    'flip begins with the illustrated IT DEPENDS back wired to its rear face',
     await desktop.page.locator('.id-flip-face.is-back [data-card-back-art="curveball"]').evaluate((image) => (
       image.complete
       && image.naturalWidth === 948
@@ -187,7 +201,7 @@ try {
   const desktopOverflow = await desktop.page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth);
   const afterStorage = await storageState(desktop.page);
   check('desktop card art loads at runtime', loadedImages);
-  check('request and curveball cards are the same height', equalCardHeights);
+  check('Scenario and Missing Detail cards are the same height', equalCardHeights);
   check('decision rail sits beside both desktop cards', railLayout.sideBySide, JSON.stringify(railLayout));
   check('decision rail matches the compact card height', railLayout.matchedHeight, JSON.stringify(railLayout));
   check('cards and decision rail fit in one desktop viewport', railLayout.allVisible, JSON.stringify(railLayout));
@@ -260,7 +274,7 @@ try {
       playState: animation?.playState,
     };
   });
-  check('Curveball uses a finite in-place flip when motion is allowed', flipAnimation.name === 'flip-curveball' && flipAnimation.duration === 620, JSON.stringify(flipAnimation));
+  check('Missing Detail uses a finite in-place flip when motion is allowed', flipAnimation.name === 'flip-curveball' && flipAnimation.duration === 620, JSON.stringify(flipAnimation));
   check('motion run has no page errors', motion.pageErrors.length === 0, motion.pageErrors.join(' | '));
   await motion.page.close();
 
