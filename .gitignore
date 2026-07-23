@@ -1,6 +1,6 @@
 node_modules/
 dist/
-.next/
 .wrangler/
 public/demo/
 site-archives/
+release/*.zip

@@ -134,8 +134,8 @@ function cardBackMarkup(kind, { decorative = false } = {}) {
     ? 'aria-hidden="true"'
     : `role="img" aria-label="Face-down ${accessibleLabel}"`;
   return `
-    <div class="id-card-back is-${kind}" ${accessibility}>
-      <img class="id-back-art" src="./assets/art/${kind}-card-back.png" alt="" aria-hidden="true">
+    <div class="id-card-back is-${kind}" data-card-back="${kind}" ${accessibility}>
+      <img class="id-back-art" data-card-back-art="${kind}" src="./assets/art/${kind}-card-back.png" width="948" height="1659" alt="" aria-hidden="true">
       <div class="id-back-frame">
         <span class="id-back-eyebrow">${eyebrow}</span>
         <span class="id-back-lockup">

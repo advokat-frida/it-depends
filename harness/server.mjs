@@ -3,12 +3,14 @@ import { createServer } from 'node:http';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const dist = fileURLToPath(new URL('../public/demo/', import.meta.url));
+const dist = fileURLToPath(new URL('../dist/standalone/IT-DEPENDS/', import.meta.url));
 const types = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
   '.png': 'image/png',
+  '.txt': 'text/plain; charset=utf-8',
   '.woff2': 'font/woff2',
 };
 

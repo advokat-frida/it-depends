@@ -8,32 +8,22 @@
   },
   "type": "module",
   "scripts": {
-    "build:demo": "node tools/build.mjs",
-    "build": "npm run build:demo && vinext build",
-    "dev": "npm run build:demo && vinext dev",
-    "start": "vinext start",
-    "test": "npm run build:demo && vitest run && vinext build",
-    "harness": "node harness/checks.mjs",
-    "harness:flip": "node harness/capture-flip.mjs"
+    "build": "node tools/build.mjs",
+    "dev": "npm run build && node harness/server.mjs",
+    "package": "npm run build && node tools/package.mjs",
+    "test": "npm run build && vitest run",
+    "harness": "npm run build && node harness/checks.mjs",
+    "harness:art": "npm run build && node harness/capture-art.mjs",
+    "harness:flip": "npm run build && node harness/capture-flip.mjs",
+    "harness:offline": "npm run build && node harness/offline.mjs",
+    "verify:standalone": "node tools/verify-standalone.mjs",
+    "qa": "npm test && npm run harness && npm run harness:offline && npm run harness:flip && npm run package && npm run verify:standalone"
   },
-  "license": "MIT",
-  "dependencies": {
-    "next": "16.2.6",
-    "react": "19.2.6",
-    "react-dom": "19.2.6"
-  },
+  "license": "UNLICENSED",
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.37.1",
-    "@types/node": "22.19.19",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.2",
-    "@vitejs/plugin-rsc": "0.5.26",
-    "react-server-dom-webpack": "19.2.6",
-    "typescript": "5.9.3",
-    "vinext": "0.0.50",
-    "vite": "8.0.13",
-    "vitest": "4.1.10",
-    "wrangler": "4.92.0"
+    "esbuild": "0.28.1",
+    "fflate": "0.8.3",
+    "playwright": "1.61.1",
+    "vitest": "4.1.10"
   }
 }

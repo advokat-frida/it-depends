@@ -1,6 +1,6 @@
 # IT DEPENDS private-alpha specification
 
-Status: greenlit by Ben on 2026-07-22. Local development and owner-only Sites demos are authorized. Public publishing, Ghost navigation, storefront work, spending, and physical production are not authorized.
+Status: greenlit by Ben on 2026-07-22. Local development, private standalone packaging, and a dormant GitHub Pages path are authorized. Public publishing, repository visibility changes, Ghost navigation, storefront work, spending, and physical production are not authorized. The earlier owner-only Sites demo is historical and remains untouched.
 
 ## Goal
 
@@ -33,8 +33,10 @@ No dedicated facilitator is required. One person reads the cards and taps Deal o
 ## Touched surfaces
 
 - Repo: `advokat-frida/it-depends/`.
-- Static multi-file runtime under `public/demo/`: HTML, CSS, JS modules, self-hosted fonts, and separate PNG files.
-- Standard Sites wrapper and the existing owner-only Sites project.
+- Standalone static output under `dist/standalone/IT-DEPENDS/`: HTML, one bundled classic script, self-hosted CSS/fonts, and separate PNG files.
+- Private-alpha archive under `release/IT-DEPENDS-private-alpha-standalone.zip`.
+- Manual GitHub Pages workflow under `.github/workflows/pages.yml`; it is gated to public repositories and does not publish merely by existing.
+- The existing owner-only Sites project is not a dependency or deployment target.
 - No Ghost post, AF navigation change, storefront listing, Epsilon change, or public release in this milestone.
 
 ## Architecture
@@ -42,8 +44,10 @@ No dedicated facilitator is required. One person reads the cards and taps Deal o
 - Source: `src/index.html`, `src/styles.css`, `src/app.js`, `src/core.js`, `src/cards.js`.
 - Art: twelve exact 1448 x 1086 (4:3) card-window PNGs, two exact 948 x 1659 (4:7) browser-back PNGs, and one 1672 x 941 table backdrop under `assets/art/`.
 - Fonts: normal self-hosted WOFF2 files under `assets/fonts/`; no Base64 embedding.
-- Build: copy the static modules and assets to `public/demo/`, then package the standard Sites runtime.
-- Security: restrictive CSP, no active network API, and no browser storage. Normal same-origin static asset requests are expected.
+- Build: copy HTML, CSS, fonts, and art into the standalone folder; bundle the JavaScript module graph as a classic IIFE so direct local-file execution does not depend on module loading or a web server.
+- Package: add a plain-English local README and a SHA-256 release manifest, then produce a deterministic ZIP with one `IT-DEPENDS/` root.
+- Hosting option: the same verified folder can be served unchanged by an ordinary static host. The manual Pages workflow builds and runs the full QA gate before uploading that folder.
+- Security: restrictive CSP, no active network API, and no browser storage. The offline edition permits only its own local static-file requests.
 - Randomness: a shuffled deck from Web Crypto in the runtime; injectable deterministic randomness in tests.
 
 ## State machine
@@ -115,19 +119,23 @@ Working art name: **Privacy aftermath still lifes**.
 - Every one of the 132 non-self ordered alpha Request/Curveball pairings passes the authored compatibility gate.
 - No answer key, score, legal conclusion, or best vote appears.
 - All twelve card illustrations, both deck-back illustrations, and the table backdrop load as separate local files.
-- The built page works at 1440 px and 390 px with no horizontal overflow, console/page errors, external requests, or storage writes.
+- The built page works both over local HTTP and when `index.html` is opened directly at 1440 px and 390 px, with no horizontal overflow, console/page errors, external requests, or storage writes.
+- The Scenario and Curveball back PNGs in the standalone folder and ZIP are byte-for-byte identical to the approved masters.
+- The Pages workflow can publish the exact standalone folder only after a separate public-release decision; it stays skipped while the repository is private.
 - Exact runtime art is directly inspected at native size, 308 x 540 card size, desktop context, and mobile context before promotion.
 
 ## Named verification
 
 - Unit tests cover distinct dealing, full deck exhaustion, complete-vote reveal gates, numbered selection recording, strict majority, split outcomes, result shifts, player-count bounds, card schema, asset presence, pairing compatibility, and absence of answer-key fields.
 - Browser harness covers multiplayer tallying, unique card-back identity, hidden/revealed Curveball state, in-place flip structure and timing, equal card height, cream-rail geometry, bottom-right chips, desktop/mobile overflow, keyboard completion, image loading, network isolation, console/page errors, and zero storage writes.
+- Offline harness opens the exact built `index.html` through `file://`, completes desktop and mobile rounds, and checks the Scenario back, hidden Curveball stack, flip rear face, local-only requests, overflow, and runtime errors.
+- Standalone verifier checks the manifest file set, byte counts, SHA-256 values, ZIP inventory, classic-script loading, CSP, and byte-exact back-art copies.
 - `harness/capture-art.mjs` deals all six rounds and captures all twelve unique runtime cards at literal 308 x 540 CSS-pixel size.
 - `harness/capture-flip.mjs` freezes the 620 ms transform at five points so the back, edge turn, revealed face, remaining deck, and final fallback can be inspected directly.
 
 ## Out of scope
 
-- Public deployment, Ghost companion post, or AF navigation link.
+- Public deployment, repository visibility change, Pages activation, Ghost companion post, or AF navigation link.
 - Physical-card imposition, print-vendor templates, packaging, sales, or marketplace listing.
 - Full 34-card copy and illustration production.
 - Networked multiplayer, remote phones, player identity, accounts, facilitator dashboard, leaderboards, or saved sessions.

@@ -14,8 +14,12 @@ Date: 2026-07-22
 - Mobile runtime at 390 px: **PASS**
 - Equal Request/Curveball geometry and bottom-right chips: **PASS**
 - Keyboard, reduced-motion, network, and storage checks: **PASS**
+- Standalone folder opened directly through `file://`: **PASS**
+- Private-alpha standalone ZIP structure and integrity: **PASS**
+- Exact back-art wiring in welcome, hidden deck, stacked layers, and flip rear face: **PASS**
 - Prior private hosted Sites version 3: **PASS, HISTORICAL ONLY**
 - Current casino-table revision, local runtime: **PASS**
+- GitHub Pages workflow: **STAGED, NOT RUN OR DEPLOYED**
 - Public release, Ghost integration, and physical print package: **NOT IN SCOPE**
 
 ## Reference and style inspection
@@ -106,6 +110,20 @@ The two exact illustrated 4:7 backs were inspected as native files, at the full 
 - `shots/curveball-flip-465ms.png`: face nearly flat, borders and chips still aligned.
 - `shots/curveball-flip-620ms.png`: final face exactly matches the non-animated card geometry.
 
+## Standalone exact-output inspection
+
+The exact generated files under `dist/standalone/IT-DEPENDS/` were inspected after the Sites runtime was removed from the product path.
+
+- `dist/standalone/IT-DEPENDS/assets/art/scenario-card-back.png` was opened at its native 948 x 1659 size: **PASS**. It is the approved forest Scenario master with intact quiet label zones, sealed-file focal object, border texture, and no generated lettering.
+- `dist/standalone/IT-DEPENDS/assets/art/curveball-card-back.png` was opened at its native 948 x 1659 size: **PASS**. It is the approved oxblood Curveball master with the envelope under glass, complete ornamental frame, and no generated lettering.
+- Both output files match their `assets/art/` masters byte-for-byte by SHA-256.
+- `shots/standalone-file-desktop-1440.png` was captured from the exact built `index.html` opened directly through `file://` and reopened at original resolution: **PASS**. The Scenario face, full illustrated Curveball back, two offset illustrated stack layers, and cream player rail form one aligned row. The back is neither a placeholder nor a CSS-only facsimile.
+- `shots/standalone-file-mobile-390.png` was captured from the same direct-file build and reopened at original resolution: **PASS**. Scenario, illustrated Curveball stack, and player rail appear in the correct single-column order with no horizontal crop. The small type and labels remain readable.
+- `shots/standalone-file-debrief-desktop-1440.png` and `shots/standalone-file-debrief-mobile-390.png` were reopened after the harness began waiting for the 260 ms entrance animation to settle: **PASS**. Both faces are fully opaque and legible, the remaining stacks stay behind them, and the before/after discussion result remains readable. An earlier capture taken mid-fade was rejected and overwritten; it is not release evidence.
+- Direct-file desktop and mobile rounds both reached the debrief with no console error, page error, horizontal overflow, or non-`file://` request.
+
+The standalone HTML loads a classic bundled script rather than an ES module because browsers restrict local module loading. CSS, fonts, all fifteen PNGs, the local README, and the integrity manifest remain separate ordinary files. This preserves maintainability while allowing a buyer or facilitator to unzip and double-click `index.html`.
+
 ## Mechanical checks after visual review
 
 - Vitest: 3 files and 12 tests pass.
@@ -114,8 +132,13 @@ The two exact illustrated 4:7 backs were inspected as native files, at the full 
 - Pair enumeration: 132 of 132 non-self ordered combinations pass the domain gate; human rationale remains in `PAIRING-REVIEW.md`.
 - Strict majority: 2-1-1 and 2-2 among four players return No majority; 3-1 returns the selected majority.
 - Browser harness: all multiplayer tally, unique-back, hidden-stack, flip structure/timing, equal-height, cream-rail, chip alignment, desktop, mobile, keyboard, network, console, page-error, and storage checks pass.
+- Card-back wiring checks confirm both 948 x 1659 images at welcome, the complete hidden Curveball image, both pseudo-element stack layers, and the Curveball image on the flip's rear face.
+- Offline harness completes three-player rounds through `file://` at 1440 x 1100 and 390 x 844.
+- Standalone integrity verification compares every manifest byte count and SHA-256, checks both back masters byte-for-byte, and reads the generated ZIP back before passing.
+- Final private-alpha archive: 49,264,970 bytes; SHA-256 `2df84c954c054977a24636736307417ea6a4cea1071cb6e9236e35c0d37ff61b`.
+- Dependency audit reports zero known vulnerabilities.
 - Runtime writes zero localStorage, sessionStorage, or IndexedDB records.
-- Runtime makes zero external requests. All HTML, modules, CSS, fonts, and art are separate same-origin files.
+- Runtime makes zero external requests. HTML, CSS, fonts, art, and the bundled local script are ordinary static files.
 - Build output contains no Base64 image or font payloads.
 
 ## Historical hosted verification

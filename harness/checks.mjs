@@ -1,8 +1,8 @@
 import { mkdirSync } from 'node:fs';
-import { pathToFileURL, fileURLToPath } from 'node:url';
+import { fileURLToPath } from 'node:url';
+import { chromium } from 'playwright';
 import { startServer } from './server.mjs';
 
-const playwright = await import(pathToFileURL('C:/Users/Ben/Documents/Projects/frida-console/node_modules/playwright/index.mjs'));
 const BASE = 'http://localhost:8793';
 const shots = fileURLToPath(new URL('../shots/', import.meta.url));
 mkdirSync(shots, { recursive: true });
@@ -70,19 +70,35 @@ async function playToReveal(page) {
 }
 
 const server = await startServer();
-const browser = await playwright.chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true });
 
 try {
   const desktop = await openPage(browser, { width: 1440, height: 1100 });
   const beforeStorage = await storageState(desktop.page);
   await desktop.page.screenshot({ path: `${shots}/welcome-desktop-1440.png`, fullPage: true });
-  const welcomeBacks = await desktop.page.locator('.id-welcome-decks .id-card-back').evaluateAll((backs) => backs.map((back) => ({
-    scenario: back.classList.contains('is-scenario'),
-    curveball: back.classList.contains('is-curveball'),
-    text: back.textContent.trim().replace(/\s+/g, ' '),
-    background: getComputedStyle(back).backgroundColor,
-  })));
-  check('welcome establishes distinct Scenario and Curveball card backs', welcomeBacks.length === 2 && welcomeBacks[0].scenario && welcomeBacks[1].curveball, JSON.stringify(welcomeBacks));
+  const welcomeBacks = await desktop.page.locator('.id-welcome-decks .id-card-back').evaluateAll((backs) => backs.map((back) => {
+    const art = back.querySelector('[data-card-back-art]');
+    return {
+      kind: back.getAttribute('data-card-back'),
+      artKind: art?.getAttribute('data-card-back-art'),
+      src: art?.getAttribute('src'),
+      complete: art?.complete,
+      naturalWidth: art?.naturalWidth,
+      naturalHeight: art?.naturalHeight,
+    };
+  }));
+  check(
+    'welcome loads both illustrated card backs at source resolution',
+    welcomeBacks.length === 2
+      && welcomeBacks[0].kind === 'scenario'
+      && welcomeBacks[0].artKind === 'scenario'
+      && welcomeBacks[0].src?.endsWith('/scenario-card-back.png')
+      && welcomeBacks[1].kind === 'curveball'
+      && welcomeBacks[1].artKind === 'curveball'
+      && welcomeBacks[1].src?.endsWith('/curveball-card-back.png')
+      && welcomeBacks.every((back) => back.complete && back.naturalWidth === 948 && back.naturalHeight === 1659),
+    JSON.stringify(welcomeBacks),
+  );
 
   await desktop.page.locator('[data-action="deal"]').click();
   await desktop.page.locator('img[alt*="pneumatic inbox"]').waitFor();
@@ -91,14 +107,27 @@ try {
     const scenario = document.querySelector('.id-board-lane.is-scenario .id-card')?.getBoundingClientRect();
     const deck = document.querySelector('.id-board-lane.is-curveball .id-card-back')?.getBoundingClientRect();
     const rail = document.querySelector('.id-board-lane.is-decision .id-decision-rail')?.getBoundingClientRect();
+    const backArt = document.querySelector('.id-board-lane.is-curveball [data-card-back-art="curveball"]');
+    const stack = document.querySelector('.id-card-slot.is-curveball.is-stacked');
     return {
       oneFaceUpCard: document.querySelectorAll('.id-pair .id-card').length === 1,
       curveballIsStacked: Boolean(document.querySelector('.id-card-slot.is-curveball.is-stacked .id-card-back')),
       aligned: Boolean(scenario && deck && rail && Math.abs(scenario.top - deck.top) <= 1 && Math.abs(deck.top - rail.top) <= 1),
       equalCardFootprints: Boolean(scenario && deck && Math.abs(scenario.width - deck.width) <= 1 && Math.abs(scenario.height - deck.height) <= 1),
+      backArtLoaded: Boolean(backArt?.complete && backArt.naturalWidth === 948 && backArt.naturalHeight === 1659),
+      stackBefore: stack ? getComputedStyle(stack, '::before').backgroundImage : '',
+      stackAfter: stack ? getComputedStyle(stack, '::after').backgroundImage : '',
     };
   });
-  check('request board shows one Scenario face and one face-down Curveball stack', hiddenBoard.oneFaceUpCard && hiddenBoard.curveballIsStacked, JSON.stringify(hiddenBoard));
+  check(
+    'request board shows one Scenario face and the illustrated Curveball stack',
+    hiddenBoard.oneFaceUpCard
+      && hiddenBoard.curveballIsStacked
+      && hiddenBoard.backArtLoaded
+      && hiddenBoard.stackBefore.includes('curveball-card-back.png')
+      && hiddenBoard.stackAfter.includes('curveball-card-back.png'),
+    JSON.stringify(hiddenBoard),
+  );
   check('Scenario, Curveball deck, and decision rail share one desktop row', hiddenBoard.aligned, JSON.stringify(hiddenBoard));
   check('face-down deck uses the same card footprint', hiddenBoard.equalCardFootprints, JSON.stringify(hiddenBoard));
   await castVotes(desktop.page, ['slow', 'ship', 'slow']);
@@ -109,6 +138,15 @@ try {
   await desktop.page.locator('[data-action="reveal"]').click();
   await desktop.page.locator('img[alt*="verification badge"]').waitFor();
   check('reveal uses the in-place card-flip structure', await desktop.page.locator('.id-card-slot.is-curveball.is-revealing .id-flip-card').count() === 1);
+  check(
+    'flip begins with the illustrated Curveball back wired to its rear face',
+    await desktop.page.locator('.id-flip-face.is-back [data-card-back-art="curveball"]').evaluate((image) => (
+      image.complete
+      && image.naturalWidth === 948
+      && image.naturalHeight === 1659
+      && image.getAttribute('src')?.endsWith('/curveball-card-back.png')
+    )),
+  );
   await desktop.page.screenshot({ path: `${shots}/reveal-desktop-1440.png`, fullPage: true });
   const railLayout = await desktop.page.evaluate(() => {
     const pair = document.querySelector('.id-play-grid .id-pair')?.getBoundingClientRect();

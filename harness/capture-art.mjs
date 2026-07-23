@@ -1,8 +1,8 @@
 import { mkdirSync } from 'node:fs';
-import { pathToFileURL, fileURLToPath } from 'node:url';
+import { fileURLToPath } from 'node:url';
+import { chromium } from 'playwright';
 import { startServer } from './server.mjs';
 
-const playwright = await import(pathToFileURL('C:/Users/Ben/Documents/Projects/frida-console/node_modules/playwright/index.mjs'));
 const BASE = 'http://localhost:8793';
 const shots = fileURLToPath(new URL('../shots/', import.meta.url));
 mkdirSync(shots, { recursive: true });
@@ -30,7 +30,7 @@ async function cast(page, calls) {
 }
 
 const server = await startServer();
-const browser = await playwright.chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true });
 
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce', bypassCSP: true });
