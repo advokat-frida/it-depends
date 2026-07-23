@@ -8,9 +8,9 @@ Read a proposed data use, let every player choose **Ship / Slow / Stop**, reveal
 
 - Complete 12-card / 6-round mechanics alpha for 2&ndash;8 players on one shared screen.
 - 132 possible non-self ordered Request/Curveball pairings.
-- Twelve original object-first card illustrations and one shared table illustration in the approved AF After Dark linocut/screenprint system.
+- Twelve original object-first card illustrations, two illustrated deck backs, and one shared table illustration in the approved AF After Dark linocut/screenprint system.
 - A three-lane privacy-table layout: face-up Scenario, face-down or revealed Curveball stack, and a cream player-choice rail.
-- Distinct Scenario and IT DEPENDS Curveball backs, plus an in-place top-card flip with a reduced-motion fallback.
+- Distinct illustrated Scenario and IT DEPENDS Curveball backs with deterministic AF labels, plus an in-place top-card flip with a reduced-motion fallback.
 - Hidden numbered turns, strict-majority tallying, honest no-majority outcomes, and a before/after result plus player-by-player debrief.
 - Multi-file static game wrapped in the standard Sites runtime. HTML, modules, CSS, fonts, and art remain separate normal files; nothing is Base64-crammed into the page.
 - No accounts, score, telemetry, storage, cookies, or active network API.

@@ -1,6 +1,9 @@
 # IT DEPENDS art direction and provenance
 
-Status: twelve private-alpha card-window masters plus one shared table backdrop. Not a commercial pack, print approval, or physical proof.
+Status: twelve exact 4:3 private-alpha card-window masters, two exact 4:7 illustrated browser backs, and one shared table backdrop. Not a commercial pack, print approval, or physical proof.
+
+Cross-project visual standard: `G:\Shared drives\Ducket\Advokat Frida\Brand\AF-AFTER-DARK-ART-STANDARD.md`
+Aspect-ratio regeneration record: `ART-REGEN-HANDOFF.md`
 
 ## Selected visual system
 
@@ -18,9 +21,9 @@ The approved system is deliberately illustrative rather than realistic:
 - one immediate object-based privacy idea per scene;
 - no human face, hand, body, or silhouette.
 
-The runtime supplies the AF card frame, title, Request or Curveball copy, proposal, topics, accessibility text, two distinct card backs, and the Curveball flip as deterministic HTML/CSS. The generated illustrations contain no card border or required wording.
+The runtime supplies the AF card frame, title, Request or Curveball copy, proposal, topics, accessibility text, back labels, and the Curveball flip as deterministic HTML/CSS. Generated art supplies the twelve face scenes and two distinct back scenes without any required wording.
 
-The digital tabletop uses casino-table geometry without gambling iconography: quiet felt, thin brass placement outlines, one face-up Scenario lane, one stacked Curveball lane, and one cream decision rail. The Scenario back is forest/teal with a privacy lock; the Curveball back is oxblood/brass with a question-mark lock and the IT DEPENDS name. Neither uses suits, chips, currency, casino copy, or copied game trade dress. These browser backs are visual direction for later physical exploration, not print-prepress masters.
+The digital tabletop uses casino-table geometry without gambling iconography: quiet felt, thin brass placement outlines, one face-up Scenario lane, one stacked Curveball lane, and one cream decision rail. The illustrated Scenario back is forest/teal with a sealed case-file dealing machine; the illustrated Curveball back is oxblood/brass with a hidden envelope beneath a disclosure cloche. Deterministic HTML overlays the deck names and short labels. Neither uses suits, chips, currency, casino copy, or copied game trade dress. These 4:7 browser backs are visual direction for later physical exploration, not 5:7 print-prepress masters.
 
 ## Style-selection proofs
 
@@ -43,7 +46,7 @@ All three proofs are 1060 x 1484 PNGs. Only A was promoted into the runtime.
 
 These owned AF works were influence only. Their text, compositions, silhouettes, logos, and ornamental layouts were excluded from the generation prompts.
 
-## Shared generation instruction
+## Historical portrait generation instruction
 
 Every selected card illustration used this style and constraint block plus the subject brief in the asset ledger:
 
@@ -57,9 +60,9 @@ Advokat Frida After Dark palette: near-black, deep forest green, midnight teal, 
 Illustration only. No card border, banner, title, typography, letters, numbers, labels, pseudo-writing, logo, URL, watermark, human, face, hand, body, silhouette, trademark, recognizable UI, QR code, currency sign, third-party game symbol, or copied trade dress. No photorealism, 3D render, glossy product lighting, steampunk clutter, fantasy, gore, neon, beige monochrome, or cute cartoon style.
 ```
 
-## Final asset ledger
+## Superseded portrait v1 ledger
 
-Every card file is 1060 x 1484 PNG. Four generator outputs that differed by a few pixels were center-cropped and normalized mechanically with high-quality resampling. No illustration content was painted or composited outside the built-in generator.
+These 1060 x 1484 portrait files were the first runtime set. Four generator outputs that differed by a few pixels were center-cropped and normalized mechanically with high-quality resampling. They were superseded because the 4:3 runtime window discarded too much of the portrait composition. Their provenance remains here as historical evidence.
 
 | Runtime file | Subject brief | Final built-in source | Processing | SHA-256 |
 |---|---|---|---|---|
@@ -75,6 +78,43 @@ Every card file is 1060 x 1484 PNG. Four generator outputs that differed by a fe
 | `assets/art/incident-ledger.png` | A blank gridded incident ledger sits among a stopped tick-only clock, scorched tray, keys, vial, fragments, and thread. | `exec-084afa26-f20a-4b8c-a273-3743f96e60a8.png` | direct copy | `bd48b7398935d47f3870d73544ffbb91c1c204adcd8ec8760b92b2fe33f83f10` |
 | `assets/art/specimen-export.png` | Anonymous teal specimen tiles fill a shipping case while distinctive colored fragments remain in straw and a second compartment. | `exec-e9d63657-16dc-4cfd-9cc0-3106e2c846eb.png` | direct copy | `0201da4710f5a364486c0e29b1a07bb6d1c48034c621c421829f2520457d0085` |
 | `assets/art/age-alchemy.png` | A measuring gate examines an anonymous token amid uncertain weights, three lenses, an hourglass, and two empty proof trays. | `exec-8ea4a3cb-1e96-4c72-80c7-4a8ea72e0e4c.png` | direct copy | `137789748b964fd5092485f1d133c2781f69400ba5342bb2fa76acb4407b3665` |
+
+## Current landscape and back generation instruction
+
+The current face art was generated for the runtime window itself:
+
+```text
+Exact 4:3 landscape card-window illustration for the IT DEPENDS privacy teaching game.
+
+Advokat Frida After Dark, Bureaucratic Contraptions: bold Victorian linocut fused with mid-century screenprint. Deliberately graphic and less realistic, with chunky engraved contours, flattened mechanical shapes, coarse crosshatching, visible ink grain, slightly imperfect registration, broad shadow masses, and one immediate absurd privacy machine.
+
+Near-black, deep forest green, midnight teal, oxblood, parchment, and restrained dull-brass ink. Object-only and face-free. No people, faces, hands, bodies, silhouettes, portraits, masks, skulls, words, letters, numbers, logos, glyphs, pseudo-writing, real interfaces, trademarks, third-party game symbols, or copied trade dress. Any paper, plaque, label, gauge, or screen is blank or uses simple nonsemantic ticks.
+
+Keep the full visual equation inside the landscape frame. The runtime supplies all titles, copy, borders, labels, chips, and accessibility text.
+```
+
+The back-art instruction changed only the geometry and subject: exact 4:7 portrait, full bleed, important mechanics inside an 8% safe area, near-symmetrical, readable when rotated, and quieter at the top and bottom for deterministic labels. A future physical 2.5 x 3.5 inch card is 5:7 and must be separately composed.
+
+## Current runtime asset ledger
+
+All current face-art files are exact 1448 x 1086 PNGs. Both current browser backs are exact 948 x 1659 PNGs. Each runtime file is a direct copy of the selected built-in output; no resampling, crop, paint-over, or typography was added.
+
+| Runtime file | Current subject | Final built-in source | Processing | SHA-256 |
+|---|---|---|---|---|
+| `assets/art/support-inbox.png` | An overflowing inbox, sealed customer envelopes, pipes, a writing instrument, blank ledger, and open drawer. | `exec-8df46467-7c54-4ad5-815a-cd6c868c420f.png` | direct copy | `2dce4e2d1f373c8753ccf79d4decce2fe5e73853818feecb5a99299f9c40f16b` |
+| `assets/art/risk-scales.png` | A central inspection lens and three-pan balance sort sealed tokens into three colored routes. | `exec-761e25e3-ea55-4075-845b-ff52f60b69f3.png` | direct copy | `8c1b759dfa934a8ed8b46270c537df90a872968f6a854dac3cea01649e999902` |
+| `assets/art/clockwork-floor.png` | An empty clockwork room is mapped by observation lenses, clocks, chairs, and a central queue machine. | `exec-7f5399ee-d670-4280-ab8e-d235937128fe.png` | direct copy | `dc575e5bb32daa76e7be6b43a4d7b07cd98f85def3d5d53145c4e0266de19941` |
+| `assets/art/trust-badge.png` | A blank rosette press, two listening horns, a locked cabinet, blank profile tiles, and excessive keys. | `exec-c22b727a-e5de-40bd-86b1-eebce5645e50.png` | direct copy | `47fca18b852fd7b102c45f77afc9bb6c69e73103dcbe8647ea5c92b27de37776` |
+| `assets/art/voice-vault.png` | A speaking horn feeds a recording ribbon and cylinder into a locked vault beside a key and hourglass. | `exec-8ced4be9-80a5-47f7-bd39-91c3067c8d14.png` | direct copy | `97db0b1933062e85c3f33d06338ee1ce8ba0d858ad523566503bdfc1017723d2` |
+| `assets/art/occupancy-lens.png` | One ceiling lens and hourglass count colored beads above exactly three empty meeting chairs and three trays. | `call_0ux0x6VhB6XRjcmkI6sNZdqz.png` | targeted regeneration corrected a four-chair candidate to exactly three; direct copy | `90f8a30534495c2b9a2e25dd172fa0025956fa9c7cf91ea840c42b0b5ae317c8` |
+| `assets/art/endless-archive.png` | A red recorder sends blank paper toward an open drawer below a wall of receding blank archives. | `exec-8f413722-5a1b-40fa-a878-dc34245b76e0.png` | direct copy | `96ee594d7d2929a40d8ddd86fcb0aa6e26201dd7fa7d946ad875de63e0ceab24` |
+| `assets/art/intake-switchboard.png` | A central lever routes sealed envelopes from one intake into three colored paths beside an empty stool and bell. | `exec-52e71e8f-37d8-4bd2-a61c-0b85fc6c5041.png` | direct copy | `03e110000cdedaaaa86b25355d49861dde9da009c2c9ee8e58df179f3fd59057` |
+| `assets/art/preference-organ.png` | One huge lever branches into envelope, speaking-tube, and blank-device outputs before rows of preference cylinders. | `exec-bcd6bd74-30af-47fc-b05c-df672db81242.png` | direct copy | `a41cdf017e55ae89b6cb7d33593b4ea64f727b9d0c0a12230e46cfe9ed392187` |
+| `assets/art/incident-ledger.png` | A blank gridded ledger is surrounded by a stopped clock, scorched tray, keys, vial, fragments, and red thread. | `exec-0f00203d-3281-463a-b3d7-2a1965323cb5.png` | direct copy | `a2f71e776bc133572899942594aa925506faa9ad5fb83338b9ab48468f7141c6` |
+| `assets/art/specimen-export.png` | Rows of anonymous teal tiles fill an open case while distinctive fragments remain in straw and a second tray. | `exec-28319228-08d2-45f6-bd59-650b40c20266.png` | direct copy | `e2237c80c065a6902843f6e3acabd2364c891a802d9fb7ba9493f13b2b552993` |
+| `assets/art/age-alchemy.png` | Three lenses examine a blank token amid uncertain weights, an hourglass, and three proof trays. | `exec-adee9176-9187-4515-b0a3-913d93707037.png` | direct copy | `eb0b9efc7ce173fcb06d14cde23bcc46cce047374b692915e9c8a5fe39abae8a` |
+| `assets/art/scenario-card-back.png` | A sealed blank case file sits inside a forest-and-teal dealing machine with rollers, tubes, lenses, drawers, and envelopes. | `call_p695rWRJHL73FdszA86xp6Fd.png` | direct copy | `18d26447003f07ca3b7de0db205a0e966fd01990b8c25b656a20bfc8834d431c` |
+| `assets/art/curveball-card-back.png` | One sealed blank envelope is hidden beneath an oxblood-and-brass disclosure cloche. | `exec-c0fafb47-db86-4423-b44c-648870231350.png` | direct copy | `9333896aa4fe3308269a394ad6a5457fcbd1bd926681ddb0c887391483c36596` |
 
 ## Table backdrop
 
@@ -92,6 +132,6 @@ Every exact runtime PNG was opened at original resolution after promotion. `shot
 
 ## AI and licensing boundary
 
-All thirteen runtime illustrations are AI-generated Advokat Frida working art produced with the built-in image-generation tool on 2026-07-22, selected and reviewed by Ben and Codex, and packaged with deterministic original AF text and interface chrome.
+All fifteen runtime illustrations are AI-generated Advokat Frida working art produced with the built-in image-generation tool on 2026-07-22, selected and reviewed by Ben and Codex, and packaged with deterministic original AF text and interface chrome.
 
 This disclosure, the source-output IDs, the subject ledger, and the hashes must stay with the project if the art is promoted to a public release or physical product. No editable-source promise is made. No image has received print prepress review or a physical proof.

@@ -4,17 +4,17 @@ Date: 2026-07-22
 
 ## Verdict
 
-- Twelve selected linocut/screenprint card-window masters: **PASS**
+- Twelve exact 4:3 linocut/screenprint card-window masters: **PASS**
 - Shared illustrated table backdrop: **PASS**
 - All-card runtime sheet at literal 308 x 540 CSS-pixel card size: **PASS**
-- Distinct Scenario and IT DEPENDS Curveball backs: **PASS**
+- Distinct illustrated 4:7 Scenario and IT DEPENDS Curveball backs: **PASS**
 - Three-lane privacy-table layout and cream decision rail: **PASS**
 - Five-point Curveball flip inspection and reduced-motion face: **PASS**
 - Desktop runtime at 1440 px: **PASS**
 - Mobile runtime at 390 px: **PASS**
 - Equal Request/Curveball geometry and bottom-right chips: **PASS**
 - Keyboard, reduced-motion, network, and storage checks: **PASS**
-- Prior private hosted Sites version 3: **PASS**
+- Prior private hosted Sites version 3: **PASS, HISTORICAL ONLY**
 - Current casino-table revision, local runtime: **PASS**
 - Public release, Ghost integration, and physical print package: **NOT IN SCOPE**
 
@@ -26,21 +26,23 @@ Three exact Risk Scales proofs were opened at 1060 x 1484. Ben selected A, the b
 
 ## Exact native masters inspected
 
-Every file below was opened from `assets/art/` at original resolution after final copying or normalization.
+Every current file below was opened from `assets/art/` at original resolution after final promotion.
 
-1. `support-inbox.png`: **PASS**. Three tubes, the avalanche of blank envelopes, dark inbox, mechanical scribe, blank ledger, tick-only clock, and open drawer remain distinct. No characters, numerals, person, logo, watermark, or recognizable product appears.
-2. `risk-scales.png`: **PASS**. The oversized lens, three-pan balance, sealed tokens, and green/teal/oxblood chutes form one immediate visual equation. The five-ink print texture is strong and no realistic gloss or text remains.
-3. `clockwork-floor.png`: **PASS**. Five tick-only clocks, three empty chairs, two observation lenses, and a central blank-token conveyor read cleanly after the center normalization crop. No numeral, worker, silhouette, or pseudo-writing appears.
-4. `trust-badge.png`: **PASS**. The blank rosette, lock, listening horn, mismatched keys, and abstract profile tiles survive normalization. The rosette is generic, not a real police, military, vendor, or certification mark.
-5. `voice-vault.png`: **PASS**. Speaking horn, blank recording cylinder, vault, unused key, and hourglass retain clear hierarchy after normalization. There is no mouth, ear, face, waveform, or writing.
-6. `occupancy-lens.png`: **PASS**. The large ceiling lens, falling colored beads, hourglass, three empty chairs, three trays, and cleaning bell remain balanced after normalization. The chairs are visibly empty and contain no body trace.
-7. `endless-archive.png`: **PASS**. The red recorder, blank paper stream, one open drawer, short stack, and receding wall of blank drawers make the retention joke legible without labels or calendar text.
-8. `intake-switchboard.png`: **PASS**. Red, teal, and green envelope paths converge on an unlabeled switchboard while the old mailbox slot remains open. The correction removed the generated dial-like glyph; every plate and control is blank.
-9. `preference-organ.png`: **PASS**. One large lever, colored preference cylinders, and the letter, speaking-tube, and blank-device routes read as three channels. The dial uses ticks only and contains no interface or word.
-10. `incident-ledger.png`: **PASS**. The blank grid, tick-only stopped clock, scorched tray, cracked vial, keys, fragments, and oxblood thread form a coherent response desk without generated writing.
-11. `specimen-export.png`: **PASS**. Rows of flat teal specimen tiles contrast with distinctive oxblood, black, and brass fragments in the straw and second compartment. The nearby folio has broad blank rule lines only.
-12. `age-alchemy.png`: **PASS**. The gate, anonymous circular token, unequal weights, lenses, hourglass, and empty proof trays remain object-only and diagrammatic. The token does not resemble a person or identity document.
-13. `table-backdrop.png`, 1672 x 941: **PASS**. The quiet forest center supports overlays while the perimeter tube, blank envelopes, three lamps, lens, keys, book, hourglass, and corrected blank ledger remain visible. No card, dice, poker object, person, logo, or readable mark appears.
+1. `support-inbox.png`, 1448 x 1086: **PASS**. Three pipes overwhelm a forest inbox with sealed blank envelopes while a brass pen approaches a blank ledger and an oxblood drawer waits below. The landscape composition keeps the joke intact without a crop.
+2. `risk-scales.png`, 1448 x 1086: **PASS**. The oversized lens, three-pan balance, sealed tokens, and green/teal/oxblood routes form one immediate visual equation. No label, numeral, logo, or realistic product UI appears.
+3. `clockwork-floor.png`, 1448 x 1086: **PASS**. Four tick-only clocks, three empty chairs, three observation lenses, an hourglass, and a queue machine remain legible at card size. The chairs are empty and no body trace appears.
+4. `trust-badge.png`, 1448 x 1086: **PASS**. A blank rosette press, two listening horns, three blank tiles, a locked cabinet, and excessive keys turn verification into theatrical bureaucracy. The rosette is generic rather than a real certification or authority mark.
+5. `voice-vault.png`, 1448 x 1086: **PASS**. A speaking horn feeds blank ribbon and a recording cylinder into a locked vault beside an unused key and hourglass. There is no mouth, ear, face, waveform, or writing.
+6. `occupancy-lens.png`, 1448 x 1086: **PASS**. The corrected master contains exactly three empty chairs, one ceiling lens, one central bead hourglass, two side tubes, and three trays. No partial fourth chair or person-shaped trace remains.
+7. `endless-archive.png`, 1448 x 1086: **PASS**. A red recorder, blank paper stream, short stack, one open drawer, and receding wall of blank archive drawers make indefinite retention legible without a calendar or label.
+8. `intake-switchboard.png`, 1448 x 1086: **PASS**. One giant lever routes sealed envelopes from an intake conveyor through green, teal, and oxblood paths beside an empty stool and bell. Every plaque is blank.
+9. `preference-organ.png`, 1448 x 1086: **PASS**. One oversized lever branches into envelope, speaking-tube, and blank-device outputs before rows of stylized preference cylinders. The decorative tree silhouettes belong to the object pattern rather than a human scene.
+10. `incident-ledger.png`, 1448 x 1086: **PASS**. A blank gridded ledger, stopped tick-only clock, scorched tray, vial, keys, fragments, and oxblood thread form a coherent response desk without generated writing.
+11. `specimen-export.png`, 1448 x 1086: **PASS**. Rows of flat teal specimen tiles contrast with distinctive oxblood, forest, and brass fragments caught in the straw and second tray. No sample identifier or shipping label appears.
+12. `age-alchemy.png`, 1448 x 1086: **PASS**. Three lenses examine a blank circular token amid uncertain weights, an hourglass, and three proof trays. The token is abstract and does not resemble a person or identity document.
+13. `scenario-card-back.png`, 948 x 1659: **PASS**. A sealed blank case file sits inside a forest-and-teal dealing machine with rollers, tubes, blank drawers, lenses, envelopes, lock, and keys. The quiet top and bottom accept deterministic labels without hiding the focal mechanism.
+14. `curveball-card-back.png`, 948 x 1659: **PASS**. A single sealed blank envelope waits under a glass disclosure cloche inside an oxblood-and-brass machine. It remains visually distinct from the Scenario deck and contains no suits, casino marks, or borrowed card language.
+15. `table-backdrop.png`, 1672 x 941: **PASS**. The quiet forest center supports overlays while the perimeter tube, blank envelopes, three lamps, lens, keys, book, hourglass, and corrected blank ledger remain visible. No card, dice, poker object, person, logo, or readable mark appears.
 
 The exact dimensions and SHA-256 hashes are in `ART-DIRECTION.md`.
 
@@ -52,7 +54,7 @@ The screenshot was opened at original 1440 x 2392 resolution. It displays every 
 
 Visible findings:
 
-- All twelve 4:3 art-window crops preserve the subject's first read.
+- All twelve exact 4:3 masters fill the art window without portrait center-cropping.
 - The selected linocut system is coherent across the full set without collapsing the scenarios into minor variations.
 - Request and Curveball cards have exactly the same height and art-window geometry.
 - Titles, body copy, proposals, and Curveball facts remain readable and unclipped.
@@ -82,24 +84,24 @@ Visible findings:
 - **Desktop vote state:** Scenario, face-down Curveball stack, and cream choice rail form one aligned row. Each uses a labeled brass placement outline, and all three fit in one 1440 x 1100 viewport when the table is at the top. Ship, Slow, and Stop remain equal controls with icon, color, and text.
 - **First-vote state:** every numbered selection and the strict-majority result remain visible in the cream rail while the Curveball stays face-down. The friendly instruction leads to one quick lap around the table, then the bottom-anchored **Flip the Curveball** control.
 - **Eight-player ceiling:** all eight numbered selections, totals, No-majority result, discussion cue, and flip control fit the 540 px cream rail without internal scrolling. After reveal, all eight seat markers and the three second-vote controls also fit without scrolling.
-- **Reveal state:** the top Curveball turns into the paired fact in the same footprint. The remaining patterned backs stay visible as a stack behind the face-up card, and the cream rail changes cleanly to the second numbered vote.
+- **Reveal state:** the top Curveball turns into the paired fact in the same footprint. The remaining illustrated backs stay visible as a stack behind the face-up card, and the cream rail changes cleanly to the second numbered vote.
 - **Debrief:** equal-size Request and Curveball cards remain aligned above majority before/after results and player-by-player changes. The full tallies are available without overwhelming the main debrief.
 - **Mobile:** both equal-height cards stack at the same x-position, the first-vote recap remains available, the next numbered player is clear, and no horizontal crop or overflow is visible at 390 px.
 - **Table continuity:** table art remains visible at welcome, vote, reveal, and debrief states and never competes with legal boundary text below the play surface.
 
 ## Card-back and flip inspection
 
-The two exact CSS card backs were inspected at full 308 x 540 runtime size and as the smaller welcome stacks.
+The two exact illustrated 4:7 backs were inspected as native files, at the full 308 x 540 runtime size, and as the smaller welcome stacks. The raster art remains wording-free; HTML/CSS supplies the functional frame and labels.
 
-- **Scenario back: PASS.** Deep forest and teal, nested privacy-lock geometry, carved concentric lines, `SCENARIO DECK`, and `MAKE THE CALL` read as one system. It remains distinct from the cream face card and the oxblood deck.
-- **Curveball back: PASS.** Oxblood and dull brass, question-mark lock, `IT DEPENDS`, and `THE MISSING FACT` establish the concealed fact without borrowing suits, chips, currency, or third-party card language.
-- **Stack depth: PASS.** Two offset patterned backs remain visible at the right and bottom edges. At the turn's steepest visible angle, the card underneath is still a designed Curveball back rather than a blank colored slab.
+- **Scenario back: PASS.** The forest-and-teal case-file dealing machine remains clear beneath `IT DEPENDS`, `SCENARIO DECK`, and `MAKE THE CALL`. It is distinct from the cream face card and the oxblood deck.
+- **Curveball back: PASS.** The oxblood-and-brass disclosure cloche remains clear beneath `CURVEBALL`, `IT DEPENDS`, and `THE MISSING FACT`. It communicates one concealed fact without suits, chips, currency, or third-party card language.
+- **Stack depth: PASS.** Two offset copies of the illustrated backs remain visible at the right and bottom edges. At the turn's steepest visible angle, the card underneath is still the complete Curveball illustration rather than a blank slab.
 - **Reduced motion: PASS.** With reduced motion requested, the revealed face occupies the same slot immediately; no information or control depends on animation.
 
 `harness/capture-flip.mjs` paused the exact transform at 0, 155, 310, 465, and 620 ms. Each 308 x 564 lane capture was opened at original resolution:
 
-- `shots/curveball-flip-000ms.png`: face-down IT DEPENDS back, full stack intact.
-- `shots/curveball-flip-155ms.png`: top card visibly turning with the remaining patterned deck behind it.
+- `shots/curveball-flip-000ms.png`: face-down illustrated IT DEPENDS back, full stack intact.
+- `shots/curveball-flip-155ms.png`: top card visibly turning with the remaining illustrated deck behind it.
 - `shots/curveball-flip-310ms.png`: revealed face settling without clipping, mirrored copy, or art distortion.
 - `shots/curveball-flip-465ms.png`: face nearly flat, borders and chips still aligned.
 - `shots/curveball-flip-620ms.png`: final face exactly matches the non-animated card geometry.
@@ -107,7 +109,8 @@ The two exact CSS card backs were inspected at full 308 x 540 runtime size and a
 ## Mechanical checks after visual review
 
 - Vitest: 3 files and 12 tests pass.
-- Card assets: twelve ready card files plus the table backdrop exist and load.
+- Card assets: twelve ready face-art files, two illustrated back files, and the table backdrop exist and load.
+- All fifteen built PNGs match their `assets/art/` masters byte-for-byte by SHA-256.
 - Pair enumeration: 132 of 132 non-self ordered combinations pass the domain gate; human rationale remains in `PAIRING-REVIEW.md`.
 - Strict majority: 2-1-1 and 2-2 among four players return No majority; 3-1 returns the selected majority.
 - Browser harness: all multiplayer tally, unique-back, hidden-stack, flip structure/timing, equal-height, cream-rail, chip alignment, desktop, mobile, keyboard, network, console, page-error, and storage checks pass.
@@ -115,7 +118,9 @@ The two exact CSS card backs were inspected at full 308 x 540 runtime size and a
 - Runtime makes zero external requests. All HTML, modules, CSS, fonts, and art are separate same-origin files.
 - Build output contains no Base64 image or font payloads.
 
-## Prior hosted verification
+## Historical hosted verification
+
+This section verifies the earlier owner-only Sites build and its portrait art. It is historical evidence only and should not be used to infer the state of any later deployment.
 
 Sites version 3 was saved from commit `f711f9a7524a41c04df26a0f8fa67716550c577f`, deployed with owner-only access, and opened at `https://it-depends-demo.tanjamin-ben.chatgpt.site/demo/?release=f711f9a`.
 
@@ -132,4 +137,4 @@ The deterministic browser harness remains the full six-round, desktop, mobile, k
 
 ## Fail-closed boundary
 
-The private alpha is visually complete for browser play. The CSS card backs are digital visual direction, not print-ready back masters. This is not a public or physical release candidate. The 34-card Core deck, print imposition, physical proofing, storefront package, public AF navigation, and legal/product review remain separately gated.
+The private alpha is visually complete locally for browser play. The illustrated 4:7 browser backs are digital visual direction, not 5:7 print-ready back masters. This is not a public or physical release candidate. The 34-card Core deck, print imposition, physical proofing, storefront package, public AF navigation, and legal/product review remain separately gated.

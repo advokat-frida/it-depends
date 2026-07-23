@@ -41,5 +41,7 @@ describe('IT DEPENDS alpha deck', () => {
       expect(card.curveballAppliesTo).toContain('data-processing-proposal');
     }
     expect(existsSync(new URL('../assets/art/table-backdrop.png', import.meta.url))).toBe(true);
+    expect(existsSync(new URL('../assets/art/scenario-card-back.png', import.meta.url))).toBe(true);
+    expect(existsSync(new URL('../assets/art/curveball-card-back.png', import.meta.url))).toBe(true);
   });
 });
