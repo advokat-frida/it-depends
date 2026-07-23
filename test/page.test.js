@@ -32,4 +32,9 @@ describe('built static page', () => {
     expect(html).toContain('data-phase="debrief"');
     expect(html).toContain('Not legal advice');
   });
+
+  it('records an immutable GitHub revision when the build supplies one', async () => {
+    const manifest = JSON.parse(await readBuilt('release-manifest.json'));
+    expect(manifest.sourceRevision).toMatch(/^[0-9a-f]{12}(?:\+working-tree)?$/);
+  });
 });

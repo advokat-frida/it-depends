@@ -11,6 +11,11 @@ const output = join(root, 'dist', 'standalone', 'IT-DEPENDS');
 const packageJson = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
 
 function sourceRevision() {
+  const githubRevision = process.env.GITHUB_SHA?.trim();
+  if (/^[0-9a-f]{40}$/i.test(githubRevision ?? '')) {
+    return githubRevision.slice(0, 12);
+  }
+
   try {
     const commit = execFileSync('git', ['rev-parse', '--short=12', 'HEAD'], {
       cwd: root,
