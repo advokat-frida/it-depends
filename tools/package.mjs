@@ -6,7 +6,8 @@ import { zipSync } from 'fflate';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const source = join(root, 'dist', 'standalone', 'IT-DEPENDS');
 const release = join(root, 'release');
-const archive = join(release, 'IT-DEPENDS-private-alpha-standalone.zip');
+const packageJson = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
+const archive = join(release, `IT-DEPENDS-v${packageJson.version}-standalone.zip`);
 const fixedTimestamp = new Date(1980, 0, 1, 0, 0, 0);
 const alreadyCompressed = new Set(['.png', '.woff2']);
 

@@ -1,6 +1,6 @@
 # IT DEPENDS art direction and provenance
 
-Status: twelve exact 4:3 private-alpha card-window masters, two exact 4:7 illustrated browser backs, and one shared table backdrop. Not a commercial pack, print approval, or physical proof.
+Status: twelve exact 4:3 alpha card-window masters, two exact 4:7 illustrated browser backs, and one shared table backdrop. Not a commercial pack, print approval, or physical proof.
 
 Cross-project visual standard: `G:\Shared drives\Ducket\Advokat Frida\Brand\AF-AFTER-DARK-ART-STANDARD.md`
 Aspect-ratio regeneration record: `ART-REGEN-HANDOFF.md`

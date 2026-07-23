@@ -1,6 +1,8 @@
 # IT DEPENDS
 
-Private alpha of an Advokat Frida shared-screen privacy teaching game.
+Public alpha of an Advokat Frida shared-screen privacy teaching game.
+
+**Play it:** https://advokat-frida.github.io/it-depends/
 
 Read a proposed data use, let every player choose **Ship / Slow / Stop**, reveal the strict-majority result and every numbered selection, turn over one missing fact, and vote again. The game never supplies a correct answer. Its output is the argument and what changed.
 
@@ -15,7 +17,7 @@ Read a proposed data use, let every player choose **Ship / Slow / Stop**, reveal
 - Standalone-first static game. A player can unzip the package and open `IT-DEPENDS/index.html` directly; no server, installation, account, or internet connection is required.
 - CSS, fonts, and art remain separate normal files. The small JavaScript module graph is bundled into one classic local script so current browsers permit direct `file://` play; nothing is Base64-crammed into the page.
 - No accounts, score, telemetry, storage, cookies, active network API, or runtime dependency on Sites.
-- A manual GitHub Pages workflow is staged but deliberately refuses to run while the repository is private. The earlier owner-only Sites demo is historical and is not the release source of truth.
+- The public browser alpha is deployed from the exact verified standalone folder through a manual GitHub Pages workflow. The earlier owner-only Sites demo is historical and is not the release source of truth.
 
 The build authorization and product boundary are in [SPEC.md](./SPEC.md). Pairing rationale is in [PAIRING-REVIEW.md](./PAIRING-REVIEW.md). Art provenance and prompts are in [ART-DIRECTION.md](./ART-DIRECTION.md). Visual verification is in [MANUAL-VISUAL-QA.md](./MANUAL-VISUAL-QA.md).
 
@@ -36,7 +38,7 @@ npm.cmd run qa
 - `npm.cmd run harness` exercises multiplayer voting, distinct deck backs, hidden/revealed Curveball states, equal card geometry, the cream decision rail, desktop, mobile, keyboard, motion preference, network, storage, and screenshot checks against the built files.
 - `npm.cmd run harness:offline` opens the built `index.html` directly from disk, completes desktop and mobile rounds, and proves that both illustrated backs survive the local-file path.
 - `npm.cmd run harness:flip` captures five exact visual checkpoints across the 620 ms Curveball turn.
-- `npm.cmd run package` creates the ignored private-alpha ZIP under `release/`.
+- `npm.cmd run package` creates the ignored versioned standalone ZIP under `release/`.
 - `npm.cmd run verify:standalone` validates the folder manifest, every SHA-256, the ZIP contents, and byte-exact copies of both back masters.
 - `npm.cmd run qa` runs the complete build, test, browser, offline, flip, package, and archive-verification gate.
 - `node harness/capture-art.mjs` captures all twelve exact runtime cards at their 308 x 540 CSS-pixel display size for direct visual review.
@@ -46,7 +48,7 @@ npm.cmd run qa
 
 ```text
 assets/
-  art/                 approved private-alpha card and table masters
+  art/                 approved alpha card and table masters
   fonts/               normal self-hosted WOFF2 files
 src/
   index.html           AF page skeleton
@@ -60,12 +62,14 @@ harness/                browser acceptance and local server
 tools/                  standalone build, package, and integrity checks
 dist/standalone/
   IT-DEPENDS/           generated open-index.html edition, gitignored
-release/                generated private-alpha ZIP, gitignored
+release/                generated versioned standalone ZIP, gitignored
 .github/workflows/
-  pages.yml             manual, public-repository-only Pages path
+  pages.yml             verified manual GitHub Pages deployment
 shots/                  exact inspected runtime screenshots
 ```
 
 ## Boundary
 
-This is a synthetic teaching tool, not legal advice and not a compliance determination. No law pack, physical print package, store listing, Ghost post, public AF navigation link, repository visibility change, or public deployment is part of this alpha.
+This is a synthetic teaching tool, not legal advice and not a compliance determination. The public browser alpha and versioned standalone download are the released surfaces. No law pack, physical print package, store listing, Ghost post, or public AF navigation link is part of this release.
+
+The repository is source-visible but deliberately `UNLICENSED`. Public access does not grant permission to copy, modify, or redistribute the code or artwork unless Advokat Frida later publishes separate terms.

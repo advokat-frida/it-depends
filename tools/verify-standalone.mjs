@@ -6,7 +6,8 @@ import { unzipSync } from 'fflate';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const output = join(root, 'dist', 'standalone', 'IT-DEPENDS');
-const archive = join(root, 'release', 'IT-DEPENDS-private-alpha-standalone.zip');
+const packageJson = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
+const archive = join(root, 'release', `IT-DEPENDS-v${packageJson.version}-standalone.zip`);
 const manifest = JSON.parse(await readFile(join(output, 'release-manifest.json'), 'utf8'));
 const failures = [];
 const check = (condition, message) => {

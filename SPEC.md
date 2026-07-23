@@ -1,6 +1,6 @@
-# IT DEPENDS private-alpha specification
+# IT DEPENDS public-alpha specification
 
-Status: greenlit by Ben on 2026-07-22. Local development, private standalone packaging, and a dormant GitHub Pages path are authorized. Public publishing, repository visibility changes, Ghost navigation, storefront work, spending, and physical production are not authorized. The earlier owner-only Sites demo is historical and remains untouched.
+Status: greenlit by Ben on 2026-07-22 and authorized for a public repository, GitHub Pages deployment, and versioned standalone alpha. Ghost navigation, storefront work, spending, commercial licensing, and physical production remain outside this release. The earlier owner-only Sites demo is historical and remains untouched.
 
 ## Goal
 
@@ -23,7 +23,7 @@ No dedicated facilitator is required. One person reads the cards and taps Deal o
 - Free browser teaching edition for Advokat Frida.
 - One shared screen for 2-8 players.
 - No player names, accounts, remote multiplayer service, scoring, analytics, telemetry, cookies, or saved history.
-- Twelve-card private alpha. Public v1 target remains a 34-card Core deck only after playtesting.
+- Twelve-card public alpha. A larger Core deck remains a post-playtest target rather than a promise.
 - A Decision card contains both a Request and a broadly compatible Curveball. The app draws two different cards and uses the first card's Request plus the second card's Curveball.
 - The browser presents these as two physical-feeling decks with distinct illustrated backs: a forest Scenario deck and an oxblood IT DEPENDS Curveball deck. Original raster art carries the object-based scene; deterministic HTML/CSS carries every label, accessible name, border, and layout. Neither back borrows playing-card trade dress.
 - Six rounds consume all twelve alpha cards without repetition. Restarting explicitly reshuffles.
@@ -34,10 +34,10 @@ No dedicated facilitator is required. One person reads the cards and taps Deal o
 
 - Repo: `advokat-frida/it-depends/`.
 - Standalone static output under `dist/standalone/IT-DEPENDS/`: HTML, one bundled classic script, self-hosted CSS/fonts, and separate PNG files.
-- Private-alpha archive under `release/IT-DEPENDS-private-alpha-standalone.zip`.
-- Manual GitHub Pages workflow under `.github/workflows/pages.yml`; it is gated to public repositories and does not publish merely by existing.
+- Versioned archive under `release/IT-DEPENDS-v0.1.0-standalone.zip`.
+- Manual GitHub Pages workflow under `.github/workflows/pages.yml`; it builds, verifies, and deploys the exact standalone folder from the public repository.
 - The existing owner-only Sites project is not a dependency or deployment target.
-- No Ghost post, AF navigation change, storefront listing, Epsilon change, or public release in this milestone.
+- No Ghost post, AF navigation change, storefront listing, Epsilon change, or physical release in this milestone.
 
 ## Architecture
 
@@ -88,7 +88,7 @@ Working art name: **Privacy aftermath still lifes**.
 - No letters, numbers, pseudo-writing, logos, real interfaces, or third-party game symbols inside the illustration files.
 - Every face-art master is exact 1448 x 1086 (4:3), so the runtime no longer center-crops portrait art into its landscape window. Each browser-back master is exact 948 x 1659 (4:7); a future 5:7 physical back remains a separate print task. The table backdrop is 1672 x 941 with a deliberately quiet center.
 - AI origin, prompts, source-output IDs, corrections, dimensions, hashes, and selection proofs are recorded in `ART-DIRECTION.md`.
-- These are private-alpha raster masters. They have not received print prepress or physical proofing.
+- These are browser-alpha raster masters. They have not received print prepress or physical proofing.
 
 ## Interaction and accessibility
 
@@ -121,7 +121,7 @@ Working art name: **Privacy aftermath still lifes**.
 - All twelve card illustrations, both deck-back illustrations, and the table backdrop load as separate local files.
 - The built page works both over local HTTP and when `index.html` is opened directly at 1440 px and 390 px, with no horizontal overflow, console/page errors, external requests, or storage writes.
 - The Scenario and Curveball back PNGs in the standalone folder and ZIP are byte-for-byte identical to the approved masters.
-- The Pages workflow can publish the exact standalone folder only after a separate public-release decision; it stays skipped while the repository is private.
+- The Pages workflow publishes the exact standalone folder only after an explicit manual dispatch from the public repository.
 - Exact runtime art is directly inspected at native size, 308 x 540 card size, desktop context, and mobile context before promotion.
 
 ## Named verification
@@ -135,7 +135,7 @@ Working art name: **Privacy aftermath still lifes**.
 
 ## Out of scope
 
-- Public deployment, repository visibility change, Pages activation, Ghost companion post, or AF navigation link.
+- Ghost companion post or AF navigation link.
 - Physical-card imposition, print-vendor templates, packaging, sales, or marketplace listing.
 - Full 34-card copy and illustration production.
 - Networked multiplayer, remote phones, player identity, accounts, facilitator dashboard, leaderboards, or saved sessions.

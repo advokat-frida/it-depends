@@ -82,7 +82,7 @@ await build({
   },
 });
 
-await writeFile(join(output, 'README.txt'), `IT DEPENDS — private alpha standalone edition
+await writeFile(join(output, 'README.txt'), `IT DEPENDS — v${packageJson.version} standalone public alpha
 
 Open index.html in a current desktop browser. No installation, account, server, or internet connection is required to play.
 
@@ -90,14 +90,14 @@ The game includes the complete shared-screen flow: deal a Scenario, collect priv
 
 Refreshing or closing the page resets the current session. Links back to advokatfrida.com require an internet connection; the game itself does not.
 
-This private-alpha package is for evaluation and playtesting. Public licensing and redistribution terms will be finalized before launch.
+This public alpha is for evaluation and playtesting. Source visibility and access do not grant redistribution rights. No license is granted unless Advokat Frida states one separately.
 `);
 
 const distributableFiles = (await listFiles(output))
   .filter((file) => file !== join(output, 'release-manifest.json'));
 const manifest = {
   product: 'IT DEPENDS',
-  edition: 'private-alpha-standalone',
+  edition: 'public-alpha-standalone',
   version: packageJson.version,
   sourceRevision: sourceRevision(),
   runtime: {

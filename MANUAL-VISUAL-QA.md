@@ -1,4 +1,4 @@
-# Manual visual QA: IT DEPENDS private alpha
+# Manual visual QA: IT DEPENDS public alpha
 
 Date: 2026-07-22
 
@@ -15,12 +15,13 @@ Date: 2026-07-22
 - Equal Request/Curveball geometry and bottom-right chips: **PASS**
 - Keyboard, reduced-motion, network, and storage checks: **PASS**
 - Standalone folder opened directly through `file://`: **PASS**
-- Private-alpha standalone ZIP structure and integrity: **PASS**
+- Versioned standalone ZIP structure and integrity: **PASS**
 - Exact back-art wiring in welcome, hidden deck, stacked layers, and flip rear face: **PASS**
 - Prior private hosted Sites version 3: **PASS, HISTORICAL ONLY**
 - Current casino-table revision, local runtime: **PASS**
-- GitHub Pages workflow: **STAGED, NOT RUN OR DEPLOYED**
-- Public release, Ghost integration, and physical print package: **NOT IN SCOPE**
+- Public GitHub Pages alpha: **PASS**
+- Public repository and full-history secret scan: **PASS**
+- Ghost integration and physical print package: **NOT IN SCOPE**
 
 ## Reference and style inspection
 
@@ -92,6 +93,7 @@ Visible findings:
 - **Debrief:** equal-size Request and Curveball cards remain aligned above majority before/after results and player-by-player changes. The full tallies are available without overwhelming the main debrief.
 - **Mobile:** both equal-height cards stack at the same x-position, the first-vote recap remains available, the next numbered player is clear, and no horizontal crop or overflow is visible at 390 px.
 - **Table continuity:** table art remains visible at welcome, vote, reveal, and debrief states and never competes with legal boundary text below the play surface.
+- **Public-alpha label:** every regenerated desktop and mobile capture carries the correct public-alpha footer without wrapping, collision, or layout shift.
 
 ## Card-back and flip inspection
 
@@ -126,7 +128,7 @@ The standalone HTML loads a classic bundled script rather than an ES module beca
 
 ## Mechanical checks after visual review
 
-- Vitest: 3 files and 12 tests pass.
+- Vitest: 3 files and 13 tests pass.
 - Card assets: twelve ready face-art files, two illustrated back files, and the table backdrop exist and load.
 - All fifteen built PNGs match their `assets/art/` masters byte-for-byte by SHA-256.
 - Pair enumeration: 132 of 132 non-self ordered combinations pass the domain gate; human rationale remains in `PAIRING-REVIEW.md`.
@@ -135,11 +137,41 @@ The standalone HTML loads a classic bundled script rather than an ES module beca
 - Card-back wiring checks confirm both 948 x 1659 images at welcome, the complete hidden Curveball image, both pseudo-element stack layers, and the Curveball image on the flip's rear face.
 - Offline harness completes three-player rounds through `file://` at 1440 x 1100 and 390 x 844.
 - Standalone integrity verification compares every manifest byte count and SHA-256, checks both back masters byte-for-byte, and reads the generated ZIP back before passing.
-- Final private-alpha archive: 49,264,970 bytes; SHA-256 `2df84c954c054977a24636736307417ea6a4cea1071cb6e9236e35c0d37ff61b`.
+- Versioned `IT-DEPENDS-v0.1.0-standalone.zip` passes manifest, inventory, byte-count, SHA-256, and byte-exact back-art verification. The exact published attachment hash belongs in the GitHub release notes so it can describe the archive built from the final tagged commit without creating a circular source-revision change.
 - Dependency audit reports zero known vulnerabilities.
 - Runtime writes zero localStorage, sessionStorage, or IndexedDB records.
 - Runtime makes zero external requests. HTML, CSS, fonts, art, and the bundled local script are ordinary static files.
 - Build output contains no Base64 image or font payloads.
+
+## Public GitHub Pages verification
+
+The exact public page at `https://advokat-frida.github.io/it-depends/?release=5faea04` was played from welcome through debrief on desktop and mobile after GitHub Pages workflow run `29980695007` deployed commit `5faea048db45644c296302b592ffb1ed23add244`.
+
+The following exact live captures were opened at original resolution:
+
+- `shots/live-pages-welcome-1440.png`
+- `shots/live-pages-request-1440.png`
+- `shots/live-pages-reveal-1440.png`
+- `shots/live-pages-debrief-1440.png`
+- `shots/live-pages-mobile-390.png`
+
+Visible findings:
+
+- **Welcome:** the full Advokat Frida masthead, teaching loop, quiet illustrated table, separate forest Scenario stack, and oxblood Curveball stack are complete and aligned. Both illustrated backs remain distinct and legible at their smaller welcome size.
+- **Request:** the object-first Scenario illustration fills its landscape art window without a crop, the complete illustrated Curveball back occupies the equal center lane, and the cream numbered-choice rail shows all three actions at once.
+- **Reveal:** the Curveball face replaces the top back in the same footprint while the remaining illustrated stack stays visible. Request and Curveball frames are equal, text and art are unclipped, both chip rows sit at bottom right, and the second-vote rail remains the same cream surface.
+- **Debrief:** both equal cards, the majority shift, every player's before/after choice, discussion prompts, and close-round control remain readable in one coherent table surface.
+- **Mobile:** Scenario, full illustrated Curveball back, and cream choice rail stack in the intended order at 390 px. The masthead, stepper, card text, topic chips, controls, boundary notice, and footer remain legible with no horizontal crop.
+
+Mechanical live findings:
+
+- A deterministic three-player round completed from welcome through debrief.
+- Desktop and mobile reported no horizontal overflow, console error, page error, failed response, or off-site request.
+- The public `release-manifest.json` reported source revision `5faea048db45` and 27 distributable files.
+- The public Scenario-back SHA-256 matched the approved local master: `18d26447003f07ca3b7de0db205a0e966fd01990b8c25b656a20bfc8834d431c`.
+- The public Curveball-back SHA-256 matched the approved local master: `9333896aa4fe3308269a394ad6a5457fcbd1bd926681ddb0c887391483c36596`.
+- GitHub Pages reported a public, HTTPS-enforced, workflow-built site.
+- Gitleaks v8.30.1 scanned all 10 commits present when the repository became public and reported zero findings. Its downloaded Windows archive was checked against the publisher's SHA-256 list before use.
 
 ## Historical hosted verification
 
@@ -160,4 +192,4 @@ The deterministic browser harness remains the full six-round, desktop, mobile, k
 
 ## Fail-closed boundary
 
-The private alpha is visually complete locally for browser play. The illustrated 4:7 browser backs are digital visual direction, not 5:7 print-ready back masters. This is not a public or physical release candidate. The 34-card Core deck, print imposition, physical proofing, storefront package, public AF navigation, and legal/product review remain separately gated.
+The 12-card public browser alpha and versioned standalone build are visually complete for digital play. The illustrated 4:7 browser backs are digital visual direction, not 5:7 print-ready back masters. The larger Core deck, print imposition, physical proofing, storefront package, public AF navigation, commercial licensing, and legal/product review remain separately gated.
