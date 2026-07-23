@@ -11,7 +11,7 @@ Date: 2026-07-22
 - Mobile runtime at 390 px: **PASS**
 - Equal Request/Curveball geometry and bottom-right chips: **PASS**
 - Keyboard, reduced-motion, network, and storage checks: **PASS**
-- New private hosted Sites version: **PENDING DEPLOYMENT AND LIVE READBACK**
+- New private hosted Sites version 3: **PASS**
 - Public release, Ghost integration, and physical print package: **NOT IN SCOPE**
 
 ## Reference and style inspection
@@ -91,7 +91,18 @@ Visible findings:
 
 ## Hosted verification
 
-The new art and multiplayer changes have not yet been promoted to a new private Sites version. This section must remain pending until the exact committed archive is deployed, opened through the owner-only URL, played through, checked at desktop and mobile widths, and read back without cache ambiguity.
+Sites version 3 was saved from commit `f711f9a7524a41c04df26a0f8fa67716550c577f`, deployed with owner-only access, and opened at `https://it-depends-demo.tanjamin-ben.chatgpt.site/demo/?release=f711f9a`.
+
+Live findings:
+
+- The cache-busted URL loaded the new no-facilitator setup, 2-8 player control, proposal terminology, and numbered hidden-vote instructions.
+- A three-player hosted round dealt a Request, recorded Ship / Ship / Slow, and revealed every player's selection with the exact result `The majority chose Ship.`
+- Revealing the missing fact produced a same-size Request/Curveball pair and a fresh numbered second vote. Both hosted card images reported complete at their exact 1060 x 1484 source dimensions.
+- Before the temporary responsive-test override, the hosted card reported the intended 360 x 650 CSS-pixel geometry with zero horizontal overflow. The override was reset and the deliverable tab was reloaded at a normal 1280 x 800 viewport.
+- The hosted `table-backdrop.png` and a freshly dealt `occupancy-lens.png` were downloaded through the rendered page's asset inventory and matched the exact local masters byte-for-byte by SHA-256 (`43a2a6dd...` and `14c020ea...`). The approved local visual inspection therefore covers the exact raster files served in production.
+- The live console returned no warnings or errors.
+
+The deterministic browser harness remains the full six-round, desktop, mobile, keyboard, and debrief check. The owner-only live readback verifies that the same validated build and selected raster masters reached the hosted demo.
 
 ## Fail-closed boundary
 
