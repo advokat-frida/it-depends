@@ -41,6 +41,7 @@ async function openPage(browser, viewport, seed = 267) {
   const external = [];
   const consoleErrors = [];
   const pageErrors = [];
+  const badResponses = [];
   page.on('request', (request) => {
     if (!request.url().startsWith(BASE)) external.push(request.url());
   });
@@ -48,13 +49,22 @@ async function openPage(browser, viewport, seed = 267) {
     if (message.type() === 'error') consoleErrors.push(message.text());
   });
   page.on('pageerror', (error) => pageErrors.push(error.message));
+  page.on('response', (response) => {
+    if (response.status() >= 400) badResponses.push(`${response.status()} ${response.url()}`);
+  });
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  return { page, external, consoleErrors, pageErrors };
+  return { page, external, consoleErrors, pageErrors, badResponses };
+}
+
+async function castVotes(page, calls) {
+  for (const call of calls) {
+    await page.locator(`[data-action="vote"][data-call="${call}"]`).click();
+  }
 }
 
 async function playToReveal(page) {
   await page.locator('[data-action="deal"]').click();
-  await page.locator('[data-action="vote"][data-call="slow"]').click();
+  await castVotes(page, ['slow', 'ship', 'slow']);
   await page.locator('[data-action="reveal"]').click();
   await page.locator('.id-card.is-curveball').waitFor();
 }
@@ -70,20 +80,38 @@ try {
   await desktop.page.locator('[data-action="deal"]').click();
   await desktop.page.locator('img[alt*="pneumatic inbox"]').waitFor();
   await desktop.page.screenshot({ path: `${shots}/request-desktop-1440.png`, fullPage: true });
-  await desktop.page.locator('[data-action="vote"][data-call="slow"]').click();
+  await castVotes(desktop.page, ['slow', 'ship', 'slow']);
+  check('first tally reveals every numbered choice', await desktop.page.locator('.id-selections li').count() === 3);
+  check('first tally reports the strict majority', (await desktop.page.locator('.id-discuss .id-result h4').textContent()) === 'The majority chose Slow.');
   await desktop.page.locator('[data-action="reveal"]').click();
   await desktop.page.locator('img[alt*="verification badge"]').waitFor();
   await desktop.page.screenshot({ path: `${shots}/reveal-desktop-1440.png`, fullPage: true });
-  await desktop.page.locator('[data-action="vote"][data-call="stop"]').click();
+  await castVotes(desktop.page, ['stop', 'stop', 'slow']);
   await desktop.page.locator('.id-shift').waitFor();
   await desktop.page.screenshot({ path: `${shots}/debrief-desktop-1440.png`, fullPage: true });
 
   const loadedImages = await desktop.page.locator('.id-card img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0));
+  const equalCardHeights = await desktop.page.locator('.id-card').evaluateAll((cards) => cards.length === 2 && cards[0].getBoundingClientRect().height === cards[1].getBoundingClientRect().height);
+  const chipsBottomRight = await desktop.page.locator('.id-card').evaluateAll((cards) => cards.every((card) => {
+    const tags = card.querySelector('.id-tags');
+    const body = card.querySelector('.id-card-body');
+    const lastChip = tags?.lastElementChild;
+    if (!tags || !body || !lastChip) return false;
+    const chipBox = lastChip.getBoundingClientRect();
+    const bodyBox = body.getBoundingClientRect();
+    const style = getComputedStyle(body);
+    const contentRight = bodyBox.right - Number.parseFloat(style.paddingRight);
+    const contentBottom = bodyBox.bottom - Number.parseFloat(style.paddingBottom);
+    return Math.abs(chipBox.right - contentRight) <= 1 && Math.abs(chipBox.bottom - contentBottom) <= 1;
+  }));
   const desktopOverflow = await desktop.page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth);
   const afterStorage = await storageState(desktop.page);
   check('desktop card art loads at runtime', loadedImages);
+  check('request and curveball cards are the same height', equalCardHeights);
+  check('both chip rows sit at bottom right', chipsBottomRight);
   check('desktop has no horizontal overflow', desktopOverflow);
   check('desktop makes no external requests', desktop.external.length === 0, desktop.external.join(', '));
+  check('desktop has no missing assets or bad responses', desktop.badResponses.length === 0, desktop.badResponses.join(' | '));
   check('desktop has no console errors', desktop.consoleErrors.length === 0, desktop.consoleErrors.join(' | '));
   check('desktop has no page errors', desktop.pageErrors.length === 0, desktop.pageErrors.join(' | '));
   check('runtime writes no storage', JSON.stringify(beforeStorage) === JSON.stringify(afterStorage), JSON.stringify(afterStorage));
@@ -94,6 +122,7 @@ try {
   await incident.page.locator('img[alt*="evidence ledger"]').waitFor();
   await incident.page.screenshot({ path: `${shots}/incident-request-desktop-1440.png`, fullPage: true });
   check('incident-ledger art loads in its exact runtime card', await incident.page.locator('img[alt*="evidence ledger"]').isVisible());
+  check('incident runtime has no missing assets', incident.badResponses.length === 0, incident.badResponses.join(' | '));
   check('incident runtime has no page errors', incident.pageErrors.length === 0, incident.pageErrors.join(' | '));
   await incident.page.close();
 
@@ -111,6 +140,7 @@ try {
   check('mobile has no horizontal overflow', mobileOverflow);
   check('mobile reveal stacks to one card column', mobileStacked, JSON.stringify(mobileCardPositions));
   check('mobile makes no external requests', mobile.external.length === 0, mobile.external.join(', '));
+  check('mobile has no missing assets', mobile.badResponses.length === 0, mobile.badResponses.join(' | '));
   check('mobile has no console errors', mobile.consoleErrors.length === 0, mobile.consoleErrors.join(' | '));
   check('mobile has no page errors', mobile.pageErrors.length === 0, mobile.pageErrors.join(' | '));
   await mobile.page.close();
@@ -120,7 +150,15 @@ try {
   await keyboard.page.keyboard.press('Enter');
   await keyboard.page.locator('[data-action="vote"][data-call="ship"]').focus();
   await keyboard.page.keyboard.press('Enter');
+  await keyboard.page.locator('[data-action="vote"][data-call="slow"]').focus();
+  await keyboard.page.keyboard.press('Enter');
+  await keyboard.page.locator('[data-action="vote"][data-call="ship"]').focus();
+  await keyboard.page.keyboard.press('Enter');
   await keyboard.page.locator('[data-action="reveal"]').focus();
+  await keyboard.page.keyboard.press('Enter');
+  await keyboard.page.locator('[data-action="vote"][data-call="slow"]').focus();
+  await keyboard.page.keyboard.press('Enter');
+  await keyboard.page.locator('[data-action="vote"][data-call="stop"]').focus();
   await keyboard.page.keyboard.press('Enter');
   await keyboard.page.locator('[data-action="vote"][data-call="slow"]').focus();
   await keyboard.page.keyboard.press('Enter');

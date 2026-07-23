@@ -1,15 +1,15 @@
 # IT DEPENDS
 
-Local alpha of an Advokat Frida shared-screen privacy teaching game.
+Private alpha of an Advokat Frida shared-screen privacy teaching game.
 
-Read a proposed data use, record the room's **Ship / Slow / Stop** call, reveal one missing fact from a different card, and make the call again. The game never supplies a correct answer. Its output is the argument and what changed.
+Read a proposed data use, let every player choose **Ship / Slow / Stop**, reveal the strict-majority result and every numbered selection, turn over one missing fact, and vote again. The game never supplies a correct answer. Its output is the argument and what changed.
 
 ## Current state
 
-- Complete 12-card / 6-round mechanics alpha.
+- Complete 12-card / 6-round mechanics alpha for 2&ndash;8 players on one shared screen.
 - 132 possible non-self ordered Request/Curveball pairings.
-- Three provisional AF After Dark art masters integrated: `support-inbox`, `trust-badge`, and `incident-ledger`.
-- Nine intentional specimen mats with authored art briefs. They are unfinished, not broken assets.
+- Twelve original object-first card illustrations and one shared table illustration in the approved AF After Dark linocut/screenprint system.
+- Hidden numbered turns, strict-majority tallying, honest no-majority outcomes, and a before/after result plus player-by-player debrief.
 - Multi-file static game wrapped in the standard Sites runtime. HTML, modules, CSS, fonts, and art remain separate normal files; nothing is Base64-crammed into the page.
 - No accounts, score, telemetry, storage, cookies, or active network API.
 - The hosted demo is private and deliberately unlinked from the Advokat Frida website.
@@ -25,14 +25,15 @@ npm.cmd run harness
 ```
 
 - `npm.cmd test` rebuilds the game, runs the Vitest suite, and verifies the deployable Sites bundle.
-- `npm.cmd run harness` exercises desktop, mobile, keyboard, network, storage, and screenshot checks against the built files.
+- `npm.cmd run harness` exercises multiplayer voting, majority results, equal card geometry, desktop, mobile, keyboard, network, storage, and screenshot checks against the built files.
+- `node harness/capture-art.mjs` captures all twelve exact runtime cards at their 360 x 650 CSS-pixel display size for direct visual review.
 - `node harness/server.mjs` serves the built game at `http://localhost:8793` for local review.
 
 ## Structure
 
 ```text
 assets/
-  art/                 provisional card-window masters
+  art/                 approved private-alpha card and table masters
   fonts/               normal self-hosted WOFF2 files
 src/
   index.html           AF page skeleton

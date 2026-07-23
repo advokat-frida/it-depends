@@ -13,7 +13,21 @@ export const PHASES = Object.freeze({
   COMPLETE: 'complete',
 });
 
+export const DEFAULT_PLAYER_COUNT = 3;
+export const MIN_PLAYER_COUNT = 2;
+export const MAX_PLAYER_COUNT = 8;
+
 const VALID_CALLS = new Set(Object.values(CALLS));
+
+function assertPlayerCount(playerCount) {
+  if (!Number.isInteger(playerCount) || playerCount < MIN_PLAYER_COUNT || playerCount > MAX_PLAYER_COUNT) {
+    throw new RangeError(`Choose between ${MIN_PLAYER_COUNT} and ${MAX_PLAYER_COUNT} people.`);
+  }
+}
+
+function capitalize(value) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
 
 export function shuffleIds(ids, random) {
   const shuffled = [...ids];
@@ -24,15 +38,25 @@ export function shuffleIds(ids, random) {
   return shuffled;
 }
 
-export function createSession(cards, random) {
+export function createSession(cards, random, playerCount = DEFAULT_PLAYER_COUNT) {
   if (typeof random !== 'function') throw new TypeError('A random source is required.');
+  assertPlayerCount(playerCount);
   return {
     phase: PHASES.WELCOME,
+    playerCount,
     remainingIds: shuffleIds(cards.map(({ id }) => id), random),
     current: null,
     history: [],
     roundNumber: 0,
   };
+}
+
+export function setPlayerCount(state, playerCount) {
+  assertPlayerCount(playerCount);
+  if (state.phase !== PHASES.WELCOME || state.roundNumber !== 0 || state.current) {
+    throw new Error('Choose the number of voters before the first request is dealt.');
+  }
+  return { ...state, playerCount };
 }
 
 export function dealRound(state) {
@@ -48,52 +72,93 @@ export function dealRound(state) {
     current: {
       requestId,
       curveballId,
-      beforeCall: null,
-      afterCall: null,
+      beforeVotes: [],
+      afterVotes: [],
     },
   };
 }
 
-export function submitCall(state, call) {
+export function tallyVotes(votes, playerCount) {
+  assertPlayerCount(playerCount);
+  if (!Array.isArray(votes) || votes.some((call) => !VALID_CALLS.has(call))) {
+    throw new Error('Every vote must be Ship, Slow, or Stop.');
+  }
+  if (votes.length > playerCount) throw new Error('The vote contains more selections than players.');
+
+  const counts = {
+    [CALLS.SHIP]: 0,
+    [CALLS.SLOW]: 0,
+    [CALLS.STOP]: 0,
+  };
+  votes.forEach((call) => { counts[call] += 1; });
+
+  const threshold = Math.floor(playerCount / 2) + 1;
+  const majorityCall = Object.values(CALLS).find((call) => counts[call] >= threshold) ?? null;
+  return {
+    counts,
+    majorityCall,
+    threshold,
+    total: votes.length,
+    complete: votes.length === playerCount,
+    split: votes.length === playerCount && majorityCall === null,
+  };
+}
+
+export function submitVote(state, call) {
   if (!VALID_CALLS.has(call)) throw new Error('Choose Ship, Slow, or Stop.');
-  if (!state.current) throw new Error('Deal a round before making a call.');
+  if (!state.current) throw new Error('Deal a round before voting.');
 
   if (state.phase === PHASES.REQUEST_VOTE) {
+    if (state.current.beforeVotes.length >= state.playerCount) throw new Error('The first vote is already complete.');
+    const beforeVotes = [...state.current.beforeVotes, call];
     return {
       ...state,
-      phase: PHASES.REQUEST_DISCUSS,
-      current: { ...state.current, beforeCall: call },
+      phase: beforeVotes.length === state.playerCount ? PHASES.REQUEST_DISCUSS : PHASES.REQUEST_VOTE,
+      current: { ...state.current, beforeVotes },
     };
   }
 
   if (state.phase === PHASES.SECOND_VOTE) {
+    if (state.current.afterVotes.length >= state.playerCount) throw new Error('The second vote is already complete.');
+    const afterVotes = [...state.current.afterVotes, call];
     return {
       ...state,
-      phase: PHASES.DEBRIEF,
-      current: { ...state.current, afterCall: call },
+      phase: afterVotes.length === state.playerCount ? PHASES.DEBRIEF : PHASES.SECOND_VOTE,
+      current: { ...state.current, afterVotes },
     };
   }
 
-  throw new Error('The room cannot make a call in this phase.');
+  throw new Error('The group cannot vote in this phase.');
 }
 
 export function revealCurveball(state) {
-  if (state.phase !== PHASES.REQUEST_DISCUSS || !state.current?.beforeCall) {
-    throw new Error('Record the first call and discussion before revealing the curveball.');
+  if (state.phase !== PHASES.REQUEST_DISCUSS || state.current?.beforeVotes.length !== state.playerCount) {
+    throw new Error('Finish the first vote and discussion before revealing the curveball.');
   }
   return { ...state, phase: PHASES.SECOND_VOTE };
 }
 
-export function summarizeShift(beforeCall, afterCall) {
-  const changed = beforeCall !== afterCall;
-  return {
-    changed,
-    label: changed ? 'The room changed its call.' : 'The room held its call.',
-  };
+export function summarizeShift(beforeVotes, afterVotes, playerCount) {
+  const before = tallyVotes(beforeVotes, playerCount);
+  const after = tallyVotes(afterVotes, playerCount);
+  if (!before.complete || !after.complete) throw new Error('Both votes must be complete before the debrief.');
+
+  const beforeKey = before.majorityCall ?? 'split';
+  const afterKey = after.majorityCall ?? 'split';
+  const changed = beforeKey !== afterKey;
+  let label;
+
+  if (!changed && before.split) label = 'The group is still split.';
+  else if (!changed) label = `The majority held at ${capitalize(before.majorityCall)}.`;
+  else if (before.split) label = `A majority formed for ${capitalize(after.majorityCall)}.`;
+  else if (after.split) label = 'The second vote has no majority.';
+  else label = `The majority changed from ${capitalize(before.majorityCall)} to ${capitalize(after.majorityCall)}.`;
+
+  return { changed, label, before, after };
 }
 
 export function nextRound(state) {
-  if (state.phase !== PHASES.DEBRIEF || !state.current?.afterCall) {
+  if (state.phase !== PHASES.DEBRIEF || state.current?.afterVotes.length !== state.playerCount) {
     throw new Error('Finish the debrief before moving to the next round.');
   }
 
@@ -104,4 +169,3 @@ export function nextRound(state) {
 
   return { ...state, phase: PHASES.WELCOME, current: null, history };
 }
-

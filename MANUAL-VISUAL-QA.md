@@ -1,34 +1,64 @@
-# Manual visual QA — IT DEPENDS local alpha
+# Manual visual QA: IT DEPENDS private alpha
 
 Date: 2026-07-22
 
 ## Verdict
 
-- Three provisional After Dark card-window masters: **PASS**
+- Twelve selected linocut/screenprint card-window masters: **PASS**
+- Shared illustrated table backdrop: **PASS**
+- All-card runtime sheet at literal 360 x 650 CSS-pixel card size: **PASS**
 - Desktop runtime at 1440 px: **PASS**
 - Mobile runtime at 390 px: **PASS**
-- Keyboard and reduced-motion runtime: **PASS**
-- Private hosted Sites version 2: **PASS**
-- Full 12-card art set: **PENDING / deliberately incomplete**
+- Equal Request/Curveball geometry and bottom-right chips: **PASS**
+- Keyboard, reduced-motion, network, and storage checks: **PASS**
+- New private hosted Sites version: **PENDING DEPLOYMENT AND LIVE READBACK**
 - Public release, Ghost integration, and physical print package: **NOT IN SCOPE**
 
-## Reference inspection
+## Reference and style inspection
 
-The exact owned references listed in `ART-DIRECTION.md` were opened at original resolution before generation. The reference family established dark forest/teal/oxblood fields, parchment and dull-brass highlights, dense engraved texture, authoritative Victorian object design, and one immediate absurd privacy idea per image.
+The exact owned references in `ART-DIRECTION.md` were opened at original resolution before generation. They established the AF After Dark palette, printed texture, authoritative object design, and attractive-first absurdity. Human-centered compositions were explicitly rejected.
 
-The alpha deliberately rejects the human-centered compositions in the GDPR card reference. The resulting visual rule is zero human faces and preferably no people at all.
+Three exact Risk Scales proofs were opened at 1060 x 1484. Ben selected A, the bold Victorian linocut/screenprint treatment. It has the clearest graphic silhouette, least photographic material rendering, and strongest fit with a tabletop game. B was softer and more storybook-like; C was energetic but visually louder and more poster-like than the desired deck.
 
-## Exact native art inspected
+## Exact native masters inspected
 
-1. `assets/art/support-inbox.png`, 1060 × 1484 — **PASS**. The packed pneumatic inbox is the first read; sealed correspondence, scribe arm, blank ledger, warning clock, and unlocked drawer remain distinct. The correction removed readable characters and Roman numerals. There is no person, face, logo, watermark, real product, or borrowed card frame.
-2. `assets/art/trust-badge.png`, 1060 × 1484 — **PASS**. The blank brass rosette, locked cabinet, concealed listening horn, excessive key ring, and ajar profile drawer create one legible trust/surveillance joke. It does not reproduce a real police, military, vendor, or certification mark and contains no text or person.
-3. `assets/art/incident-ledger.png`, 1060 × 1484 — **PASS**. The open gridded ledger, stopped unlabeled watch, scorched tray, evidence thread, keys, vial, and lens read as a coherent abandoned response desk. The watch correction removed Roman numerals. There is no readable text or human element.
+Every file below was opened from `assets/art/` at original resolution after final copying or normalization.
 
-All three exact workspace files were opened at original resolution after copying from the built-in generator output. Hashes are recorded in `ART-DIRECTION.md`.
+1. `support-inbox.png`: **PASS**. Three tubes, the avalanche of blank envelopes, dark inbox, mechanical scribe, blank ledger, tick-only clock, and open drawer remain distinct. No characters, numerals, person, logo, watermark, or recognizable product appears.
+2. `risk-scales.png`: **PASS**. The oversized lens, three-pan balance, sealed tokens, and green/teal/oxblood chutes form one immediate visual equation. The five-ink print texture is strong and no realistic gloss or text remains.
+3. `clockwork-floor.png`: **PASS**. Five tick-only clocks, three empty chairs, two observation lenses, and a central blank-token conveyor read cleanly after the center normalization crop. No numeral, worker, silhouette, or pseudo-writing appears.
+4. `trust-badge.png`: **PASS**. The blank rosette, lock, listening horn, mismatched keys, and abstract profile tiles survive normalization. The rosette is generic, not a real police, military, vendor, or certification mark.
+5. `voice-vault.png`: **PASS**. Speaking horn, blank recording cylinder, vault, unused key, and hourglass retain clear hierarchy after normalization. There is no mouth, ear, face, waveform, or writing.
+6. `occupancy-lens.png`: **PASS**. The large ceiling lens, falling colored beads, hourglass, three empty chairs, three trays, and cleaning bell remain balanced after normalization. The chairs are visibly empty and contain no body trace.
+7. `endless-archive.png`: **PASS**. The red recorder, blank paper stream, one open drawer, short stack, and receding wall of blank drawers make the retention joke legible without labels or calendar text.
+8. `intake-switchboard.png`: **PASS**. Red, teal, and green envelope paths converge on an unlabeled switchboard while the old mailbox slot remains open. The correction removed the generated dial-like glyph; every plate and control is blank.
+9. `preference-organ.png`: **PASS**. One large lever, colored preference cylinders, and the letter, speaking-tube, and blank-device routes read as three channels. The dial uses ticks only and contains no interface or word.
+10. `incident-ledger.png`: **PASS**. The blank grid, tick-only stopped clock, scorched tray, cracked vial, keys, fragments, and oxblood thread form a coherent response desk without generated writing.
+11. `specimen-export.png`: **PASS**. Rows of flat teal specimen tiles contrast with distinctive oxblood, black, and brass fragments in the straw and second compartment. The nearby folio has broad blank rule lines only.
+12. `age-alchemy.png`: **PASS**. The gate, anonymous circular token, unequal weights, lenses, hourglass, and empty proof trays remain object-only and diagrammatic. The token does not resemble a person or identity document.
+13. `table-backdrop.png`, 1672 x 941: **PASS**. The quiet forest center supports overlays while the perimeter tube, blank envelopes, three lamps, lens, keys, book, hourglass, and corrected blank ledger remain visible. No card, dice, poker object, person, logo, or readable mark appears.
 
-## Exact runtime context inspected
+The exact dimensions and SHA-256 hashes are in `ART-DIRECTION.md`.
 
-The following generated browser screenshots were opened at original resolution:
+## Literal runtime card inspection
+
+`harness/capture-art.mjs` played all six rounds with deterministic randomness, cloned the exact card DOM after each reveal, verified twelve unique art keys, and captured `shots/all-card-art-desktop.png`.
+
+The screenshot was opened at original 1440 x 2832 resolution. It displays every card at the actual 360 x 650 CSS-pixel runtime size in three columns.
+
+Visible findings:
+
+- All twelve 4:3 art-window crops preserve the subject's first read.
+- The selected linocut system is coherent across the full set without collapsing the scenarios into minor variations.
+- Request and Curveball cards have exactly the same height and art-window geometry.
+- Titles, body copy, proposals, and Curveball facts remain readable and unclipped.
+- Multi-topic and single-axis chip rows sit at the bottom right on both card faces.
+- No art contains human imagery, generated text, logo-like brand bait, or visible third-party trade dress.
+- No card shows a broken image, pending specimen mat, content overflow, or missing chip.
+
+## Exact product context inspected
+
+The following browser captures were reopened at original resolution after the final art promotion:
 
 - `shots/welcome-desktop-1440.png`
 - `shots/request-desktop-1440.png`
@@ -37,34 +67,32 @@ The following generated browser screenshots were opened at original resolution:
 - `shots/incident-request-desktop-1440.png`
 - `shots/reveal-mobile-390.png`
 
-Visible observations:
+Visible findings:
 
-- **AF family parity:** the Anton masthead, Space Grotesk reading scale, Archivo labels, square 2px cards, paper ground, forest actions, and restrained amber read as the existing standalone-tool family.
-- **Contained After Dark stage:** the black table is a distinct play surface without turning the whole publication chrome into a second theme. The original AF card frame uses live type and a generated art window; it does not reproduce another game's symbols or layout.
-- **Literal card display:** support inbox, trust badge, and incident ledger retain their central object story at the roughly 360 px card width. No essential object is lost to the 4:3 art-window crop. Titles, scenario copy, action line, and topic pills remain readable and unclipped.
-- **Reveal:** Request and Curveball read as one pair through shared anatomy while the red Curveball keyline supplies a clear second-state cue. The two columns align at desktop.
-- **Debrief:** before/after calls and changed-call state are visible without naming a correct answer. The discussion prompts remain adjacent to the paired cards.
-- **Mobile:** cards stack in DOM order at 390 px; each occupies the same width; voting controls follow the Curveball; no horizontal crop or overflow is visible. Phase state retains numbered markers when the long labels collapse.
-- **Corrections caught by inspection:** initial Lucide markup rendered as black fills, and programmatic heading focus drew an unwanted outline. Both were corrected, the harness reran, and the exact replacement screenshots were reopened. The final Ship/Slow/Stop icons now use colored Lucide strokes; the welcome heading is clean.
+- **AF family parity:** Anton masthead, Space Grotesk reading text, Archivo labels, square 2px frames, paper ground, forest actions, and restrained amber remain consistent with the AF standalone-tool family.
+- **Illustrated table:** the flat linocut table backdrop is clearly visible around the interface. The dark overlay protects white text and card contrast without erasing the art.
+- **Setup clarity:** the welcome state says no referee is required, explains the shared-screen handoff, and presents a clear 2-8 player stepper with three players as the default.
+- **Hidden turns:** the active numbered player is prominent; completed seats reveal only that a vote occurred, not which choice was made.
+- **Desktop vote state:** the Request is centered above a three-choice panel. Ship, Slow, and Stop are equal controls with icon, color, and text.
+- **Debrief:** equal-size Request and Curveball cards remain aligned above majority before/after results and player-by-player changes. The full tallies are available without overwhelming the main debrief.
+- **Mobile:** both equal-height cards stack at the same x-position, the first-vote recap remains available, the next numbered player is clear, and no horizontal crop or overflow is visible at 390 px.
+- **Table continuity:** table art remains visible at welcome, vote, reveal, and debrief states and never competes with legal boundary text below the play surface.
 
 ## Mechanical checks after visual review
 
-- Vitest: 10 of 10 tests pass.
-- Pair enumeration: 132 of 132 non-self ordered alpha combinations pass the domain gate; human rationale is recorded in `PAIRING-REVIEW.md`.
-- Browser harness: desktop and mobile art load, no horizontal overflow, cards stack at 390 px, keyboard completes a round, zero console/page errors, zero external requests, and local/session/IndexedDB counts remain zero.
-- Build output is multi-file. HTML does not contain Base64 image or font payloads.
+- Vitest: 3 files and 12 tests pass.
+- Card assets: twelve ready card files plus the table backdrop exist and load.
+- Pair enumeration: 132 of 132 non-self ordered combinations pass the domain gate; human rationale remains in `PAIRING-REVIEW.md`.
+- Strict majority: 2-1-1 and 2-2 among four players return No majority; 3-1 returns the selected majority.
+- Browser harness: all multiplayer tally, equal-height, chip alignment, desktop, mobile, keyboard, network, console, page-error, and storage checks pass.
+- Runtime writes zero localStorage, sessionStorage, or IndexedDB records.
+- Runtime makes zero external requests. All HTML, modules, CSS, fonts, and art are separate same-origin files.
+- Build output contains no Base64 image or font payloads.
 
-## Exact private hosted runtime inspected
+## Hosted verification
 
-Sites version 2 (`3c44a5245a774aca1fe6a33147611eb72a1ca5cf`) was opened at `https://it-depends-demo.tanjamin-ben.chatgpt.site` under its owner-only access policy.
-
-- **Initial state:** the live title, AF masthead, three-rule introduction, five-step table rail, privacy badge, legal boundary, and corrected `Private alpha` footer all rendered. **PASS**
-- **Complete round:** `Count the room` was dealt, the room called Ship, `Age-gate alchemy` was revealed, the room changed to Slow, and the changed-call debrief rendered with the correct tailored discussion cue. **PASS**
-- **Generated-art delivery:** hosted version 1 loaded the exact 1060 x 1484 `support-inbox` and `trust-badge` files with non-zero natural dimensions. Version 2 changed only the footer label; its packaged asset files are unchanged, and its exact local runtime replacements were reopened above. **PASS**
-- **Responsive layout:** hosted version 1 at a 375 CSS-pixel client width stacked both 319 px cards at the same x-position with no horizontal overflow. Version 2 changed only the footer label and reran the exact 390 px browser harness; its refreshed mobile capture was reopened before commit. The temporary live viewport override was reset before handoff. **PASS**
-- **Runtime console:** no warnings or errors were present after the hosted playthrough. **PASS**
-- **Cache readback:** the in-app browser briefly retained the version 1 document after version 2 deployed. A unique release query and an authenticated direct readback both returned the version 2 `Private alpha` HTML before handoff. **PASS**
+The new art and multiplayer changes have not yet been promoted to a new private Sites version. This section must remain pending until the exact committed archive is deployed, opened through the owner-only URL, played through, checked at desktop and mobile widths, and read back without cache ambiguity.
 
 ## Fail-closed boundary
 
-The alpha is not a release candidate. Nine cards intentionally show authored specimen mats because their illustrations have not been generated or reviewed. No claim should say the 12-card art set, 34-card Core deck, print deck, or public AF tool is complete.
+The private alpha is visually complete for browser play. It is not a public or physical release candidate. The 34-card Core deck, print imposition, physical proofing, storefront package, public AF navigation, and legal/product review remain separately gated.

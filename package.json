@@ -2,7 +2,7 @@
   "name": "it-depends",
   "version": "0.1.0",
   "private": true,
-  "description": "IT DEPENDS — a shared-screen privacy decision game from Advokat Frida.",
+  "description": "IT DEPENDS - a shared-screen privacy decision game from Advokat Frida.",
   "engines": {
     "node": ">=22.13.0"
   },

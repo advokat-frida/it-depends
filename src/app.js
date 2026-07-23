@@ -1,13 +1,17 @@
 import { CARDS, cardById } from './cards.js';
 import {
   CALLS,
+  MAX_PLAYER_COUNT,
+  MIN_PLAYER_COUNT,
   PHASES,
   createSession,
   dealRound,
   nextRound,
   revealCurveball,
-  submitCall,
+  setPlayerCount,
+  submitVote,
   summarizeShift,
+  tallyVotes,
 } from './core.js';
 
 const ICONS = {
@@ -48,14 +52,42 @@ function callPill(call) {
   return `<span class="call-pill ${call}"><span class="ic" aria-hidden="true">${ICONS[call]}</span>${CALL_LABELS[call]}</span>`;
 }
 
-function voteButtons(prompt, selected = null) {
+function outcomeMarkup(result) {
+  if (result.majorityCall) return callPill(result.majorityCall);
+  return '<span class="call-pill split"><span class="split-mark" aria-hidden="true">&#8644;</span>No majority</span>';
+}
+
+function outcomeSentence(result) {
+  return result.majorityCall
+    ? `The majority chose ${CALL_LABELS[result.majorityCall]}.`
+    : 'There is no majority.';
+}
+
+function seatTrack(votes) {
+  return `
+    <ol class="id-seat-track" aria-label="Voting progress">
+      ${Array.from({ length: state.playerCount }, (_, index) => {
+        const status = index < votes.length ? 'is-ready' : index === votes.length ? 'is-current' : '';
+        const text = index < votes.length ? `Player ${index + 1} has voted` : index === votes.length ? `Player ${index + 1} is voting` : `Player ${index + 1} is waiting`;
+        return `<li class="${status}" aria-label="${text}"><span>P${index + 1}</span></li>`;
+      }).join('')}
+    </ol>`;
+}
+
+function voteButtons(prompt, votes) {
+  const playerNumber = votes.length + 1;
+  const turnInstruction = playerNumber === state.playerCount
+    ? 'Choose one. Your pick stays hidden until you tap; then every selection and the tally will appear.'
+    : 'Choose one. Pass the screen to the next player without saying what you picked. Every choice appears after the last vote.';
   return `
     <section class="id-action-panel" aria-labelledby="vote-title">
+      <p class="id-turn">Player ${playerNumber} of ${state.playerCount}</p>
       <h3 id="vote-title">${escapeHtml(prompt)}</h3>
-      <p>Choose the room&rsquo;s call, then ask at least two people to explain it.</p>
-      <div class="id-votes" role="group" aria-label="Choose the room's call">
+      <p>${turnInstruction}</p>
+      ${seatTrack(votes)}
+      <div class="id-votes" role="group" aria-label="Player ${playerNumber}: choose Ship, Slow, or Stop">
         ${Object.values(CALLS).map((call) => `
-          <button class="id-vote ${call}" type="button" data-action="vote" data-call="${call}" aria-pressed="${selected === call}">
+          <button class="id-vote ${call}" type="button" data-action="vote" data-call="${call}">
             <span class="ic" aria-hidden="true">${ICONS[call]}</span>${CALL_LABELS[call]}
           </button>`).join('')}
       </div>
@@ -82,7 +114,7 @@ function cardMarkup(card, face) {
       <div class="id-card-body">
         <h3>${escapeHtml(card.title)}</h3>
         <p class="id-card-copy">${escapeHtml(copy)}</p>
-        ${isRequest ? `<p class="id-card-action"><strong>Your call:</strong> ${escapeHtml(card.requestAction)}</p>` : ''}
+        ${isRequest ? `<p class="id-card-action"><strong>The proposal:</strong> ${escapeHtml(card.proposal)}</p>` : ''}
         <ul class="id-tags" aria-label="${isRequest ? 'Topics' : 'Curveball type'}">
           ${(isRequest ? card.requestTopics : [card.curveballAxis]).map((topic) => `<li>${escapeHtml(topic)}</li>`).join('')}
         </ul>
@@ -94,6 +126,44 @@ function pairMarkup(showCurveball) {
   const request = cardById(state.current.requestId);
   const curveball = cardById(state.current.curveballId);
   return `<div class="id-pair ${showCurveball ? '' : 'is-single'}">${cardMarkup(request, 'request')}${showCurveball ? cardMarkup(curveball, 'curveball') : ''}</div>`;
+}
+
+function totalsMarkup(result) {
+  return `
+    <dl class="id-totals" aria-label="Vote totals">
+      ${Object.values(CALLS).map((call) => `<div class="${call}"><dt>${CALL_LABELS[call]}</dt><dd>${result.counts[call]}</dd></div>`).join('')}
+    </dl>`;
+}
+
+function selectionsMarkup(votes) {
+  return `
+    <ol class="id-selections" aria-label="Each player's selection">
+      ${votes.map((call, index) => `<li><span>Player ${index + 1}</span>${callPill(call)}</li>`).join('')}
+    </ol>`;
+}
+
+function resultMarkup(label, votes) {
+  const result = tallyVotes(votes, state.playerCount);
+  return `
+    <section class="id-result" aria-label="${escapeHtml(label)} results">
+      <div class="id-result-head">
+        <div><p class="id-result-label">${escapeHtml(label)}</p><h4>${escapeHtml(outcomeSentence(result))}</h4></div>
+        ${outcomeMarkup(result)}
+      </div>
+      ${totalsMarkup(result)}
+      ${selectionsMarkup(votes)}
+    </section>`;
+}
+
+function playerChangesMarkup(beforeVotes, afterVotes) {
+  return `
+    <ol class="id-player-changes" aria-label="Each player's first and second selection">
+      ${beforeVotes.map((before, index) => {
+        const after = afterVotes[index];
+        const held = before === after;
+        return `<li><span class="id-player-name">Player ${index + 1}</span><span>${callPill(before)}<span class="id-change-arrow" aria-hidden="true">&rarr;</span>${callPill(after)}</span><small>${held ? 'Held' : 'Changed'}</small></li>`;
+      }).join('')}
+    </ol>`;
 }
 
 function phaseIndex() {
@@ -124,6 +194,19 @@ function focusPhase() {
   heading.focus({ preventScroll: true });
 }
 
+function playerSetupMarkup() {
+  return `
+    <fieldset class="id-player-setup">
+      <legend>How many people are voting?</legend>
+      <p>Each person gets one private choice per vote.</p>
+      <div class="id-player-stepper">
+        <button type="button" data-action="players-minus" aria-label="Remove one player" ${state.playerCount === MIN_PLAYER_COUNT ? 'disabled' : ''}>&minus;</button>
+        <output aria-live="polite"><strong>${state.playerCount}</strong><span>players</span></output>
+        <button type="button" data-action="players-plus" aria-label="Add one player" ${state.playerCount === MAX_PLAYER_COUNT ? 'disabled' : ''}>+</button>
+      </div>
+    </fieldset>`;
+}
+
 function renderWelcome() {
   const isFirst = state.roundNumber === 0;
   const remainingRounds = Math.floor(state.remainingIds.length / 2);
@@ -131,51 +214,62 @@ function renderWelcome() {
     <section class="id-welcome">
       <div class="id-welcome-mark" aria-hidden="true">?</div>
       <h3>${isFirst ? 'Deal the first impossible meeting' : 'The table is ready again'}</h3>
-      <p>${isFirst ? 'Put this screen where everyone can see it. Anyone can read the card and tap the room’s call. The page handles the order; the people supply the argument.' : `${remainingRounds} round${remainingRounds === 1 ? '' : 's'} remain. The used cards stay out of the deck.`}</p>
+      <p>${isFirst ? 'No referee is required. One person reads the cards and taps Deal or Reveal. Every player enters one numbered choice on this screen; the game reveals the tally after the final vote.' : `${remainingRounds} round${remainingRounds === 1 ? '' : 's'} remain. The used cards stay out of the deck, and the same ${state.playerCount} players vote again.`}</p>
+      ${isFirst ? playerSetupMarkup() : ''}
       <button class="btn primary" type="button" data-action="deal">${isFirst ? 'Deal the first request' : 'Deal the next request'}</button>
     </section>`;
-  live.textContent = isFirst ? 'The table is ready. Deal the first request.' : 'The next round is ready to deal.';
+  live.textContent = isFirst ? `The table is ready for ${state.playerCount} players.` : 'The next round is ready to deal.';
 }
 
 function renderRequestVote() {
-  stage.innerHTML = `<div class="id-round">${pairMarkup(false)}${voteButtons('What does the room do?')}</div>`;
-  live.textContent = 'Request dealt. Read it aloud and choose Ship, Slow, or Stop.';
+  const votes = state.current.beforeVotes;
+  stage.innerHTML = `<div class="id-round">${pairMarkup(false)}${voteButtons('What do you choose?', votes)}</div>`;
+  live.textContent = `Request dealt. Player ${votes.length + 1} of ${state.playerCount} chooses Ship, Slow, or Stop.`;
 }
 
 function renderRequestDiscuss() {
+  const result = tallyVotes(state.current.beforeVotes, state.playerCount);
   stage.innerHTML = `
     <div class="id-round">
       ${pairMarkup(false)}
       <section class="id-discuss">
-        <h3>The room called ${CALL_LABELS[state.current.beforeCall]}.</h3>
-        <p>${callPill(state.current.beforeCall)}</p>
-        <p>Ask two people why. Let someone disagree. The point is to expose the assumption before the card exposes the fact.</p>
+        <h3>The first vote is in.</h3>
+        ${resultMarkup('First vote', state.current.beforeVotes)}
+        <p class="id-guidance">Go around once. Each player shares the fact or assumption behind their pick. Different answers are useful; they show what the decision really turns on. When everyone has had a say, reveal the missing fact.</p>
         <button class="btn primary" type="button" data-action="reveal">Reveal the missing fact</button>
       </section>
     </div>`;
-  live.textContent = `First call recorded: ${CALL_LABELS[state.current.beforeCall]}. Discuss before revealing the missing fact.`;
+  live.textContent = `${outcomeSentence(result)} Every player's first selection is now visible.`;
 }
 
 function renderSecondVote() {
-  stage.innerHTML = `<div class="id-round">${pairMarkup(true)}${voteButtons('Now what does the room do?')}</div>`;
-  live.textContent = 'Curveball revealed. Make the room’s call again.';
+  const votes = state.current.afterVotes;
+  stage.innerHTML = `
+    <div class="id-round">
+      ${pairMarkup(true)}
+      <details class="id-first-recap"><summary>Review the first vote</summary>${resultMarkup('First vote', state.current.beforeVotes)}</details>
+      ${voteButtons('What do you choose now?', votes)}
+    </div>`;
+  live.textContent = `Missing fact revealed. Player ${votes.length + 1} of ${state.playerCount} votes again.`;
 }
 
 function renderDebrief() {
   const curveball = cardById(state.current.curveballId);
-  const shift = summarizeShift(state.current.beforeCall, state.current.afterCall);
+  const shift = summarizeShift(state.current.beforeVotes, state.current.afterVotes, state.playerCount);
   stage.innerHTML = `
     <div class="id-round">
       ${pairMarkup(true)}
       <section class="id-debrief">
         <h3>${escapeHtml(shift.label)}</h3>
-        <div class="id-shift ${shift.changed ? 'changed' : ''}" aria-label="Room call before and after">
-          <div class="id-shift-cell"><span class="id-shift-label">Before the fact</span><span class="id-shift-value">${CALL_LABELS[state.current.beforeCall]}</span></div>
+        <div class="id-shift ${shift.changed ? 'changed' : ''}" aria-label="Majority result before and after the missing fact">
+          <div class="id-shift-cell"><span class="id-shift-label">Before the fact</span>${outcomeMarkup(shift.before)}</div>
           <span class="id-shift-arrow" aria-hidden="true">&rarr;</span>
-          <div class="id-shift-cell"><span class="id-shift-label">After the fact</span><span class="id-shift-value">${CALL_LABELS[state.current.afterCall]}</span></div>
+          <div class="id-shift-cell"><span class="id-shift-label">After the fact</span>${outcomeMarkup(shift.after)}</div>
         </div>
+        ${playerChangesMarkup(state.current.beforeVotes, state.current.afterVotes)}
+        <details class="id-full-tallies"><summary>See both full tallies</summary><div class="id-result-grid">${resultMarkup('First vote', state.current.beforeVotes)}${resultMarkup('Second vote', state.current.afterVotes)}</div></details>
         <ul class="id-prompts">
-          <li>What changed, or why did nothing change?</li>
+          <li>What changed, or why did your choice hold?</li>
           <li>${escapeHtml(curveball.discussionCue)}</li>
           <li>Which fact would you ask for next?</li>
         </ul>
@@ -186,17 +280,17 @@ function renderDebrief() {
 }
 
 function renderComplete() {
-  const changed = state.history.filter(({ beforeCall, afterCall }) => beforeCall !== afterCall).length;
+  const changed = state.history.filter(({ beforeVotes, afterVotes }) => summarizeShift(beforeVotes, afterVotes, state.playerCount).changed).length;
   const held = state.history.length - changed;
   stage.innerHTML = `
     <section class="id-welcome">
       <div class="id-welcome-mark" aria-hidden="true">6</div>
       <h3>The alpha deck is exhausted.</h3>
-      <p>You made twelve cards do six rounds of work. The tally is descriptive, not a score.</p>
+      <p>You made twelve cards do six rounds of work. The tally describes the conversation; it is not a score.</p>
       <div class="id-complete-stats">
         <div><strong>${state.history.length}</strong><span>Rounds</span></div>
-        <div><strong>${changed}</strong><span>Changed calls</span></div>
-        <div><strong>${held}</strong><span>Held calls</span></div>
+        <div><strong>${changed}</strong><span>Changed results</span></div>
+        <div><strong>${held}</strong><span>Held results</span></div>
       </div>
       <button class="btn primary" type="button" data-action="restart">Shuffle all twelve cards</button>
     </section>`;
@@ -225,13 +319,22 @@ function render() {
 stage.addEventListener('click', (event) => {
   const control = event.target.closest('[data-action]');
   if (!control) return;
+  let returnFocusTo = null;
 
   switch (control.dataset.action) {
+    case 'players-minus':
+      state = setPlayerCount(state, state.playerCount - 1);
+      returnFocusTo = 'players-minus';
+      break;
+    case 'players-plus':
+      state = setPlayerCount(state, state.playerCount + 1);
+      returnFocusTo = 'players-plus';
+      break;
     case 'deal':
       state = dealRound(state);
       break;
     case 'vote':
-      state = submitCall(state, control.dataset.call);
+      state = submitVote(state, control.dataset.call);
       break;
     case 'reveal':
       state = revealCurveball(state);
@@ -240,12 +343,16 @@ stage.addEventListener('click', (event) => {
       state = nextRound(state);
       break;
     case 'restart':
-      state = createSession(CARDS, cryptoRandom);
+      state = createSession(CARDS, cryptoRandom, state.playerCount);
       break;
     default:
       return;
   }
   render();
+  if (returnFocusTo) {
+    const preferred = stage.querySelector(`[data-action="${returnFocusTo}"]:not(:disabled)`);
+    (preferred ?? stage.querySelector('.id-player-stepper button:not(:disabled)'))?.focus();
+  }
 });
 
 render();

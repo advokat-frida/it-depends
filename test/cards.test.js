@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { existsSync } from 'node:fs';
 import { CARDS, isCompatiblePair } from '../src/cards.js';
 
 describe('IT DEPENDS alpha deck', () => {
@@ -30,13 +31,15 @@ describe('IT DEPENDS alpha deck', () => {
     for (const card of CARDS) {
       expect(card.title.length).toBeGreaterThan(3);
       expect(card.request.length).toBeGreaterThan(40);
-      expect(card.requestAction.length).toBeGreaterThan(15);
+      expect(card.proposal.length).toBeGreaterThan(15);
       expect(card.curveball.length).toBeGreaterThan(35);
       expect(card.discussionCue.length).toBeGreaterThan(20);
       expect(card.artAlt.length).toBeGreaterThan(20);
+      expect(card.artStatus).toBe('ready');
+      expect(existsSync(new URL(`../assets/art/${card.artKey}.png`, import.meta.url))).toBe(true);
       expect(card.pairingDomain).toBe('data-processing-proposal');
       expect(card.curveballAppliesTo).toContain('data-processing-proposal');
     }
+    expect(existsSync(new URL('../assets/art/table-backdrop.png', import.meta.url))).toBe(true);
   });
 });
-
