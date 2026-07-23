@@ -78,6 +78,8 @@ try {
   await desktop.page.screenshot({ path: `${shots}/welcome-desktop-1440.png`, fullPage: true });
   const welcomeBacks = await desktop.page.locator('.id-welcome-decks .id-card-back').evaluateAll((backs) => backs.map((back) => {
     const art = back.querySelector('[data-card-back-art]');
+    const title = back.querySelector('strong');
+    const titleStyle = title ? getComputedStyle(title) : null;
     return {
       kind: back.getAttribute('data-card-back'),
       artKind: art?.getAttribute('data-card-back-art'),
@@ -85,6 +87,9 @@ try {
       complete: art?.complete,
       naturalWidth: art?.naturalWidth,
       naturalHeight: art?.naturalHeight,
+      titleFontSize: titleStyle?.fontSize,
+      titleWhiteSpace: titleStyle?.whiteSpace,
+      titleFits: Boolean(title && title.scrollWidth <= title.clientWidth),
     };
   }));
   check(
@@ -99,6 +104,13 @@ try {
       && welcomeBacks.every((back) => back.complete && back.naturalWidth === 948 && back.naturalHeight === 1659),
     JSON.stringify(welcomeBacks),
   );
+  check(
+    'welcome IT DEPENDS lockup stays compact and on one line',
+    welcomeBacks[1].titleFontSize === '8px'
+      && welcomeBacks[1].titleWhiteSpace === 'nowrap'
+      && welcomeBacks[1].titleFits,
+    JSON.stringify(welcomeBacks[1]),
+  );
 
   await desktop.page.locator('[data-action="deal"]').click();
   await desktop.page.locator('img[alt*="pneumatic inbox"]').waitFor();
@@ -108,6 +120,7 @@ try {
     const deck = document.querySelector('.id-board-lane.is-curveball .id-card-back')?.getBoundingClientRect();
     const rail = document.querySelector('.id-board-lane.is-decision .id-decision-rail')?.getBoundingClientRect();
     const backArt = document.querySelector('.id-board-lane.is-curveball [data-card-back-art="curveball"]');
+    const backTitle = document.querySelector('.id-board-lane.is-curveball .id-card-back strong');
     const stack = document.querySelector('.id-card-slot.is-curveball.is-stacked');
     return {
       oneFaceUpCard: document.querySelectorAll('.id-pair .id-card').length === 1,
@@ -115,6 +128,8 @@ try {
       aligned: Boolean(scenario && deck && rail && Math.abs(scenario.top - deck.top) <= 1 && Math.abs(deck.top - rail.top) <= 1),
       equalCardFootprints: Boolean(scenario && deck && Math.abs(scenario.width - deck.width) <= 1 && Math.abs(scenario.height - deck.height) <= 1),
       backArtLoaded: Boolean(backArt?.complete && backArt.naturalWidth === 948 && backArt.naturalHeight === 1659),
+      backTitleFontSize: backTitle ? getComputedStyle(backTitle).fontSize : '',
+      backTitleFits: Boolean(backTitle && backTitle.scrollWidth <= backTitle.clientWidth),
       stackBefore: stack ? getComputedStyle(stack, '::before').backgroundImage : '',
       stackAfter: stack ? getComputedStyle(stack, '::after').backgroundImage : '',
     };
@@ -130,6 +145,11 @@ try {
   );
   check('Scenario, IT DEPENDS deck, and decision rail share one desktop row', hiddenBoard.aligned, JSON.stringify(hiddenBoard));
   check('face-down deck uses the same card footprint', hiddenBoard.equalCardFootprints, JSON.stringify(hiddenBoard));
+  check(
+    'table IT DEPENDS lockup stays subordinate to the back illustration',
+    hiddenBoard.backTitleFontSize === '22px' && hiddenBoard.backTitleFits,
+    JSON.stringify(hiddenBoard),
+  );
   await castVotes(desktop.page, ['slow', 'ship', 'slow']);
   check('first tally reveals every numbered choice', await desktop.page.locator('.id-selections li').count() === 3);
   check('first tally reports the strict majority', (await desktop.page.locator('.id-reveal-rail .id-result h4').textContent()) === 'The majority chose Slow.');

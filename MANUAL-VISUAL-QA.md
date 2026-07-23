@@ -1,5 +1,18 @@
 # Manual visual QA: IT DEPENDS
 
+## Card-back title scale correction
+
+Date: 2026-07-23
+
+### `manual_visual_verification`
+
+- **Approved reference:** Ben's report that the opening `IT DEPENDS` lockup was visually oversized; the unchanged object-first oxblood card-back illustration remains the approved art direction.
+- **Exact files opened:** `assets/art/curveball-card-back.png`; `shots/welcome-desktop-1440.png`; `shots/request-desktop-1440.png`; `shots/first-vote-desktop-1440.png`; `shots/first-vote-8-player-desktop-1440.png`; `shots/incident-request-desktop-1440.png`; `shots/standalone-file-desktop-1440.png`; `shots/standalone-file-mobile-390.png`; and the changed flip proofs `shots/curveball-flip-000ms.png` and `shots/curveball-flip-155ms.png`.
+- **Native and runtime sizes checked:** the 948 x 1659 back master at original resolution; the 104 x 176 welcome preview inside the 1440px desktop capture; and the 308 x 540 face-down deck at both desktop and 390px mobile viewports.
+- **Visible observations:** the raster master contains no baked-in lettering, so the correction remains a deterministic HTML/CSS overlay. The welcome title is now one compact line and no longer consumes the lower card. At full card size, the title remains immediately readable but sits below the cloche illustration as a label rather than competing with it. The cream lettering, oxblood/brass palette, inner keyline, card stack, and bottom subtitle remain intact. No text wraps, clips, touches the frame, or obscures the envelope. The mobile stack preserves the same hierarchy and remains horizontally uncropped.
+- **In-product context:** inspected the exact rebuilt standalone opening state, dealt desktop table, and dealt mobile table. The runtime harness also confirmed 8px/nowrap in the preview, 22px on the table, correct source art, equal card footprints, flip structure, zero horizontal overflow, and no browser errors.
+- **Final:** **PASS** — the `IT DEPENDS` label is subordinate to the illustration at both opening-preview and dealt-card sizes without losing legibility.
+
 ## Universal Core review candidate
 
 Date: 2026-07-23
