@@ -140,7 +140,7 @@ function cardMarkup(card, face) {
 function cardBackMarkup(kind, { decorative = false } = {}) {
   const isScenario = kind === 'scenario';
   const eyebrow = isScenario ? 'IT DEPENDS' : 'Missing detail';
-  const label = isScenario ? 'Scenario deck' : 'IT DEPENDS';
+  const label = isScenario ? 'Scenario' : 'IT DEPENDS';
   const foot = isScenario ? 'Make the call' : 'The missing fact';
   const accessibleLabel = isScenario ? 'Scenario deck' : 'IT DEPENDS Missing Detail deck';
   const accessibility = decorative

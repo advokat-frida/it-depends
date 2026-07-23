@@ -87,6 +87,7 @@ try {
       complete: art?.complete,
       naturalWidth: art?.naturalWidth,
       naturalHeight: art?.naturalHeight,
+      titleText: title?.textContent,
       titleFontSize: titleStyle?.fontSize,
       titleWhiteSpace: titleStyle?.whiteSpace,
       titleFits: Boolean(title && title.scrollWidth <= title.clientWidth),
@@ -105,11 +106,15 @@ try {
     JSON.stringify(welcomeBacks),
   );
   check(
-    'welcome IT DEPENDS lockup stays compact and on one line',
-    welcomeBacks[1].titleFontSize === '8px'
-      && welcomeBacks[1].titleWhiteSpace === 'nowrap'
-      && welcomeBacks[1].titleFits,
-    JSON.stringify(welcomeBacks[1]),
+    'welcome card-back titles use matching compact type and the intended labels',
+    welcomeBacks[0].titleText === 'Scenario'
+      && welcomeBacks[1].titleText === 'IT DEPENDS'
+      && welcomeBacks.every((back) => (
+        back.titleFontSize === '8px'
+        && back.titleWhiteSpace === 'nowrap'
+        && back.titleFits
+      )),
+    JSON.stringify(welcomeBacks),
   );
 
   await desktop.page.locator('[data-action="deal"]').click();
